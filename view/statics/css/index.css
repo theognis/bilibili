@@ -3,10 +3,55 @@
     src: url(/statics/fonts/iconfont.woff) format("woff");
 }
 
+body {
+    margin: 0
+}
+
+header {
+    height: 180px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(256,256,256,0.3)) 100%;
+}
 
 header nav {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 580px auto 480px;
+    color:white
+}
+
+header nav #search{
+    display: grid;
+    grid-template-columns: auto 48px;
+    align-items: center;
+}
+
+header nav #search input{
+    outline: none;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 2px 0 0 2px;
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    line-height: 36px;
+}
+
+header nav #search button{
+    height: 36px;
+    width: 48px;
+    border-radius: 0 2px 2px 0;
+    line-height: 26px;
+    font-size: 16px;
+    background-color: #e7e7e7;
+    border:none;
+    outline: none;
+}
+
+header nav>div {
+    margin: 10px 20px
+}
+
+header nav>div>div {
+    margin: 10px
 }
 
 #nav_left {
