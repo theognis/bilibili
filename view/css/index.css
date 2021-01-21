@@ -1,0 +1,22 @@
+@font-face {
+    font-family: bilifont;
+    src: url(//s1.hdslb.com/bfs/static/jinkela/international-home/assets/iconfont.woff) format("woff");
+}
+
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+#nav_left {
+    display: flex;
+}
+
+#nav_right {
+    display: flex;
+}
+
+.bilifont {
+    font-family: bilifont;
+}
