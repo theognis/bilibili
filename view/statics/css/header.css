@@ -1,35 +1,27 @@
-header {
-    height: 180px;
-    background: linear-gradient(rgba(0,0,0,0.4),transparent),
-        url(/statics/images/banner.jpg) center;
-    background-size: cover;
-}
-
-header nav {
+header>nav {
     display: grid;
-    color:white;
     font-size: 14px;
     line-height: 36px;
     justify-items: center;
     align-items: center;
 }
 
-header nav.not_logged {
+header>nav.not_logged {
     grid-template-columns: 540px auto 180px 120px;
 }
 
-header nav.logged  {
+header>nav.logged  {
     grid-template-columns: 540px auto 450px 120px;
 }
 
-header nav #search{
+header>nav #search{
     display: grid;
     grid-template-columns: auto 48px;
     width: 100%;
     max-width: 500px;
 }
 
-header nav #search input{
+header>nav #search input{
     outline: none;
     height: 36px;
     padding: 0 16px;
@@ -39,7 +31,7 @@ header nav #search input{
     font-size: 14px;
 }
 
-header nav #search button{
+header>nav #search button{
     height: 36px;
     width: 48px;
     border-radius: 0 2px 2px 0;
@@ -50,9 +42,8 @@ header nav #search button{
     outline: none;
 }
 
-header nav a {
+header>nav a {
     text-decoration: none;
-    color: white;
 }
 
 #navigator>a, #user_operation>a {

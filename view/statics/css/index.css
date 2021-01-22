@@ -1,0 +1,10 @@
+header {
+    height: 180px;
+    background: linear-gradient(rgba(0,0,0,0.4),transparent),
+    url(/statics/images/banner.jpg) center;
+    background-size: cover;
+}
+
+header nav a {
+    color: white;
+}
