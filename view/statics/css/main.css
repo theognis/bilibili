@@ -1,0 +1,12 @@
+@font-face {
+    font-family: bilifont;
+    src: url(/statics/fonts/iconfont.woff) format("woff");
+}
+
+body {
+    margin: 0
+}
+
+.bilifont {
+    font-family: bilifont;
+}

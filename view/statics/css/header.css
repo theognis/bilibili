@@ -1,12 +1,3 @@
-@font-face {
-    font-family: bilifont;
-    src: url(/statics/fonts/iconfont.woff) format("woff");
-}
-
-body {
-    margin: 0
-}
-
 header {
     height: 180px;
     background: linear-gradient(rgba(0,0,0,0.4),transparent),
@@ -73,11 +64,6 @@ header nav a {
     display: flex;
 }
 
-#nav_right {
-    display: grid;
-    grid-template-columns: auto 120px;
-}
-
 #user_operation {
     display: flex;
     justify-content: space-around;
@@ -101,8 +87,4 @@ header nav a {
     background-color: #fb7299;
     border-radius: 2px;
     margin:10px;
-}
-
-.bilifont {
-    font-family: bilifont;
 }
