@@ -59,6 +59,11 @@ header nav #search button{
     outline: none;
 }
 
+header nav a {
+    text-decoration: none;
+    color: white;
+}
+
 #navigator>a, #user_operation>a {
     display: block;
     margin: 10px;
