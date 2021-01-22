@@ -16,14 +16,26 @@ header {
 
 header nav {
     display: grid;
-    grid-template-columns: 580px auto 480px;
-    color:white
+    color:white;
+    font-size: 14px;
+    line-height: 36px;
+    justify-items: center;
+    align-items: center;
+}
+
+header nav.not_logged {
+    grid-template-columns: 540px auto 180px 120px;
+}
+
+header nav.logged  {
+    grid-template-columns: 540px auto 450px 120px;
 }
 
 header nav #search{
     display: grid;
     grid-template-columns: auto 48px;
-    align-items: center;
+    width: 100%;
+    max-width: 540px;
 }
 
 header nav #search input{
@@ -34,7 +46,6 @@ header nav #search input{
     width: 100%;
     border: none;
     font-size: 14px;
-    line-height: 36px;
 }
 
 header nav #search button{
@@ -48,20 +59,43 @@ header nav #search button{
     outline: none;
 }
 
-header nav>div {
-    margin: 10px 20px
+#navigator>a, #user_operation>a {
+    display: block;
+    margin: 10px;
 }
 
-header nav>div>div {
-    margin: 10px
-}
-
-#nav_left {
+#navigator {
     display: flex;
 }
 
 #nav_right {
+    display: grid;
+    grid-template-columns: auto 120px;
+}
+
+#user_operation {
     display: flex;
+    justify-content: space-around;
+}
+
+#user_operation * {
+    margin: 10px
+}
+
+#user_operation img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+#publication {
+    width: 100px;
+    height: 36px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #fb7299;
+    border-radius: 2px;
+    margin:10px;
 }
 
 .bilifont {
