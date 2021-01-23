@@ -1,3 +1,3 @@
-# Pilipili
+# Bilibili
 
-ピリピリ (゜-゜)つロ 乾杯~-pilipili
+ビリビリ (゜-゜)つロ 乾杯~-bilibili
