@@ -1,4 +1,4 @@
-input {
+* {
     outline: none;
 }
 
@@ -61,7 +61,6 @@ input {
     padding: 0 15px;
     height: 40px;
     font-size: 14px;
-    outline: none;
     color: #909399;
     box-sizing: border-box;
     cursor: pointer;
@@ -81,7 +80,6 @@ input {
     position: relative;
     top: -38px;
     left: 288px;
-    outline: none;
     cursor: pointer;
 }
 
@@ -106,12 +104,22 @@ input {
     width: 420px;
     height: 40px;
     border-radius: 4px;
+    border: none;
+    background-color: #00a1d6;
+    color: white;
+    cursor: pointer;
+    transition: .1s;
 }
 
-button[disabled="disabled"] {
-    background-color: #f5f5f5;
-    border: 1px #d9d9d9 solid;
-    cursor: not-allowed;
+#register button:hover {
+    background-color: #33b4de;
+}
+
+button:disabled {
+    background-color: #f5f5f5 !important;
+    color: rgba(0, 0, 0, 0.25) !important;
+    border: 1px #d9d9d9 solid !important;
+    cursor: not-allowed !important;
 }
 
 #to_login a {
