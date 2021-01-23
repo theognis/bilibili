@@ -1,0 +1,101 @@
+input {
+    outline: none;
+}
+
+#main {
+    margin: 0 auto;
+    padding: 60px 0;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 420px;
+    width: 420px;
+    grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 1fr 1fr 1fr;
+}
+
+#main a {
+    color: #00a1d6;
+    text-decoration: none;
+}
+
+#main input[type="text"], #main input[type="password"] {
+    border: 1px solid #dcdfe6;
+    height: 40px;
+    color: #606266;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+#main input[type="text"]:focus, #main input[type="password"]:focus {
+    border-color: #00a1d6;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+}
+
+#main p {
+    position: relative;
+    display: inline-block;
+    line-height: 40px;
+    color: #f45d90;
+    font-size: 12px;
+    margin: 0;
+    top: -40px;
+    left: 440px;
+}
+
+#username input, #password input, #verify_code input{
+    border-radius: 4px;
+    width: 420px;
+}
+
+#phone_number {
+    display: grid;
+    grid-template-columns: 130px auto;
+}
+
+#phone_number select{
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #dcdfe6;
+    padding: 0 15px;
+    height: 40px;
+    font-size: 14px;
+    outline: none;
+    color: #909399;
+    box-sizing: border-box;
+}
+
+#phone_number input{
+    border-radius: 0 4px 4px 0;
+}
+
+#verify_code button{
+    background-color: #00a1d6;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    height: 36px;
+    width: 130px;
+    position: relative;
+    top: -38px;
+    left: 288px;
+    outline: none;
+}
+
+#license label {
+    font-size: 12px;
+}
+
+#register button {
+    width: 420px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+button[disabled="disabled"] {
+    background-color: #f5f5f5;
+    border: 1px #d9d9d9 solid;
+}
+
+#to_login a {
+    font-size: 12px;
+    float: right;
+    line-height: 40px;
+}
