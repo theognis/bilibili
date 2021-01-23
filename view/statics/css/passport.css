@@ -38,3 +38,8 @@ header>nav>div .bilifont {
     background-color: #fff;
     padding: 0 20px;
 }
+
+#main a {
+    color: #00a1d6;
+    text-decoration: none;
+}

@@ -53,15 +53,15 @@
     </div>
     <div id="main">
         <div id="type_tab">
-            <span>密码登录</span>
+            <span class="chosen_tab">密码登录</span>
             <span>短信登录</span>
         </div>
         <div>
             <form id="by_password">
                 <input id="username" type="text" placeholder="你的手机号/邮箱">
-                <p id="username_status">请输入注册时用的邮箱或者手机号呀</p>
+                <p id="username_status" class="error_info">请输入注册时用的邮箱或者手机号呀</p>
                 <input id="password" type="password" placeholder="密码">
-                <p id="password_status">喵，你没输入密码么？</p>
+                <p id="password_status" class="error_info">喵，你没输入密码么？</p>
             </form>
             <form id="by_sms">
                 <div id="phone_number">
@@ -285,20 +285,26 @@
                     </select>
                     <input type="text" placeholder="填写常用手机号">
                 </div>
-                <p id="phone_number_status">手机号格式错误</p>
+                <p id="phone_number_status" class="error_info">手机号格式错误</p>
                 <div id="verify_code">
                     <input type="text" placeholder="请输入短信验证码">
                     <button>点击获取</button>
                 </div>
-                <p id="verify_code_status">短信验证码不能为空</p>
+                <p id="verify_code_status" class="error_info">短信验证码不能为空</p>
             </form>
         </div>
         <form>
-            <input type="checkbox"><span>不是自己的电脑上不要勾选此项</span>
+            <label id="remember_me_parent">
+                <input id="remember_me" type="checkbox">
+                <label for="remember_me">记住我</label>
+            </label>
+            <span id="remember_me_hint">不是自己的电脑上不要勾选此项</span>
             <a href="#">无法验证？</a>
             <a href="#">忘记密码？</a>
-            <button>登录</button>
-            <button>注册</button>
+        </form>
+        <form id="buttons">
+            <button id="login">登录</button>
+            <button id="register">注册</button>
         </form>
     </div>
     <footer></footer>

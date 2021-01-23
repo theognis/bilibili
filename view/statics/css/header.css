@@ -34,7 +34,6 @@ header>nav #search{
 }
 
 header>nav #search input{
-    outline: none;
     height: 36px;
     padding: 0 16px;
     border-radius: 2px 0 0 2px;
@@ -51,7 +50,6 @@ header>nav #search button{
     font-size: 16px;
     background-color: #e7e7e7;
     border:none;
-    outline: none;
 }
 
 header>nav a {

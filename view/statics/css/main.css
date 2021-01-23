@@ -3,6 +3,10 @@
     src: url(/statics/fonts/iconfont.woff) format("woff");
 }
 
+* {
+    outline: none;
+}
+
 body {
     margin: 0
 }
