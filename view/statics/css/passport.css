@@ -1,7 +1,3 @@
-header {
-    height: 180px;
-}
-
 header>nav>div:not(#publication) a{
     color: #212121;
 }
@@ -17,4 +13,13 @@ header>nav input {
 
 header>nav>div .bilifont {
     color: #00a1d6
+}
+
+#banner {
+    background-color: #00A0D8;
+    height: 86px;
+}
+#banner img {
+    display: block;
+    margin: 0 auto;
 }
