@@ -53,17 +53,17 @@
     </div>
     <div id="main">
         <div id="type_tab">
-            <span class="chosen_tab">密码登录</span>
-            <span>短信登录</span>
+            <span id="to_by_password" class="chosen_tab">密码登录</span>
+            <span id="to_by_sms">短信登录</span>
         </div>
         <div>
             <form id="by_password">
                 <input id="username" type="text" placeholder="你的手机号/邮箱">
-                <p id="username_status" class="error_info">请输入注册时用的邮箱或者手机号呀</p>
+                <p id="username_status" class="error_info"></p>
                 <input id="password" type="password" placeholder="密码">
-                <p id="password_status" class="error_info">喵，你没输入密码么？</p>
+                <p id="password_status" class="error_info"></p>
             </form>
-            <form id="by_sms">
+            <form id="by_sms" style="display: none">
                 <div id="phone_number">
                     <select>
                         <option>中国大陆</option>
@@ -285,12 +285,12 @@
                     </select>
                     <input type="text" placeholder="填写常用手机号">
                 </div>
-                <p id="phone_number_status" class="error_info">手机号格式错误</p>
+                <p id="phone_number_status" class="error_info"></p>
                 <div id="verify_code">
                     <input type="text" placeholder="请输入短信验证码">
                     <button>点击获取</button>
                 </div>
-                <p id="verify_code_status" class="error_info">短信验证码不能为空</p>
+                <p id="verify_code_status" class="error_info"></p>
             </form>
         </div>
         <form>
@@ -302,12 +302,12 @@
             <a href="#">无法验证？</a>
             <a href="#">忘记密码？</a>
         </form>
-        <form id="buttons">
+        <div id="buttons">
             <button id="login">登录</button>
             <button id="register">注册</button>
-        </form>
+        </div>
     </div>
-    <footer></footer>
+    <script src="/statics/js/login.js"></script>
 </body>
 
 </html>

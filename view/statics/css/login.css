@@ -11,6 +11,7 @@
 #type_tab span {
     color: #555;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .chosen_tab {
@@ -80,6 +81,7 @@ input#username, input#password, #verify_code input {
 .error_info {
     color: #f66495;
     font-size: 12px;
+    height: 16px;
 }
 
 label[for="remember_me"] {
@@ -87,8 +89,13 @@ label[for="remember_me"] {
     font-size: 12px;
 }
 
+#remember_me_parent {
+    cursor: pointer;
+}
+
 #remember_me_parent * {
     vertical-align: middle;
+    cursor: pointer;
 }
 
 #remember_me {
@@ -131,6 +138,10 @@ button#register {
     border: 1px #ccc solid;
 }
 
-button:hover {
+button#login:hover {
     background-color: #33b4de;
+}
+
+button#register:hover {
+    background-color: #f7f7f7;
 }
