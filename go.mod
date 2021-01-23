@@ -1,4 +1,4 @@
-module pilipili
+module bilibili
 
 go 1.15
 
