@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/statics/css/header.css">
     <link rel="stylesheet" href="/statics/css/main.css">
     <link rel="stylesheet" href="/statics/css/passport.css">
+    <link rel="stylesheet" href="/statics/css/register.css">
 </head>
 
 <body>
@@ -51,13 +52,17 @@
         <span>注册</span>
     </div>
     <form id="main">
-        <form>
-            <input placeholder="昵称">
-        </form>
-        <form>
-            <input placeholder="密码（6-16个字符组成，区分大小写）">
-        </form>
-        <form>
+        <div id="username">
+            <input type="text" placeholder="昵称">
+            <p id="username_hint">test</p>
+        </div>
+        <div class="blank" id="password_strength"></div>
+        <div id="password">
+            <input type="password" placeholder="密码（6-16个字符组成，区分大小写）">
+            <p id="password_hint">test</p>
+        </div>
+        <div class="blank"></div>
+        <div id="phone_number">
             <select>
                 <option>中国大陆</option>
                 <option>中国香港特别行政区</option>
@@ -276,24 +281,25 @@
                 <option>桑给巴尔岛</option>
                 <option>津巴布韦</option>
             </select>
-            <input placeholder="填写常用手机号">
-        </form>
-        <form>
-            <input placeholder="请输入短信验证码">
-            <button>点击发送</button>
-        </form>
-        <form>
+            <input type="text" placeholder="填写常用手机号">
+        </div>
+        <div class="blank"></div>
+        <div id="verify_code">
+            <input type="text" placeholder="请输入短信验证码">
+            <button>点击获取</button>
+        </div>
+        <div id="license">
             <input type="checkbox" id="agree_license">
             <label for="agree_license">
                 我已同意<a href="#">《哔哩哔哩弹幕网用户使用协议》</a>和<a href="#">《哔哩哔哩隐私政策》</a>
             </label>
-        </form>
-        <form>
-            <button>注册</button>
-        </form>
-        <form>
+        </div>
+        <div id="register">
+            <button disabled="disabled">注册</button>
+        </div>
+        <div id="to_login">
             <a href="/passport/login">已有账号，直接登录></a>
-        </form>
+        </div>
     </form>
 </body>
 
