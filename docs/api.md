@@ -2,13 +2,15 @@
 
 ### User
 
-#### POST`/api/user/login`
+#### `/api/user/login`
+| Key          | Value                               |
+| ------------ | ----------------------------------- |
+| url          | `/api/user/login`                   |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | POST                                |
+| description  | 登录                                |
 
-登录
-
-`application/x-www-form-urlencoded`
-
-| 参数      | 类型 | 备注                |
+| 请求参数  | 类型 | 说明                |
 | --------- | ---- | ------------------- |
 | loginName | 必选 | 登录名（手机/邮箱） |
 | password  | 必选 | 密码                |
@@ -22,59 +24,74 @@
 
 
 
-#### POST`/api/user/username`
+#### `/api/user/username`
 
-检验用户名合法性
+| Key          | Value                               |
+| ------------ | ----------------------------------- |
+| url          | `/api/user/username`                |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | POST                                |
+| description  | 检验用户名合法性                    |
 
-`application/x-www-form-urlencoded`
-
-| 参数     | 类型 | 备注   |
+| 请求参数 | 类型 | 说明   |
 | -------- | ---- | ------ |
 | username | 必选 | 用户名 |
 
+#### `/api/user/password`
 
+| Key          | Value                               |
+| ------------ | ----------------------------------- |
+| url          | `/api/user/password`                |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | POST                                |
+| description  | 检验密码合法性                      |
 
-#### POST`/api/user/password`
-
-检验密码合法性
-
-`application/x-www-form-urlencoded`
-
-| 参数     | 类型 | 备注 |
+| 请求参数 | 类型 | 说明 |
 | -------- | ---- | ---- |
 | password | 必选 | 密码 |
 
+#### `/api/user/register`
 
+| Key          | Value                                                        |
+| ------------ | ------------------------------------------------------------ |
+| url          | `/api/user/register`                                         |
+| content-type | `application/x-www-form-urlencoded`                          |
+| method       | POST                                                         |
+| description  | 先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单 |
 
-#### POST`/api/user/register`
+| 请求参数    | 类型 | 说明        |
+| ----------- | ---- | ----------- |
+| username    | 必选 | 用户名/账号 |
+| password    | 必选 | 密码        |
+| phone       | 必选 | 手机号      |
+| verify_code | 必选 | 验证码      |
 
-`application/x-www-form-urlencoded`
+#### `/api/user/login`
 
-|参数|类型|备注|
-|----|----|----|
-|username|必选|用户名/账号|
-|password|必选|密码|
-|phone|必选|手机号|
-|verify_code|必选|验证码|
+| Key          | Value                               |
+| ------------ | ----------------------------------- |
+| url          | `/api/user/login`                   |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | POST                                |
+| description  | 登录                                |
 
-先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单
-
-#### POST`/api/user/login`
-
-|参数|类型|备注|
-|----|----|----|
-|username|必选|用户名/账号|
-|password|必选|密码|
-
-
+| 请求参数 | 类型 | 说明        |
+| -------- | ---- | ----------- |
+| username | 必选 | 用户名/账号 |
+| password | 必选 | 密码        |
 
 ### Verify
 
-#### GET `/api/verify/token`
+####  `/api/verify/token`
 
-使用refreshToken获取新token
+| Key          | Value                       |
+| ------------ | --------------------------- |
+| url          | `/api/verify/token`         |
+| content-type | `application/x-www-form-urlencoded`  |
+| method       | GET                         |
+| description  | 使用refreshToken获取新token |
 
-| 参数         | 备注         |
+| 请求参数     | 说明         |
 | ------------ | ------------ |
 | refreshToken | refreshToken |
 
@@ -85,18 +102,29 @@
 
 
 
-#### POST`/api/verify/phone`
+#### `/api/verify/phone`
 
-`application/x-www-form-urlencoded`
+| Key          | Value                               |
+| ------------ | ----------------------------------- |
+| url          | `/api/verify/phone`                 |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | POST                                |
+| description  | 发送短信验证码                      |
 
-发送短信验证码
-
-| 参数  | 类型 | 备注   |
-| ----- | ---- | ------ |
-| phone | 必选 | 手机号 |
-
-## 
+| 请求参数 | 类型 | 说明   |
+| -------- | ---- | ------ |
+| phone    | 必选 | 手机号 |
 
 ## 一般规定
 
-无特殊说明下，返回一个json，含且仅含status(1：成功， 0：失败)， data(成功提示或者错误)
+如无特殊说明，则返回一个以下格式的 json：
+
+```json
+{
+    status: 1, // 1：成功， 0：失败
+    data: "" // 成功提示或者错误
+}
+```
+
+
+
