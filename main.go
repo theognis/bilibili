@@ -16,6 +16,7 @@ func main() {
     router.LoadHTMLGlob("./view/html/*")
     router.Static("statics","./view/statics")
     passport := router.Group("passport")
+    video := router.Group("video")
     router.GET("/", func(c *gin.Context){
         c.HTML(http.StatusOK, "index.html", nil)
     })
@@ -27,6 +28,12 @@ func main() {
     })
     passport.GET("/login", func(c *gin.Context){
         c.HTML(http.StatusOK, "login_pc.html", nil)
+    })
+    video.GET("/:av", func(c *gin.Context){
+        av := c.Param("av")
+        c.HTML(http.StatusOK, "video.html", gin.H{
+            "av": av,
+        })
     })
 
     routerRegister(router)

@@ -56,6 +56,23 @@ header>nav a {
     text-decoration: none;
 }
 
+header>nav>div:not(#publication) a{
+    color: #212121;
+}
+
+header>nav>#publication {
+    color: white;
+}
+
+header>nav input {
+    background-color: #f4f4f4;
+    color: #999;
+}
+
+header>nav>div .bilifont {
+    color: #00a1d6
+}
+
 #navigator>a, #user_operation>a {
     display: flex;
     margin: 10px;
