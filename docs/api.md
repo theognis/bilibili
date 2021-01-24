@@ -87,7 +87,6 @@
 | Key          | Value                       |
 | ------------ | --------------------------- |
 | url          | `/api/verify/token`         |
-| content-type | `application/x-www-form-urlencoded`  |
 | method       | GET                         |
 | description  | 使用refreshToken获取新token |
 
