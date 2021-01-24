@@ -6,5 +6,9 @@ header {
 }
 
 header nav a {
-    color: white;
+    color: white !important;
+}
+
+header .bilifont {
+    color: white !important;
 }
