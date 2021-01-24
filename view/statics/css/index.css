@@ -3,12 +3,13 @@ header {
     background: linear-gradient(rgba(0,0,0,0.4),transparent),
     url(/statics/images/banner.jpg) center;
     background-size: cover;
+    box-shadow: none !important;
 }
 
 header nav a {
     color: white !important;
 }
 
-header .bilifont {
+header a .bilifont {
     color: white !important;
 }

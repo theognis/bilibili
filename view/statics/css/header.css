@@ -1,3 +1,6 @@
+header {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
 header>nav {
     display: grid;
     font-size: 14px;
@@ -26,6 +29,12 @@ header #nav_download .bilifont {
     margin-right: 2px;
 }
 
+header #nav_homepage img {
+    width: 70px;
+    height: 32px;
+    margin-right: 16px;
+}
+
 header>nav #search{
     display: grid;
     grid-template-columns: auto 48px;
@@ -38,9 +47,16 @@ header>nav #search input{
     padding: 0 16px;
     border-radius: 2px 0 0 2px;
     width: 100%;
-    border: none;
     font-size: 14px;
+    transition: all .2s;
+    box-sizing: border-box;
+    border: 1px solid #E7E7E7;
 }
+
+header>nav #search input:focus{
+    color: #222222;
+}
+
 
 header>nav #search button{
     height: 36px;
@@ -75,7 +91,7 @@ header>nav>div .bilifont {
 
 #navigator>a, #user_operation>a {
     display: flex;
-    margin: 10px;
+    margin: 6px;
 }
 
 #navigator {

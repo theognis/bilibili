@@ -17,6 +17,7 @@ func main() {
     router.Static("statics","./view/statics")
     passport := router.Group("passport")
     video := router.Group("video")
+    space := router.Group("space")
     router.GET("/", func(c *gin.Context){
         c.HTML(http.StatusOK, "index.html", nil)
     })
@@ -33,6 +34,12 @@ func main() {
         av := c.Param("av")
         c.HTML(http.StatusOK, "video.html", gin.H{
             "av": av,
+        })
+    })
+    space.GET("/:uid", func(c *gin.Context){
+        uid := c.Param("uid")
+        c.HTML(http.StatusOK, "space.html", gin.H{
+            "uid": uid,
         })
     })
 
