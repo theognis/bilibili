@@ -1,13 +1,18 @@
 package main
 
 import (
+    "bilibili/controller"
+    "bilibili/tool"
     "github.com/gin-gonic/gin"
     "log"
     "net/http"
 )
 
 func main() {
+    cfg := tool.GetCfg()
+
     router := gin.Default()
+
     router.LoadHTMLGlob("./view/html/*")
     router.Static("statics","./view/statics")
     passport := router.Group("passport")
@@ -23,7 +28,14 @@ func main() {
     passport.GET("/login", func(c *gin.Context){
         c.HTML(http.StatusOK, "login_pc.html", nil)
     })
-    if err := router.Run(":8080"); err != nil {
+
+    routerRegister(router)
+
+    if err := router.Run(cfg.AppHost + ":" + cfg.AppPort); err != nil {
         log.Fatal(err)
     }
+}
+
+func routerRegister(engine *gin.Engine)  {
+    new(controller.UserController).Router(engine)
 }

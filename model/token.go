@@ -1,9 +1,11 @@
 package model
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"github.com/dgrijalva/jwt-go"
+)
 
 type MyCustomClaims struct {
-	Name string `json:"name"`
-	phone string `json:"email"`
+	Username string `json:"username"`
+	Userinfo    Userinfo `json:"phone"`
 	jwt.StandardClaims
 }
