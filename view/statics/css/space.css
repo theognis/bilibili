@@ -3,6 +3,10 @@
     src: url(/statics/fonts/iconfont.woff2) format("woff2");
 }
 
+body {
+    background-color: #F4F5F7;
+}
+
 #banner {
     background-image:
         linear-gradient(transparent 0%, transparent 50%, rgba(0, 0, 0, 0.5) 100%),
@@ -102,21 +106,69 @@
     background: #ff85ad;
 }
 
-#banner_bottom #tab_home::before {
+#banner_bottom {
+    width: 1283px;
+    height: 66px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    border-radius: 0 0 4px 4px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+#banner_bottom #tab {
+    display: flex;
+    height: 66px;
+}
+
+#banner_bottom #tab div {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#banner_bottom #tab div:hover {
+    color: #00a1d6;
+    transition: color .2s ease;
+}
+
+#banner_bottom #tab div.now_tab {
+    color: #00a1d6;
+}
+
+#banner_bottom #tab div::before {
     font-family: iconfont;
+    margin-right: 4px;
+    font-size: 20px;
+}
+
+#banner_bottom #tab_home::before {
     content: "\E626";
-    color: #00c091
+    color: #00c091;
 }
 
 #banner_bottom #tab_moments::before {
-    font-family: iconfont;
     content: "\E62D";
     color: #fb7299;
 }
 
 #banner_bottom #tab_post::before {
-
-    font-family: iconfont;
     content: "\E62C";
     color: #02b5da;
+}
+
+#banner_bottom #tab_underline {
+    width: 50px;
+    background: #00a1d6;
+    height: 3px;
+    bottom: -1px;
+    transition: all .2s ease;
+    position: relative;
+}
+
+#banner_bottom .right{
+    float: right;
 }
