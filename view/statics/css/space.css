@@ -1,3 +1,8 @@
+@font-face {
+    font-family: iconfont;
+    src: url(/statics/fonts/iconfont.woff2) format("woff2");
+}
+
 #banner {
     background-image:
         linear-gradient(transparent 0%, transparent 50%, rgba(0, 0, 0, 0.5) 100%),
@@ -49,7 +54,22 @@
     color: #fff;
 }
 
-#banner .left #userinfo .level {
+#banner .left #userinfo .level1 {
+    background-color: #bfbfbf;
+}
+#banner .left #userinfo .level2 {
+    background-color: #95ddb2;
+}
+#banner .left #userinfo .level3 {
+    background-color: #92d1e5;
+}
+#banner .left #userinfo .level4 {
+    background-color: #ffb37c;
+}
+#banner .left #userinfo .level5 {
+    background-color: #ff6c00;
+}
+#banner .left #userinfo .level6 {
     background-color: #ff0000;
 }
 
@@ -65,7 +85,7 @@
 
 #banner .right {
     float: right;
-    margin: 150px 20px 0 0;
+    margin: 150px 40px 0 0;
 }
 
 #banner .right #follow {
@@ -80,4 +100,23 @@
 
 #banner .right #follow:hover {
     background: #ff85ad;
+}
+
+#banner_bottom #tab_home::before {
+    font-family: iconfont;
+    content: "\E626";
+    color: #00c091
+}
+
+#banner_bottom #tab_moments::before {
+    font-family: iconfont;
+    content: "\E62D";
+    color: #fb7299;
+}
+
+#banner_bottom #tab_post::before {
+
+    font-family: iconfont;
+    content: "\E62C";
+    color: #02b5da;
 }

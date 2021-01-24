@@ -72,11 +72,11 @@ header>nav a {
     text-decoration: none;
 }
 
-header>nav>div:not(#publication) a{
+header>nav>div:not(#post) a{
     color: #212121;
 }
 
-header>nav>#publication {
+header>nav>#post {
     color: white;
 }
 
@@ -113,7 +113,7 @@ header>nav>div .bilifont {
     border-radius: 50%;
 }
 
-#publication {
+#post {
     width: 100px;
     height: 36px;
     text-align: center;
