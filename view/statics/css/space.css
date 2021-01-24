@@ -1,0 +1,83 @@
+#banner {
+    background-image:
+        linear-gradient(transparent 0%, transparent 50%, rgba(0, 0, 0, 0.5) 100%),
+        url(/statics/images/space/banner.webp);
+    height: 200px;
+    width: 1283px;
+    margin: 0 auto
+}
+
+#banner .left {
+    margin-top: 116px;
+    display: grid;
+    grid-template-columns: 108px auto;
+    grid-template-rows: 38px 46px;
+    float: left;
+}
+
+#banner .left img {
+    width: 64px;
+    height: 64px;
+    border: 2px solid hsla(0,0%,100%,.4);
+    border-radius: 50%;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    margin: 0 20px
+}
+
+#banner .left #userinfo {
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+}
+
+#banner .left #userinfo * {
+    margin-right: 5px;
+}
+
+#banner .left #userinfo #username {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+#banner .left #userinfo :not(#username) {
+    height: 16px;
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 0 5px;
+    color: #fff;
+}
+
+#banner .left #userinfo .level {
+    background-color: #ff0000;
+}
+
+#banner .left #userinfo .vip {
+    background-color: #f45a8d;
+}
+
+#banner .left #statement {
+    padding-top: 8px;
+    color: #d6dee6;
+    font-size: 12px;
+}
+
+#banner .right {
+    float: right;
+    margin: 150px 20px 0 0;
+}
+
+#banner .right #follow {
+    background: #f25d8e;
+    color: #fff;
+    border: solid 2px #fff;
+    border-radius: 4px;
+    width: 80px;
+    height: 34px;
+    cursor: pointer;
+}
+
+#banner .right #follow:hover {
+    background: #ff85ad;
+}
