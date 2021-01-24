@@ -1,14 +1,14 @@
 package controller
 
 import (
+	"bilibili/model"
+	"bilibili/param"
 	"bilibili/service"
+	"bilibili/tool"
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"bilibili/param"
-	"bilibili/tool"
-	"bilibili/model"
 	"strconv"
 	"time"
 )
