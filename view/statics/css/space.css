@@ -20,7 +20,7 @@ header {
     margin: 0 auto
 }
 
-#banner .left {
+#banner>.left {
     margin-top: 116px;
     display: grid;
     grid-template-columns: 108px auto;
@@ -28,7 +28,7 @@ header {
     float: left;
 }
 
-#banner .left img {
+#banner>.left>img {
     width: 64px;
     height: 64px;
     border: 2px solid hsla(0,0%,100%,.4);
@@ -38,65 +38,76 @@ header {
     margin: 0 20px
 }
 
-#banner .left #userinfo {
+#banner>.left>#userinfo {
     display: flex;
     padding-top: 10px;
     align-items: center;
 }
 
-#banner .left #userinfo * {
+#banner>.left>#userinfo>span {
     margin-right: 5px;
 }
 
-#banner .left #userinfo #username {
+#banner>.left>#userinfo #username {
     color: #fff;
     font-weight: 700;
     font-size: 18px;
 }
 
-#banner .left #userinfo :not(#username) {
+#banner>.left>#userinfo>.user_tag {
     height: 16px;
     font-size: 12px;
     border-radius: 4px;
-    padding: 0 5px;
     color: #fff;
 }
 
-#banner .left #userinfo .level1 {
-    background-color: #bfbfbf;
-}
-#banner .left #userinfo .level2 {
-    background-color: #95ddb2;
-}
-#banner .left #userinfo .level3 {
-    background-color: #92d1e5;
-}
-#banner .left #userinfo .level4 {
-    background-color: #ffb37c;
-}
-#banner .left #userinfo .level5 {
-    background-color: #ff6c00;
-}
-#banner .left #userinfo .level6 {
-    background-color: #ff0000;
+#banner>.left>#userinfo>.user_tag.level {
+    background-image: url(/statics/images/level.png);
+    width: 28px;
 }
 
-#banner .left #userinfo .vip {
+#banner>.left>#userinfo>.level[lv="1"] {
+    background-position: -21px -46px;
+}
+#banner>.left>#userinfo>.level[lv="2"] {
+    background-position: -21px -82px;
+}
+#banner>.left>#userinfo>.level[lv="3"] {
+    background-position: -21px -118px;
+}
+#banner>.left>#userinfo>.level[lv="4"] {
+    background-position: -21px -154px;
+}
+#banner>.left>#userinfo>.level[lv="5"] {
+    background-position: -21px -190px;
+}
+#banner>.left>#userinfo>.level[lv="6"] {
+    background-position: -21px -226px;
+}
+#banner>.left>#userinfo>.level[lv="7"] {
+    background-position: -21px -262px;
+}
+#banner>.left>#userinfo>.level[lv="8"] {
+    background-position: -21px -298px;
+}
+
+#banner>.left>#userinfo .vip {
+    padding: 0 5px;
     background-color: #f45a8d;
 }
 
-#banner .left #statement {
+#banner>.left>#statement {
     padding-top: 8px;
     color: #d6dee6;
     font-size: 12px;
 }
 
-#banner .right {
+#banner>.right {
     float: right;
     margin: 150px 40px 0 0;
 }
 
-#banner .right #follow {
+#banner>.right #follow {
     background: #f25d8e;
     color: #fff;
     border: solid 2px #fff;
@@ -106,7 +117,7 @@ header {
     cursor: pointer;
 }
 
-#banner .right #follow:hover {
+#banner>.right #follow:hover {
     background: #ff85ad;
 }
 
