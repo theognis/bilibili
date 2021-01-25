@@ -1,0 +1,77 @@
+#main {
+    display: grid;
+    width: 1152px;
+    margin: 0 auto;
+    grid-template-columns: 802px 320px;
+    grid-template-rows: 96px auto;
+    justify-content: space-between;
+}
+
+#main #top h1 {
+    font-size: 18px;
+    margin: 27px 0 8px 0;
+    font-weight: 500;
+    color: #212121;
+}
+
+#main #top span {
+    font-size: 12px;
+    color: #999;
+}
+
+#main #top .play_number::after {
+    content: "播放 ·";
+}
+
+#main #top .danmaku_number::after {
+    content: "弹幕";
+}
+
+#main #author {
+    display: grid;
+    width: 320px;
+    margin: 15px 0;
+    justify-content: space-between;
+    grid-template-columns: 48px 256px;
+    grid-template-rows: 20px 20px 32px;
+}
+
+#main #author img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
+#main #author .username{
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    color: #212121;
+}
+
+#main #author .statement{
+    margin: 0 0 5px 0;
+    font-size: 12px;
+    color: #999;
+}
+
+#main #author button {
+    width: 146px;
+    height: 27px;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #00a1d6;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+#main #author button:hover {
+     background-color: #00b5e6;
+}
+
+#main #video video {
+    background-color: #000;
+}
