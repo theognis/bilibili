@@ -131,6 +131,10 @@ header {
     box-sizing: border-box;
 }
 
+#banner_bottom .left{
+    float: left;
+}
+
 #banner_bottom #tab {
     display: flex;
     height: 66px;
@@ -179,11 +183,31 @@ header {
     width: 50px;
     background: #00a1d6;
     height: 3px;
-    bottom: -1px;
+    bottom: 3px;
     transition: all .2s ease;
     position: relative;
 }
 
-#banner_bottom .right{
+#banner_bottom>.right{
     float: right;
+    display: flex;
+    padding: 10px 0;
+    height: 46px;
+}
+
+#banner_bottom>.right>div{
+    font-size: 12px;
+    width: 58px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-rows: 1fr 1fr;
+}
+
+#banner_bottom>.right>div>.key{
+    color: #99a2aa;
+}
+
+#banner_bottom>.right>div>.value{
+    color: #222;
 }
