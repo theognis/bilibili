@@ -14,3 +14,7 @@ body {
 .bilifont {
     font-family: bilifont;
 }
+
+a {
+    text-decoration: none;
+}

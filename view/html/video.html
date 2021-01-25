@@ -61,20 +61,31 @@
         </div>
         <div id="video">
             <video src="/statics/video/test.mp4" width="802px" height="539px" controls></video>
-            <div id="danmaku">
+            <div class="bottom">
                 <div class="info">
                     <span class="audience_number">1696</span>
                     <span class="danmaku_number">2000</span>
                 </div>
                 <div class="control">
-                    <span class="switch off">
+                    <div class="switch off">
                         <span class="sign">弹</span>
-                    </span>
+                    </div>
+                    <div class="settings">
+                        <img src="/statics/images/video/danmaku-settings.svg">
+                    </div>
+                    <div class="send">
+                        <div class="edit">
+                            <img src="/statics/images/video/danmaku-font.svg">
+                            <input placeholder="发个弹幕见证当下">
+                            <a href="javascript:alert('万物皆虚，万事皆允')">弹幕礼仪</a>
+                        </div>
+                        <button>发送</button>
+                    </div>
                 </div>
             </div>
         </div>
         <div id="recommend"></div>
-        <div id="bottom"></div>
+        <div id="toolbar"></div>
         <div id="info">
             <p class="description"></p>
             <div class="tags"></div>

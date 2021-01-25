@@ -68,10 +68,6 @@ header>nav #search button{
     border:none;
 }
 
-header>nav a {
-    text-decoration: none;
-}
-
 header>nav>div:not(#post) a{
     color: #212121;
 }

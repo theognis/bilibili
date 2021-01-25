@@ -7,27 +7,27 @@
     justify-content: space-between;
 }
 
-#main #top h1 {
+#top h1 {
     font-size: 18px;
     margin: 27px 0 8px 0;
     font-weight: 500;
     color: #212121;
 }
 
-#main #top span {
+#top span {
     font-size: 12px;
     color: #999;
 }
 
-#main #top .play_number::after {
+#top .play_number::after {
     content: "播放 ·";
 }
 
-#main #top .danmaku_number::after {
+#top .danmaku_number::after {
     content: "弹幕";
 }
 
-#main #author {
+#author {
     display: grid;
     width: 320px;
     margin: 15px 0;
@@ -36,7 +36,7 @@
     grid-template-rows: 20px 20px 32px;
 }
 
-#main #author img {
+#author img {
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -44,19 +44,19 @@
     grid-row-end: 4;
 }
 
-#main #author .username{
+#author .username{
     margin: 0 0 4px 0;
     font-size: 14px;
     color: #212121;
 }
 
-#main #author .statement{
+#author .statement{
     margin: 0 0 5px 0;
     font-size: 12px;
     color: #999;
 }
 
-#main #author button {
+#author button {
     width: 146px;
     height: 27px;
     font-size: 14px;
@@ -68,65 +68,65 @@
     cursor: pointer;
 }
 
-#main #author button:hover {
+#author button:hover {
      background-color: #00b5e6;
 }
 
-#main>#video {
+#video {
     box-shadow: 0 0 8px #e5e9ef;
     display: flex;
     flex-direction: column;
 }
 
-#main>#video>video {
+#video>video {
     background-color: #000;
 }
 
-#main> #video>#danmaku {
+#video>.bottom {
     padding: 0 12px 0 20px;
     display: flex;
     height: 46px;
     justify-content: space-between;
 }
 
-#main>#video>#danmaku>.info{
+#video>.bottom>.info{
     display: flex;
     align-items: center;
 }
 
-#main>#video>#danmaku>.info>.audience_number{
+#video>.bottom>.info>.audience_number{
     font-size: 14px;
     font-weight: 600;
     color: #505050;
 }
 
-#main>#video>#danmaku>.info>.audience_number::after {
+#video>.bottom>.info>.audience_number::after {
     content: "人正在看，";
     margin-left: 4px;
     font-size: 12px;
     font-weight: 400;
 }
 
-#main>#video>#danmaku>.info>.danmaku_number::after {
+#video>.bottom>.info>.danmaku_number::after {
     content: "条弹幕";
     margin-left: 4px;
 }
 
 
-#main>#video>#danmaku>.info>span{
+#video>.bottom>.info>span{
     font-size: 12px;
 }
 
-#main>#video>#danmaku>.control {
+#video>.bottom>.control {
     display: flex;
     align-items: center;
 }
 
-#main>#video>#danmaku>.control>.switch {
+#video>.bottom>.control>.switch {
     height: 18px;
     width: 30px;
     border-radius: 12px;
-    margin: 0;
+    margin: 0 8px 0 0;
     display: flex;
     align-items: center;
     user-select: none;
@@ -134,7 +134,7 @@
     transition: all .2s ease-in-out;
 }
 
-#main>#video>#danmaku>.control>.switch>.sign {
+#video>.bottom>.control>.switch>.sign {
     width: 27px;
     height: 27px;
     border-radius: 50%;
@@ -147,22 +147,87 @@
     position: relative;
 }
 
-#main>#video>#danmaku>.control>.switch.off {
+#video>.bottom>.control>.switch.off {
     border: 2px #757575 solid;
     background-color: #757575;
 }
 
-#main>#video>#danmaku>.control>.switch.off>.sign {
+#video>.bottom>.control>.switch.off>.sign {
     left: -5px;
     color: #757575;
 }
 
-#main>#video>#danmaku>.control>.switch.on {
+#video>.bottom>.control>.switch.on {
     border: 2px #00a1d6 solid;
     background-color: #00a1d6;
 }
 
-#main>#video>#danmaku>.control>.switch.on>.sign {
+#video>.bottom>.control>.switch.on>.sign {
     left: 8px;
     color: #00a1d6;
+}
+
+#video>.bottom>.control>.settings {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+#video>.bottom>.control>.send {
+    display: flex;
+    align-items: center;
+}
+
+#video>.bottom>.control>.send>.edit {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e7e7e7;
+    border-radius: 2px 0 0 2px;
+    background-color: #f4f4f4;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+#video>.bottom>.control>.send>.edit>img {
+    cursor: pointer;
+}
+
+#video>.bottom>.control>.send>.edit>input {
+    border: none;
+    background-color: #f4f4f4;
+    font-size: 12px;
+    color: #212121;
+    width: 280px;
+}
+
+#video>.bottom>.control>.send>.edit>input::-webkit-input-placeholder {
+    color: #999999
+}
+
+#video>.bottom>.control>.send>.edit>a {
+    color: #757575;
+    font-size: 12px;
+    margin: 0 9px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+#video>.bottom>.control>.send>.edit>a:hover {
+    color: #00a1d6;
+}
+
+#video>.bottom>.control>.send>button {
+    background-color: #00a1d6;
+    color: #fff;
+    border: none;
+    height: 30px;
+    width: 60px;
+    border-radius: 0 2px 2px 0;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+#video>.bottom>.control>.send>button:hover {
+    background-color: #00b5e5;
 }

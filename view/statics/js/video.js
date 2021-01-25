@@ -1,4 +1,4 @@
-const danmaku_switch = document.querySelector('#danmaku .control .switch')
+const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 
 danmaku_switch.addEventListener('click', () => {
     if (danmaku_switch.classList.contains('on')) {
