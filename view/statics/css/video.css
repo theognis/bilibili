@@ -143,6 +143,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: scale(0.65);
+    position: relative;
 }
 
 #main>#video>#danmaku>.control>.switch.off {
@@ -151,7 +153,7 @@
 }
 
 #main>#video>#danmaku>.control>.switch.off>.sign {
-    transform: scale(0.65) translateX(-7px);
+    left: -5px;
     color: #757575;
 }
 
@@ -161,6 +163,6 @@
 }
 
 #main>#video>#danmaku>.control>.switch.on>.sign {
-    transform: scale(0.65) translateX(11px);
+    left: 8px;
     color: #00a1d6;
 }
