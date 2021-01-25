@@ -76,6 +76,7 @@
     box-shadow: 0 0 8px #e5e9ef;
     display: flex;
     flex-direction: column;
+    height: 585px;
 }
 
 #video>video {
@@ -230,4 +231,51 @@
 
 #video>.bottom>.control>.send>button:hover {
     background-color: #00b5e5;
+}
+
+#recommend>section {
+    display: grid;
+    grid-template-rows: 42px 20px 16px;
+    grid-template-columns: 140px 170px;
+    grid-column-gap: 10px;
+    margin: 12px 0;
+}
+
+#recommend>section div{
+    grid-row-start: 1;
+    grid-row-end: 4;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#recommend>section img{
+    width: 141px;
+    height: 80px;
+}
+
+#recommend>section>.title{
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    height: 36px;
+    overflow: hidden;
+}
+
+#recommend>section>.author{
+    margin: 0 0 4px 0;
+    font-size: 12px;
+    color: #999;
+}
+
+#recommend>section>.data{
+    font-size: 12px;
+    color: #999;
+    margin: 0;
+}
+
+#recommend>section>.data>.play_number::after{
+    content: " 播放 · ";
+}
+
+#recommend>section>.data>.danmaku_number::after{
+    content: " 弹幕";
 }
