@@ -72,6 +72,95 @@
      background-color: #00b5e6;
 }
 
-#main #video video {
+#main>#video {
+    box-shadow: 0 0 8px #e5e9ef;
+    display: flex;
+    flex-direction: column;
+}
+
+#main>#video>video {
     background-color: #000;
+}
+
+#main> #video>#danmaku {
+    padding: 0 12px 0 20px;
+    display: flex;
+    height: 46px;
+    justify-content: space-between;
+}
+
+#main>#video>#danmaku>.info{
+    display: flex;
+    align-items: center;
+}
+
+#main>#video>#danmaku>.info>.audience_number{
+    font-size: 14px;
+    font-weight: 600;
+    color: #505050;
+}
+
+#main>#video>#danmaku>.info>.audience_number::after {
+    content: "人正在看，";
+    margin-left: 4px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+#main>#video>#danmaku>.info>.danmaku_number::after {
+    content: "条弹幕";
+    margin-left: 4px;
+}
+
+
+#main>#video>#danmaku>.info>span{
+    font-size: 12px;
+}
+
+#main>#video>#danmaku>.control {
+    display: flex;
+    align-items: center;
+}
+
+#main>#video>#danmaku>.control>.switch {
+    height: 18px;
+    width: 30px;
+    border-radius: 12px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+#main>#video>#danmaku>.control>.switch>.sign {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all .2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main>#video>#danmaku>.control>.switch.off {
+    border: 2px #757575 solid;
+    background-color: #757575;
+}
+
+#main>#video>#danmaku>.control>.switch.off>.sign {
+    transform: scale(0.65) translateX(-7px);
+    color: #757575;
+}
+
+#main>#video>#danmaku>.control>.switch.on {
+    border: 2px #00a1d6 solid;
+    background-color: #00a1d6;
+}
+
+#main>#video>#danmaku>.control>.switch.on>.sign {
+    transform: scale(0.65) translateX(11px);
+    color: #00a1d6;
 }
