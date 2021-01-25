@@ -22,34 +22,6 @@
 | token        | 用户token    |
 | refreshToken | refreshToken |
 
-
-
-#### `/api/user/username`
-
-| Key          | Value                               |
-| ------------ | ----------------------------------- |
-| url          | `/api/user/username`                |
-| content-type | `application/x-www-form-urlencoded` |
-| method       | POST                                |
-| description  | 检验用户名合法性                    |
-
-| 请求参数 | 类型 | 说明   |
-| -------- | ---- | ------ |
-| username | 必选 | 用户名 |
-
-#### `/api/user/password`
-
-| Key          | Value                               |
-| ------------ | ----------------------------------- |
-| url          | `/api/user/password`                |
-| content-type | `application/x-www-form-urlencoded` |
-| method       | POST                                |
-| description  | 检验密码合法性                      |
-
-| 请求参数 | 类型 | 说明 |
-| -------- | ---- | ---- |
-| password | 必选 | 密码 |
-
 #### `/api/user/register`
 
 | Key          | Value                                                        |
@@ -66,19 +38,18 @@
 | phone       | 必选 | 手机号      |
 | verify_code | 必选 | 验证码      |
 
-#### `/api/user/login`
+#### `/api/user/hasUsername`
 
 | Key          | Value                               |
 | ------------ | ----------------------------------- |
-| url          | `/api/user/login`                   |
+| url          | `/api/user/username`                |
 | content-type | `application/x-www-form-urlencoded` |
 | method       | POST                                |
-| description  | 登录                                |
+| description  | 检验用户名是否存在                     |
 
-| 请求参数 | 类型 | 说明        |
-| -------- | ---- | ----------- |
-| username | 必选 | 用户名/账号 |
-| password | 必选 | 密码        |
+| 请求参数 | 类型 | 说明   |
+| -------- | ---- | ------ |
+| username | 必选 | 用户名 |
 
 ### Verify
 
