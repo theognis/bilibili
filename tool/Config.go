@@ -13,15 +13,15 @@ type Config struct {
 	Email    EmailConfig    `json:"email"`
 	Redis    RedisConfig    `json:"redis"`
 	Jwt      JwtCfg         `json:"jwt"`
-	Sms		 SmsCfg 		`json:"sms"`
+	Sms      SmsCfg         `json:"sms"`
 }
 
 type SmsCfg struct {
-	SignName     string
-	TemplateCode string
-	AppKey       string
-	AppSecret    string
-	RegionId     string
+	SignName     string `json:"sign_name"`
+	TemplateCode string `json:"template_code"`
+	AppKey       string `json:"app_key"`
+	AppSecret    string `json:"app_secret"`
+	RegionId     string `json:"region_id"`
 }
 
 type JwtCfg struct {

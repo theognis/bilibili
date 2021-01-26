@@ -10,7 +10,7 @@ CREATE TABLE `userinfo` (
     `salt` VARCHAR(10) NOT NULL,
     `password` VARCHAR(32) NOT NULL,
     `reg_date` DATE NOT NULL,
-    `email` VARCHAR(20), 
+    `email` VARCHAR(20) NOT NULL DEFAULT ""
     `statement` VARCHAR(30) DEFAULT '这个人很懒，什么都没有写',
     UNIQUE (`username`),
     UNIQUE (`phone`)

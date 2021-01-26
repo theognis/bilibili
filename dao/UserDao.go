@@ -9,9 +9,30 @@ type UserDao struct {
 	*sql.DB
 }
 
+//根据邮箱查询
+func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
+	userinfo := model.Userinfo{}
+
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement FROM userinfo WHERE email = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return userinfo, err
+	}
+
+	row := stmt.QueryRow(email)
+
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement)
+	if err != nil {
+		return userinfo, err
+	}
+
+	return userinfo, nil
+}
+
 //根据电话查询
-func (dao *UserDao) QueryByPhone(phone string) (*model.Userinfo, error) {
-	userinfo := new(model.Userinfo)
+func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
+	userinfo := model.Userinfo{}
 
 	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement FROM userinfo WHERE phone = ?`)
 	defer stmt.Close()
@@ -31,8 +52,8 @@ func (dao *UserDao) QueryByPhone(phone string) (*model.Userinfo, error) {
 }
 
 //根据用户名查询
-func (dao *UserDao) QueryByUsername(username string) (*model.Userinfo, error) {
-	userinfo := new(model.Userinfo)
+func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
+	userinfo := model.Userinfo{}
 
 	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement FROM userinfo WHERE username = ?`)
 	defer stmt.Close()

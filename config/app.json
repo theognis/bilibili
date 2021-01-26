@@ -1,6 +1,6 @@
 {
-  "app_port": "8080",
-  "app_host": "localhost",
+  "app_port": "80",
+  "app_host": "0.0.0.0",
   "database": {
     "driver": "mysql",
     "user": "root",
@@ -27,10 +27,10 @@
     "signing_key": "BornHub"
   },
   "sms": {
-    "sign_name": "XYZ商城",
-    "template_code": "SMS_204750335",
-    "app_key": "LTAI4G62iEnLVgekrockNvUY",
-    "app_secret": "3QnrG0WkkVaBjMgfOnLZ9Rdw5CfXxY",
+    "sign_name": "辇道增七的小站",
+    "template_code": "SMS_210077619",
+    "app_key": "LTAI4G5WKGN99MW6XNPeZ2T1",
+    "app_secret": "SDcMacg8bDnUfmGpH3YgI9FzD25cjR",
     "region_id": "cn_hangzhou"
   }
 }

@@ -2,24 +2,67 @@ package service
 
 import (
 	"bilibili/dao"
-	"bilibili/tool"
 	"bilibili/model"
+	"bilibili/tool"
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
 	"github.com/gin-gonic/gin"
 	"math/rand"
+	"strings"
 	"time"
 )
 
 type UserService struct {
-
 }
 
 //返回一个实体
-func (u *UserService) Login(loginName, password string) (model.Userinfo,bool , error) {
-	//u := dao.UserDao{tool.GetDb()}
-	return model.Userinfo{}, false, nil
+func (u *UserService) Login(loginName, password string) (model.Userinfo, bool, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	//判断登录类型
+	flag := strings.Index(loginName, "@")
+	if flag != -1 {
+		//邮箱登录
+		userinfo, err := d.QueryByEmail(loginName)
+		if err != nil {
+			return model.Userinfo{}, false, err
+		}
+
+		//md5解密
+		m5 := md5.New()
+		m5.Write([]byte(password))
+		m5.Write([]byte(userinfo.Salt))
+		st := m5.Sum(nil)
+		hashPwd := hex.EncodeToString(st)
+
+		if hashPwd != userinfo.Password {
+			return model.Userinfo{}, false, nil
+		}
+		return userinfo, true, nil
+	} else {
+		//手机号登录
+
+		userinfo, err := d.QueryByPhone(loginName)
+		if err != nil {
+			return model.Userinfo{}, false, err
+		}
+
+		//md5解密
+		m5 := md5.New()
+		m5.Write([]byte(password))
+		m5.Write([]byte(userinfo.Salt))
+		st := m5.Sum(nil)
+		hashPwd := hex.EncodeToString(st)
+
+		if hashPwd != userinfo.Password {
+			return model.Userinfo{}, false, nil
+		}
+
+		return userinfo, true, nil
+	}
 }
 
 //检验用户名是否存在, false不存在 反之存在
@@ -82,6 +125,7 @@ func (u *UserService) SendCodeByPhone(phone string) (string, error) {
 
 	//调用阿里云sdk
 	cfg := tool.GetCfg().Sms
+	//fmt.Println("asdfsadf", cfg.AppSecret, cfg.AppKey)
 	client, err := dysmsapi.NewClientWithAccessKey(cfg.RegionId, cfg.AppKey, cfg.AppSecret)
 	if err != nil {
 		return "", err
