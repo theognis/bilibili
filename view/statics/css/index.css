@@ -15,13 +15,13 @@ header a .bilifont {
 }
 
 #main {
-    width: 1000px;
+    width: 1200px;
     margin: 0 auto;
 }
 
 #menu {
     display: grid;
-    grid-template-columns: 200px 549px 220px;
+    grid-template-columns: 200px 748px 220px;
     justify-content: space-between;
     margin: 20px 0;
 }
@@ -87,7 +87,7 @@ header a .bilifont {
     width: 32px;
     font-size: 12px;
     border-radius: 2px;
-    margin: 0 4px 0 2px;
+    margin: 0 8px 0 2px;
     display: inline-block;
     text-align: center;
     transform: scale(0.85);
