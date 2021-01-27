@@ -13,3 +13,102 @@ header nav a {
 header a .bilifont {
     color: white !important;
 }
+
+#main {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+#menu {
+    display: grid;
+    grid-template-columns: 200px 549px 220px;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+#menu a{
+    transition: color .3s;
+    cursor: pointer;
+    color: #212121;
+}
+
+#menu a:hover{
+    color: #00a1d6;
+}
+
+#menu>.left {
+    display: flex;
+}
+
+#menu> .left a {
+    text-align: center;
+}
+
+#menu>.left a::before {
+    font-family: bilifont;
+    color: #FFFFFF;
+    margin: 0 6px 4px 6px;
+    width: 36px;
+    height: 36px;
+    font-size: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#menu>.left .home::before {
+    content: "\E738";
+    background-color: #FF5C7C;
+}
+#menu>.left .moments::before {
+    content: "\E732";
+    background-color: #FCBA2A;
+}
+#menu>.left .hot::before {
+    content: "\E763";
+    background-color: #FF716D;
+}
+#menu>.left .channel::before {
+    content: "\E760";
+    background-color: #6DC781;
+}
+
+#menu>.middle {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+    align-items: center;
+}
+
+#menu>.middle a::after {
+    content: "999+";
+    color: #FFFFFF;
+    background-color: #73c9e5;
+    width: 32px;
+    font-size: 12px;
+    border-radius: 2px;
+    margin: 0 4px 0 2px;
+    display: inline-block;
+    text-align: center;
+    transform: scale(0.85);
+}
+
+#menu>.right {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+#menu>.right a{
+    display: flex;
+    align-items: center;
+}
+
+#menu>.right img{
+    width: 1.8em;
+    height: 1.8em;
+}
+
+#menu>.right span{
+   margin: 0 4px;
+}
