@@ -91,8 +91,8 @@
 
 ```javascript
 {
-    status: 1, // 1：成功， 0：失败
-    data: "" // 成功提示或者错误
+    status: true, // true：成功， false：失败
+    data: "" // 提示信息
 }
 ```
 
