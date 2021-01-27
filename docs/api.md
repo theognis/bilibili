@@ -42,7 +42,7 @@
 
 | Key          | Value                               |
 | ------------ | ----------------------------------- |
-| url          | `/api/user/username`                |
+| url          | `/api/user/hasUsername`            |
 | content-type | `application/x-www-form-urlencoded` |
 | method       | POST                                |
 | description  | 检验用户名是否存在                     |
