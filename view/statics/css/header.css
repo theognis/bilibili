@@ -1,7 +1,7 @@
-header {
+body>header {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
-header>nav {
+body>header>nav {
     display: grid;
     font-size: 14px;
     line-height: 36px;
@@ -9,40 +9,40 @@ header>nav {
     align-items: center;
 }
 
-header>nav.not_logged {
+body>header>nav.not_logged {
     grid-template-columns: 540px auto 180px 120px;
 }
 
-header>nav.logged  {
+body>header>nav.logged  {
     grid-template-columns: 540px auto 450px 120px;
 }
 
-header #navigator .bilifont {
+body>header #navigator .bilifont {
     font-size: 18px;
 }
 
-header #nav_homepage .bilifont {
+body>header #nav_homepage .bilifont {
     margin-right: 6px;
 }
 
-header #nav_download .bilifont {
+body>header #nav_download .bilifont {
     margin-right: 2px;
 }
 
-header #nav_homepage img {
+body>header #nav_homepage img {
     width: 70px;
     height: 32px;
     margin-right: 16px;
 }
 
-header>nav #search{
+body>header>nav #search{
     display: grid;
     grid-template-columns: auto 48px;
     width: 100%;
     max-width: 500px;
 }
 
-header>nav #search input{
+body>header>nav #search input{
     height: 36px;
     padding: 0 16px;
     border-radius: 2px 0 0 2px;
@@ -53,12 +53,12 @@ header>nav #search input{
     border: 1px solid #E7E7E7;
 }
 
-header>nav #search input:focus{
+body>header>nav #search input:focus{
     color: #222222;
 }
 
 
-header>nav #search button{
+body>header>nav #search button{
     height: 36px;
     width: 48px;
     border-radius: 0 2px 2px 0;
@@ -68,20 +68,20 @@ header>nav #search button{
     border:none;
 }
 
-header>nav>div:not(#post) a{
+body>header>nav>div:not(#post) a{
     color: #212121;
 }
 
-header>nav>#post {
+body>header>nav>#post {
     color: white;
 }
 
-header>nav input {
+body>header>nav input {
     background-color: #f4f4f4;
     color: #999;
 }
 
-header>nav>div .bilifont {
+body>header>nav>div .bilifont {
     color: #00a1d6
 }
 
