@@ -31,7 +31,6 @@ body>header a .bilifont {
     cursor: pointer;
     color: #212121;
 }
-
 #menu a:hover{
     color: #00a1d6;
 }
@@ -39,11 +38,9 @@ body>header a .bilifont {
 #menu>.left {
     display: flex;
 }
-
-#menu> .left a {
+#menu>.left a {
     text-align: center;
 }
-
 #menu>.left a::before {
     font-family: bilifont;
     color: #FFFFFF;
@@ -79,7 +76,6 @@ body>header a .bilifont {
     font-size: 14px;
     align-items: center;
 }
-
 #menu>.middle a::after {
     content: "999+";
     color: #FFFFFF;
@@ -98,19 +94,50 @@ body>header a .bilifont {
     flex-wrap: wrap;
     font-size: 14px;
 }
-
 #menu>.right a{
     display: flex;
     align-items: center;
 }
-
 #menu>.right img{
     width: 1.8em;
     height: 1.8em;
 }
-
 #menu>.right span{
    margin: 0 4px;
+}
+
+#recommend {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+#recommend a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+}
+#recommend>.main {
+    width: 550px;
+    height: 242px;
+}
+#recommend>.main a {
+    background: url(/statics/test/main_rcmd.jpg) center;
+    background-size: cover;
+}
+
+#recommend>.list {
+    display: grid;
+    width: 638px;
+    height: 242px;
+    grid-template-columns: repeat(3, 206px);
+    grid-template-rows: repeat(2, 116px);
+    align-content: space-between;
+    justify-content: space-between;
+}
+#recommend>.list a {
+    background: url(/statics/test/list_rcmd.webp) center;
+    background-size: cover;
 }
 
 section {
@@ -119,7 +146,7 @@ section {
     grid-template-rows: 36px 404px;
     grid-row-gap: 16px;
     justify-content: space-between;
-    margin: 20px 0 240px 0;
+    margin-bottom: 40px;
 }
 section>.title {
     display: grid;
@@ -190,6 +217,7 @@ section>.list>article>.author::before {
     margin-right: 4px;
     vertical-align: middle;
 }
+
 section>.rank-list {
     display: grid;
     grid-template-rows: repeat(10, auto);

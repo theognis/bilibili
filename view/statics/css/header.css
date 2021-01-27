@@ -88,6 +88,7 @@ body>header>nav>div .bilifont {
 #navigator>a, #user_operation>a {
     display: flex;
     margin: 6px;
+    align-items: center;
 }
 
 #navigator {
