@@ -1,7 +1,7 @@
 header {
     height: 180px;
     background: linear-gradient(rgba(0,0,0,0.4),transparent),
-    url(/statics/images/banner.jpg) center;
+    url(/statics/images/home/banner.jpg) center;
     background-size: cover;
     box-shadow: none !important;
 }
