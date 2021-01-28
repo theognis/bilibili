@@ -86,6 +86,7 @@
     left: 250px;
     background: rgba(21,21,21,.9);
     border-radius: 2px;
+    user-select: none;
 }
 #video>.hover>.font_settings>span {
     color: #fff;
@@ -99,83 +100,74 @@
     grid-template-columns: repeat(3, 26px);
     grid-column-gap: 22px;
     font-size: 12px;
-    color: hsla(0,0%,100%,.8);
-    fill: hsla(0,0%,100%,.8);
+    color: rgba(255,255,255,.8);
 }
 #video>.hover>.font_settings>.type>div {
     display: flex;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
 }
-#video>.hover>.font_settings>.color>.set {
+#video>.hover>.font_settings>.type>div:hover {
+    color: #FFFFFF
+}
+#video>.hover>.font_settings>.type>div.chosen {
+    color: #00A1D6
+}
+#video>.hover>.font_settings>.type>div.scroll>img {
+    content: url("/statics/images/video/scroll-type.svg");
+}
+#video>.hover>.font_settings>.type>div.scroll:hover>img {
+    content: url("/statics/images/video/scroll-type-hover.svg");
+}
+#video>.hover>.font_settings>.type>div.scroll.chosen>img {
+    content: url("/statics/images/video/scroll-type-chosen.svg");
+}
+#video>.hover>.font_settings>.type>div.top>img {
+    content: url("/statics/images/video/scroll-type.svg");
+}
+#video>.hover>.font_settings>.type>div.top:hover>img {
+    content: url("/statics/images/video/scroll-type-hover.svg");
+}
+#video>.hover>.font_settings>.type>div.top.chosen>img {
+    content: url("/statics/images/video/scroll-type-chosen.svg");
+}
+#video>.hover>.font_settings>.type>div.bottom>img {
+    content: url("/statics/images/video/scroll-type.svg");
+}
+#video>.hover>.font_settings>.type>div.bottom:hover>img {
+    content: url("/statics/images/video/scroll-type-hover.svg");
+}
+#video>.hover>.font_settings>.type>div.bottom.chosen>img {
+    content: url("/statics/images/video/scroll-type-chosen.svg");
+}
+#video>.hover>.font_settings>.color>.edit {
     display: grid;
     grid-template-columns: 120px 50px;
     grid-template-rows: 22px;
     justify-content: space-between;
     margin-bottom: 6px;
 }
-#video>.hover>.font_settings>.color>.set>input {
+#video>.hover>.font_settings>.color>.edit>input {
     background-color: transparent;
     color: #fff;
-    border: 1px solid hsla(0,0%,100%,.2);
+    border: 1px solid rgba(255,255,255,.2);
     border-radius: 2px;
     padding: 4px 7px;
 }
-#video>.hover>.font_settings>.color>.set>div {
-    background-color: #ffffff;
+#video>.hover>.font_settings>.color>.edit>div {
     border-radius: 2px;
 }
-#video>.hover>.font_settings>.color>.table {
+#video>.hover>.font_settings>.color>.list {
     display: grid;
     grid-template-columns: repeat(7, 14px);
     grid-template-rows: repeat(2, 14px);
     grid-row-gap: 4px;
     justify-content: space-between;
 }
-#video>.hover>.font_settings>.color>.table>* {
+#video>.hover>.font_settings>.color>.list>* {
     border-radius: 2px;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(1) {
-    background-color: #FE0302;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(2) {
-    background-color: #FF7204;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(3) {
-    background-color: #FFAA02;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(4) {
-    background-color: #FFD302;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(5) {
-    background-color: #FFFF00;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(6) {
-    background-color: #A0EE00;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(7) {
-    background-color: #00CD00;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(8) {
-    background-color: #019899;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(9) {
-    background-color: #4266BE;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(10) {
-    background-color: #89D5FF;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(11) {
-    background-color: #CC0273;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(12) {
-    background-color: #222222;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(13) {
-    background-color: #9B9B9B;
-}
-#video>.hover>.font_settings>.color>.table>:nth-child(14) {
-    background-color: #FFFFFF;
+    cursor: pointer;
 }
 
 #video>.bottom {
@@ -269,8 +261,23 @@
     height: 30px;
     box-sizing: border-box;
 }
-#video>.bottom>.control>.send>.edit>img {
+#video>.bottom>.control>.send>.edit>div {
+    height: 24px;
+    width: 36px;
+    background-image: url(/statics/images/video/danmaku-font.svg);
     cursor: pointer;
+}
+#video>.bottom>.control>.send>.edit>div:hover {
+    background-image: url(/statics/images/video/danmaku-font-hover.svg);
+}
+#video>.bottom>.control>.send>.edit>div:hover::before {
+    content: "";
+    position: relative;
+    display: block;
+    left: -16px;
+    bottom: 16px;
+    height: 16px;
+    width: 72px;
 }
 #video>.bottom>.control>.send>.edit>input {
     border: none;

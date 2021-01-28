@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/statics/css/header.css">
     <link rel="stylesheet" href="/statics/css/main.css">
     <link rel="stylesheet" href="/statics/css/video.css">
+    <script>String.prototype.every = Array.prototype.every</script>
 </head>
 
 <body>
@@ -62,19 +63,34 @@
         <div id="video">
             <video src="/statics/video/test.mp4" width="802px" height="539px" controls></video>
             <div class="hover">
-                <div class="font_settings">
+                <div class="font_settings" style="display: none">
                     <span>模式</span>
                     <div class="type">
-                        <div><img src="/statics/images/video/danmaku-scroll.svg"><span>滚动</span></div>
-                        <div><img src="/statics/images/video/danmaku-top.svg"><span>顶部</span></div>
-                        <div><img src="/statics/images/video/danmaku-bottom.svg"><span>底部</span></div>
+                        <div class="scroll chosen"><img><span>滚动</span></div>
+                        <div class="top"><img><span>顶部</span></div>
+                        <div class="bottom"><img><span>底部</span></div>
                     </div>
                     <span>颜色</span>
                     <div class="color">
-                        <div class="set"><input><div></div></div>
-                        <div class="table">
-                            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-                            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        <div class="edit">
+                            <input value="#FFFFFF">
+                            <div style="background-color: #ffffff;"></div>
+                        </div>
+                        <div class="list">
+                            <div style="background-color: #FE0302;"></div>
+                            <div style="background-color: #FF7204;"></div>
+                            <div style="background-color: #FFAA02;"></div>
+                            <div style="background-color: #FFD302;"></div>
+                            <div style="background-color: #FFFF00;"></div>
+                            <div style="background-color: #A0EE00;"></div>
+                            <div style="background-color: #00CD00;"></div>
+                            <div style="background-color: #019899;"></div>
+                            <div style="background-color: #4266BE;"></div>
+                            <div style="background-color: #89D5FF;"></div>
+                            <div style="background-color: #CC0273;"></div>
+                            <div style="background-color: #222222;"></div>
+                            <div style="background-color: #9B9B9B;"></div>
+                            <div style="background-color: #FFFFFF;"></div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +109,7 @@
                     </div>
                     <div class="send">
                         <div class="edit">
-                            <img src="/statics/images/video/danmaku-font.svg">
+                            <div></div>
                             <input placeholder="发个弹幕见证当下">
                             <a href="javascript:alert('万物皆虚，万事皆允')">弹幕礼仪</a>
                         </div>
