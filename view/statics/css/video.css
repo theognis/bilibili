@@ -13,16 +13,13 @@
     font-weight: 500;
     color: #212121;
 }
-
 #top span {
     font-size: 12px;
     color: #999;
 }
-
 #top .play_number::after {
     content: "播放 ·";
 }
-
 #top .danmaku_number::after {
     content: "弹幕";
 }
@@ -35,7 +32,6 @@
     grid-template-columns: 48px 256px;
     grid-template-rows: 20px 20px 32px;
 }
-
 #author img {
     width: 48px;
     height: 48px;
@@ -43,19 +39,16 @@
     grid-row-start: 1;
     grid-row-end: 4;
 }
-
 #author .username{
     margin: 0 0 4px 0;
     font-size: 14px;
     color: #212121;
 }
-
 #author .statement{
     margin: 0 0 5px 0;
     font-size: 12px;
     color: #999;
 }
-
 #author button {
     width: 146px;
     height: 27px;
@@ -67,7 +60,6 @@
     transition: all .3s;
     cursor: pointer;
 }
-
 #author button:hover {
      background-color: #00b5e6;
 }
@@ -78,9 +70,104 @@
     flex-direction: column;
     height: 585px;
 }
-
 #video>video {
     background-color: #000;
+}
+
+#video>.hover {
+   position: relative;
+}
+#video>.hover>.font_settings {
+    padding: 10px 20px;
+    box-sizing: border-box;
+    width: 216px;
+    position: absolute;
+    bottom: 0;
+    left: 250px;
+    background: rgba(21,21,21,.9);
+    border-radius: 2px;
+    user-select: none;
+}
+#video>.hover>.font_settings>span {
+    color: #fff;
+    font-size: 12px;
+}
+#video>.hover>.font_settings>div {
+    margin: 8px 0 10px 0;
+}
+#video>.hover>.font_settings>.type {
+    display: grid;
+    grid-template-columns: repeat(3, 26px);
+    grid-column-gap: 22px;
+    font-size: 12px;
+    color: rgba(255,255,255,.8);
+}
+#video>.hover>.font_settings>.type>div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+#video>.hover>.font_settings>.type>div:hover {
+    color: #FFFFFF
+}
+#video>.hover>.font_settings>.type>div.chosen {
+    color: #00A1D6
+}
+#video>.hover>.font_settings>.type>div.scroll>img {
+    content: url("/statics/images/video/scroll-type.svg");
+}
+#video>.hover>.font_settings>.type>div.scroll:hover>img {
+    content: url("/statics/images/video/scroll-type-hover.svg");
+}
+#video>.hover>.font_settings>.type>div.scroll.chosen>img {
+    content: url("/statics/images/video/scroll-type-chosen.svg");
+}
+#video>.hover>.font_settings>.type>div.top>img {
+    content: url("/statics/images/video/scroll-type.svg");
+}
+#video>.hover>.font_settings>.type>div.top:hover>img {
+    content: url("/statics/images/video/scroll-type-hover.svg");
+}
+#video>.hover>.font_settings>.type>div.top.chosen>img {
+    content: url("/statics/images/video/scroll-type-chosen.svg");
+}
+#video>.hover>.font_settings>.type>div.bottom>img {
+    content: url("/statics/images/video/scroll-type.svg");
+}
+#video>.hover>.font_settings>.type>div.bottom:hover>img {
+    content: url("/statics/images/video/scroll-type-hover.svg");
+}
+#video>.hover>.font_settings>.type>div.bottom.chosen>img {
+    content: url("/statics/images/video/scroll-type-chosen.svg");
+}
+#video>.hover>.font_settings>.color>.edit {
+    display: grid;
+    grid-template-columns: 120px 50px;
+    grid-template-rows: 22px;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+#video>.hover>.font_settings>.color>.edit>input {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 2px;
+    padding: 4px 7px;
+}
+#video>.hover>.font_settings>.color>.edit>div {
+    border-radius: 2px;
+}
+#video>.hover>.font_settings>.color>.list {
+    display: grid;
+    grid-template-columns: repeat(7, 14px);
+    grid-template-rows: repeat(2, 14px);
+    grid-row-gap: 4px;
+    justify-content: space-between;
+}
+#video>.hover>.font_settings>.color>.list>* {
+    border-radius: 2px;
+    cursor: pointer;
 }
 
 #video>.bottom {
@@ -89,31 +176,25 @@
     height: 46px;
     justify-content: space-between;
 }
-
 #video>.bottom>.info{
     display: flex;
     align-items: center;
 }
-
 #video>.bottom>.info>.audience_number{
     font-size: 14px;
     font-weight: 600;
     color: #505050;
 }
-
 #video>.bottom>.info>.audience_number::after {
     content: "人正在看，";
     margin-left: 4px;
     font-size: 12px;
     font-weight: 400;
 }
-
 #video>.bottom>.info>.danmaku_number::after {
     content: "条弹幕";
     margin-left: 4px;
 }
-
-
 #video>.bottom>.info>span{
     font-size: 12px;
 }
@@ -122,7 +203,6 @@
     display: flex;
     align-items: center;
 }
-
 #video>.bottom>.control>.switch {
     height: 18px;
     width: 30px;
@@ -134,7 +214,6 @@
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
-
 #video>.bottom>.control>.switch>.sign {
     width: 27px;
     height: 27px;
@@ -147,39 +226,32 @@
     transform: scale(0.65);
     position: relative;
 }
-
 #video>.bottom>.control>.switch.off {
     border: 2px #757575 solid;
     background-color: #757575;
 }
-
 #video>.bottom>.control>.switch.off>.sign {
     left: -5px;
     color: #757575;
 }
-
 #video>.bottom>.control>.switch.on {
     border: 2px #00a1d6 solid;
     background-color: #00a1d6;
 }
-
 #video>.bottom>.control>.switch.on>.sign {
     left: 8px;
     color: #00a1d6;
 }
-
 #video>.bottom>.control>.settings {
     display: flex;
     align-items: center;
     margin-right: 8px;
     cursor: pointer;
 }
-
 #video>.bottom>.control>.send {
     display: flex;
     align-items: center;
 }
-
 #video>.bottom>.control>.send>.edit {
     display: flex;
     align-items: center;
@@ -189,11 +261,24 @@
     height: 30px;
     box-sizing: border-box;
 }
-
-#video>.bottom>.control>.send>.edit>img {
+#video>.bottom>.control>.send>.edit>div {
+    height: 24px;
+    width: 36px;
+    background-image: url(/statics/images/video/danmaku-font.svg);
     cursor: pointer;
 }
-
+#video>.bottom>.control>.send>.edit>div:hover {
+    background-image: url(/statics/images/video/danmaku-font-hover.svg);
+}
+#video>.bottom>.control>.send>.edit>div:hover::before {
+    content: "";
+    position: relative;
+    display: block;
+    left: -16px;
+    bottom: 16px;
+    height: 16px;
+    width: 72px;
+}
 #video>.bottom>.control>.send>.edit>input {
     border: none;
     background-color: #f4f4f4;
@@ -201,11 +286,9 @@
     color: #212121;
     width: 280px;
 }
-
 #video>.bottom>.control>.send>.edit>input::-webkit-input-placeholder {
     color: #999999
 }
-
 #video>.bottom>.control>.send>.edit>a {
     color: #757575;
     font-size: 12px;
@@ -213,11 +296,9 @@
     cursor: pointer;
     transition: all .3s;
 }
-
 #video>.bottom>.control>.send>.edit>a:hover {
     color: #00a1d6;
 }
-
 #video>.bottom>.control>.send>button {
     background-color: #00a1d6;
     color: #fff;
@@ -228,7 +309,6 @@
     cursor: pointer;
     transition: all .2s;
 }
-
 #video>.bottom>.control>.send>button:hover {
     background-color: #00b5e5;
 }
@@ -240,42 +320,35 @@
     grid-column-gap: 10px;
     margin: 12px 0;
 }
-
 #recommend>section div{
     grid-row-start: 1;
     grid-row-end: 4;
     border-radius: 2px;
     overflow: hidden;
 }
-
 #recommend>section img{
     width: 141px;
     height: 80px;
 }
-
 #recommend>section>.title{
     margin: 0 0 6px 0;
     font-size: 14px;
     height: 36px;
     overflow: hidden;
 }
-
 #recommend>section>.author{
     margin: 0 0 4px 0;
     font-size: 12px;
     color: #999;
 }
-
 #recommend>section>.data{
     font-size: 12px;
     color: #999;
     margin: 0;
 }
-
 #recommend>section>.data>.play_number::after{
     content: " 播放 · ";
 }
-
 #recommend>section>.data>.danmaku_number::after{
     content: " 弹幕";
 }
