@@ -86,7 +86,21 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 | original_code    | 必选 | 原有设备验证码               |
 | new_email        | 必选 | 新email                      |
 | new_code         | 必选 | 新email验证码                |
-| token            | 必选 | 新token                      |
+| token            | 必选 | token                        |
+
+#### `/api/user/phone`
+
+修改电话，信息同上
+
+| 请求参数         | 类型 | 说明                         |
+| ---------------- | ---- | ---------------------------- |
+| original_address | 必选 | 原有设备账号 手机号/邮箱地址 |
+| original_code    | 必选 | 原有设备验证码               |
+| new_phone        | 必选 | 新手机号                     |
+| new_code         | 必选 | 新手机验证码                 |
+| token            | 必选 | token                        |
+
+
 
 #### `/api/user/statement`
 
