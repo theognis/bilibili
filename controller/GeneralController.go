@@ -8,7 +8,6 @@ import (
 )
 
 type GeneralController struct {
-
 }
 
 func (g *GeneralController) Router(engine *gin.Engine) {
@@ -17,7 +16,7 @@ func (g *GeneralController) Router(engine *gin.Engine) {
 
 //通过refreshToken获取token
 func (g *GeneralController) getToken(ctx *gin.Context) {
-	refreshToken := ctx.Query("refeshToken")
+	refreshToken := ctx.Query("refreshToken")
 
 	gs := service.GeneralService{}
 

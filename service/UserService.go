@@ -11,11 +11,54 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
 	"github.com/gin-gonic/gin"
 	"math/rand"
+	"net/smtp"
+	"strconv"
 	"strings"
 	"time"
 )
 
 type UserService struct {
+}
+
+func (u *UserService) ChangeStatement(username, newStatement string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdateStatement(username, newStatement)
+	return err
+}
+
+func (u *UserService) SendCodeByEmail(email string) (string, error) {
+	emailCfg := tool.GetCfg().Email
+
+	auth := smtp.PlainAuth("", emailCfg.ServiceEmail, emailCfg.ServicePwd, emailCfg.SmtpHost)
+	to := []string{email}
+
+	fmt.Println("EMAIL", email)
+
+	rand.Seed(time.Now().Unix())
+	code := rand.Intn(10000)
+	str := fmt.Sprintf("From:%v\r\nTo:%v\r\nSubject:tieba注册验证码\r\n\r\n您的验证码为：%d\r\n请在10分钟内完成验证", emailCfg.ServiceEmail, email, code)
+	msg := []byte(str)
+	err := smtp.SendMail(emailCfg.SmtpHost+":"+emailCfg.SmtpPort, auth, emailCfg.ServiceEmail, to, msg)
+	if err != nil {
+		return "", err
+	}
+
+	return strconv.Itoa(code), nil
+}
+
+func (u *UserService) ChangePhone(username, newEmail string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdatePhone(username, newEmail)
+	return err
+}
+
+func (u *UserService) ChangeEmail(username, newEmail string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdateEmail(username, newEmail)
+	return err
 }
 
 //返回一个实体
@@ -66,31 +109,49 @@ func (u *UserService) Login(loginName, password string) (model.Userinfo, bool, e
 }
 
 //检验用户名是否存在, false不存在 反之存在
-func (u *UserService) JudgeUsername(username string) bool {
+func (u *UserService) JudgeUsername(username string) (bool, error) {
 	d := dao.UserDao{tool.GetDb()}
 	_, err := d.QueryByUsername(username)
-
-	if err != nil && err.Error() == "sql: no rows in result set" {
-		return false
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return false, nil
+		}
+		return false, err
 	}
 
-	return true
+	return true, nil
 }
 
 //检验手机是否存在, false不存在 反之存在
-func (u *UserService) JudgePhone(phone string) bool {
+func (u *UserService) JudgePhone(phone string) (bool, error) {
 	d := dao.UserDao{tool.GetDb()}
 	_, err := d.QueryByPhone(phone)
-
-	if err != nil && err.Error() == "sql: no rows in result set" {
-		return false
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return false, nil
+		}
+		return false, err
 	}
 
-	return true
+	return true, nil
+}
+
+//检验邮箱是否存在, false不存在 反之存在
+func (u *UserService) JudgeEmail(email string) (bool, error) {
+	d := dao.UserDao{tool.GetDb()}
+	_, err := d.QueryByEmail(email)
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return false, nil
+		}
+		return false, err
+	}
+
+	return true, nil
 }
 
 //检验验证码是否正确
-func (u *UserService) JudgePhoneCode(ctx *gin.Context, key string, givenValue string) (bool, error) {
+func (u *UserService) JudgeVerifyCode(ctx *gin.Context, key string, givenValue string) (bool, error) {
 	rd := dao.RedisDao{}
 	value, err := rd.RedisGetValue(ctx, key)
 	if err != nil {
@@ -106,7 +167,7 @@ func (u *UserService) JudgePhoneCode(ctx *gin.Context, key string, givenValue st
 }
 
 //验证码放入redis中
-func (u *UserService) PhoneCodeIn(ctx *gin.Context, key string, value string) error {
+func (u *UserService) VerifyCodeIn(ctx *gin.Context, key string, value string) error {
 	rd := dao.RedisDao{}
 	err := rd.RedisSetValue(ctx, key, value)
 	return err

@@ -9,6 +9,54 @@ type UserDao struct {
 	*sql.DB
 }
 
+func (dao *UserDao) UpdateStatement(username, newStatement string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET statement = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newStatement, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (dao *UserDao) UpdatePhone(username, newPhone string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET phone = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newPhone, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (dao *UserDao) UpdateEmail(username, newEmail string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET email = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newEmail, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 //根据邮箱查询
 func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}

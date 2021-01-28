@@ -51,6 +51,61 @@
 | -------- | ---- | ------ |
 | username | 必选 | 用户名 |
 
+#### `/api/user/info`
+
+| key         | value              |
+| ----------- | ------------------ |
+| url         | /api/user/info     |
+| method      | GET                |
+| description | 获取自己的详细信息 |
+
+| 请求参数 | 类型 | 说明  |
+| -------- | ---- | ----- |
+| token    | 必选 | token |
+
+返回参数: 有且仅有以下结构体userinfo中的字段 
+
+https://github.com/theognis/bilibili/blob/master/model/User.go 
+
+#### `/api/user/email`
+
+| key          | value                               |
+| ------------ | ----------------------------------- |
+| url          | /api/user/email                     |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | PUT                                 |
+| description  | 修改/添加email                      |
+
+##### PS
+
+先调用/user/info接口获取用户原先手机/邮箱，然后调用/verify/phone or /verify/email 接口发送验证码。
+
+| 请求参数         | 类型 | 说明                         |
+| ---------------- | ---- | ---------------------------- |
+| original_address | 必选 | 原有设备账号 手机号/邮箱地址 |
+| original_code    | 必选 | 原有设备验证码               |
+| new_email        | 必选 | 新email                      |
+| new_code         | 必选 | 新email验证码                |
+| token            | 必选 | 新token                      |
+
+#### `/api/user/statement`
+
+| key          | value                               |
+| ------------ | ----------------------------------- |
+| url          | /api/user/statement                 |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | PUT                                 |
+| description  | 修改个性签名                        |
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+| new_statement | 可选 | 新个性签名 |
+
+##### PS
+
+如果无new_statement则更改为默认签名
+
 ### Verify
 
 ####  `/api/verify/token`
@@ -70,8 +125,6 @@
 | data     | 成功则为新的token，若refreshToken失效则为 "refreshToken失效" |
 | status   | 状态码                                                       |
 
-
-
 #### `/api/verify/phone`
 
 | Key          | Value                               |
@@ -84,6 +137,23 @@
 | 请求参数 | 类型 | 说明   |
 | -------- | ---- | ------ |
 | phone    | 必选 | 手机号 |
+
+#### `/api/verify/email`
+
+| key          | value                               |
+| ------------ | ----------------------------------- |
+| url          | /api/verify/email                   |
+| content-type | `application/x-www-form-urlencoded` |
+| method       | POST                                |
+| description  | 发送邮箱验证码                      |
+
+| 请求参数 | 类型 | 说明  |
+| -------- | ---- | ----- |
+| email    | 必选 | email |
+
+
+
+
 
 ## 一般规定
 
