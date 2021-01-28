@@ -70,8 +70,7 @@ func (u *UserService) JudgeUsername(username string) bool {
 	d := dao.UserDao{tool.GetDb()}
 	_, err := d.QueryByUsername(username)
 
-
-	if err != nil && err.Error() == "sql: no rows in result set"{
+	if err != nil && err.Error() == "sql: no rows in result set" {
 		return false
 	}
 
@@ -154,6 +153,10 @@ func (u *UserService) SendCodeByPhone(phone string) (string, error) {
 	//成功
 	if response.Code == "OK" {
 		return code, nil
+	}
+
+	if response.Code == "isv.MOBILE_NUMBER_ILLEGAL" {
+		return "isv.MOBILE_NUMBER_ILLEGAL", nil
 	}
 
 	return "", nil

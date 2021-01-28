@@ -95,6 +95,13 @@ func (u *UserController) sendSms(ctx *gin.Context) {
 		fmt.Println("SendCodeByPhoneErr")
 		return
 	}
+
+	if verifyCode == "isv.MOBILE_NUMBER_ILLEGAL" {
+		tool.Failed(ctx, "手机号不合法")
+		fmt.Println("sendCodeByPhoneErr")
+		return
+	}
+
 	if verifyCode == "" {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("SendCodeByPhoneErr")
@@ -133,10 +140,6 @@ func (u *UserController) register(ctx *gin.Context) {
 
 	//判断手机号是否可以使用
 	phone := userParam.Phone
-	if len(phone) != 11 {
-		tool.Failed(ctx, "手机号格式不正确")
-		return
-	}
 
 	us := service.UserService{}
 	flag := us.JudgePhone(phone)
