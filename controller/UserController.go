@@ -127,6 +127,18 @@ func (u *UserController) register(ctx *gin.Context) {
 		tool.Failed(ctx, "参数解析失败")
 		return
 	}
+
+	//判断用户名
+	if len(userParam.Username) > 15 {
+		tool.Failed(ctx, "用户名太长了")
+		return
+	}
+
+	if len(userParam.Username) == 0 {
+		tool.Failed(ctx, "用户名不能为空")
+		return
+	}
+
 	//判断密码是否正确
 	if len(userParam.Pwd) < 6 {
 		tool.Failed(ctx, " 密码不能小于6个字符")
