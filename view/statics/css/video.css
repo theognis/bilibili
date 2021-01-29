@@ -117,6 +117,7 @@
     grid-template-columns: 0 auto;
     grid-template-rows: 2px;
     align-content: center;
+    cursor: pointer;
 }
 #video>.controls>.process:hover {
     grid-template-rows: 4px;
@@ -130,7 +131,9 @@
 #video>.controls>.left {
     padding-left: 8px;
 }
-
+#video>.controls>.left>img {
+    cursor: pointer;
+}
 
 #video>.hover {
    position: relative;
