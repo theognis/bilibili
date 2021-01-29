@@ -2,13 +2,10 @@
 
 ### User
 
-#### `/api/user/login`
+#### `/api/user/login` `POST`
 
-| Key          | Value                               |
-| ------------ | ----------------------------------- |
-| method       | POST                                |
-| content-type | `application/x-www-form-urlencoded` |
-| description  | 登录                                |
+* Content-Type:  `application/x-www-form-urlencoded`
+* 登录
 
 | 请求参数  | 类型 | 说明                |
 | --------- | ---- | ------------------- |
@@ -22,13 +19,10 @@
 | token        | 用户token    |
 | refreshToken | refreshToken |
 
-#### `/api/user/register`
+#### `/api/user/register` `POST`
 
-| Key          | Value                                                 |
-| ------------ | ------------------------------------------------------|
-| method       | POST                                                  |
-| content-type | `application/x-www-form-urlencoded`                   |
-| description  | 先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单 |
+* Content-Type: `application/x-www-form-urlencoded`
+* 先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单
 
 | 请求参数    | 类型 | 说明        |
 | ----------- | ---- | ----------- |
@@ -37,12 +31,9 @@
 | phone       | 必选 | 手机号      |
 | verify_code | 必选 | 验证码      |
 
-#### `/api/user/info`
+#### `/api/user/info/self` `GET`
 
-| key         | value              |
-| ----------- | ------------------ |
-| method      | GET                |
-| description | 获取自己的详细信息 |
+* 获取自己的详细信息
 
 | 请求参数 | 类型 | 说明  |
 | -------- | ---- | ----- |
@@ -59,13 +50,15 @@
 | RegDate      | time.Time |
 | Statement    | string    |
 
-#### `/api/user/email`
+#### `/api/user/info/:uid` `GET`
 
-| key          | value                               |
-| ------------ | ----------------------------------- |
-| method       | PUT                                 |
-| content-type | `application/x-www-form-urlencoded` |
-| description  | 修改/添加email;先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` or `/verify/email` 接口发送验证码。|
+* 获取 UID 为 `:uid` 的用户的个人信息
+* 暂未开发
+
+#### `/api/user/email` `PUT`
+
+* Content-Type: `application/x-www-form-urlencoded` 
+* 修改/添加email；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
 
 | 请求参数         | 类型 | 说明                         |
 | ---------------- | ---- | ---------------------------- |
@@ -75,13 +68,10 @@
 | new_code         | 必选 | 新email验证码                |
 | token            | 必选 | token                        |
 
-#### `/api/user/phone`
+#### `/api/user/phone` `PUT`
 
-| key          | value                               |
-| ------------ | ----------------------------------- |
-| method       | PUT                                 |
-| content-type | `application/x-www-form-urlencoded` |
-| description  | 修改phone；信息同上                    |
+* Content-Type: `application/x-www-form-urlencoded`
+* 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
 
 | 请求参数         | 类型 | 说明                         |
 | ---------------- | ---- | ---------------------------- |
@@ -91,13 +81,10 @@
 | new_code         | 必选 | 新手机验证码                 |
 | token            | 必选 | token                        |
 
-#### `/api/user/statement`
+#### `/api/user/statement` `PUT`
 
-| key          | value                               |
-| ------------ | ----------------------------------- |
-| method       | PUT                                 |
-| content-type | `application/x-www-form-urlencoded` |
-| description  | 修改个性签名；如果无new_statement则更改为默认签名|
+* Content-Type `application/x-www-form-urlencoded`
+* 修改个性签名；如果无new_statement则更改为默认签名
 
 | 请求参数      | 类型 | 说明       |
 | ------------- | ---- | ---------- |
@@ -106,12 +93,9 @@
 
 ### Verify
 
-####  `/api/verify/token`
+####  `/api/verify/token` `GET`
 
-| Key          | Value                       |
-| ------------ | --------------------------- |
-| method       | GET                         |
-| description  | 使用refreshToken获取新token |
+* 使用refreshToken获取新token
 
 | 请求参数     | 说明         |
 | ------------ | ------------ |
@@ -122,25 +106,19 @@
 | data     | 成功则为新的token，若refreshToken失效则为 "refreshToken失效" |
 | status   | 状态码                                                  |
 
-#### `/api/verify/phone`
+#### `/api/verify/phone` `POST`
 
-| Key          | Value                               |
-| ------------ | ----------------------------------- |
-| method       | POST                                |
-| content-type | `application/x-www-form-urlencoded` |
-| description  | 发送短信验证码                      |
+* Content-Type: `application/x-www-form-urlencoded`
+* 发送短信验证码
 
 | 请求参数 | 类型 | 说明   |
 | -------- | ---- | ------ |
 | phone    | 必选 | 手机号 |
 
-#### `/api/verify/email`
+#### `/api/verify/email` `POST`
 
-| key          | value                               |
-| ------------ | ----------------------------------- |
-| method       | POST                                |
-| content-type | `application/x-www-form-urlencoded` |
-| description  | 发送邮箱验证码                      |
+* Content-Type: `application/x-www-form-urlencoded`
+* 发送邮箱验证码
 
 | 请求参数 | 类型 | 说明  |
 | -------- | ---- | ----- |
@@ -150,12 +128,9 @@
 
 ### Check
 
-#### `/api/check/username`
+#### `/api/check/username` `GET`
 
-| Key          | Value                               |
-| ------------ | ----------------------------------- |
-| method       | GET                                |
-| description  | 检验用户名是否合法                   |
+* 检验用户名是否合法
 
 | 请求参数 | 类型 | 说明   |
 | -------- | ---- | ------ |
