@@ -90,6 +90,12 @@ function init(){
     danmaku_send.addEventListener('click', () => {
         new Danmaku(danmaku_input.value, color_input.value, chosen_danmaku_type)
     })
+    controls_process.addEventListener('click', e => {
+        let player_ratio = (e.layerX - 6) / (controls_process.offsetWidth - 12)
+        let played_length = player_ratio * 100 + '%'
+        video.currentTime = player_ratio * video.duration
+        controls_process.style.gridTemplateColumns = played_length + ' auto'
+    })
     scroll_type.addEventListener('click', () => {
         scroll_type.classList.add('chosen')
         top_type.classList.remove('chosen')
