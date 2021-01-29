@@ -1,5 +1,6 @@
 const video = document.querySelector('video')
 const controls_process = document.querySelector('#video>.controls>.process')
+const controls_play = document.querySelector('#video>.controls>.left>img')
 const danmaku_area = document.querySelector('#video>.danmaku_area')
 const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 const danmaku_font_settings = document.querySelector('#video>.hover>.font_settings')
@@ -48,6 +49,15 @@ function loadRecommend(data){
         recommend.appendChild(section)
     })
 }
+function switchVideoPlayStatus(){
+    if(video.paused){
+        video.play()
+        controls_play.setAttribute('src', '/statics/images/video/controls-pause.svg')
+    } else {
+        video.pause()
+        controls_play.setAttribute('src', '/statics/images/video/controls-play.svg')
+    }
+}
 
 function rgbToHex(rgb){
     return '#' + rgb.slice(4, -1).split(', ').map(v => {
@@ -67,13 +77,8 @@ function checkHex(hex){
 }*/
 
 function init(){
-    video.addEventListener('click', () => {
-        if(video.paused){
-            video.play()
-        } else {
-            video.pause()
-        }
-    })
+    video.addEventListener('click', switchVideoPlayStatus)
+    controls_play.addEventListener('click', switchVideoPlayStatus)
     danmaku_switch.addEventListener('click', () => {
         if (danmaku_switch.classList.contains('on')) {
             danmaku_switch.classList.remove('on')
