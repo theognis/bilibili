@@ -1,6 +1,10 @@
+const video = document.querySelector('video')
+const danmaku_area = document.querySelector('#video>.danmaku_area')
 const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 const danmaku_font_settings = document.querySelector('#video>.hover>.font_settings')
 const danmaku_font_switch = document.querySelector('#video>.bottom>.control>.send>.edit>div')
+const danmaku_send = document.querySelector('#video>.bottom>.control>.send button')
+const danmaku_input = document.querySelector('#video>.bottom>.control>.send input')
 const scroll_type = document.querySelector('.font_settings>.type>.scroll')
 const top_type = document.querySelector('.font_settings>.type>.top')
 const bottom_type = document.querySelector('.font_settings>.type>.bottom')
@@ -8,7 +12,28 @@ const recommend = document.querySelector('#recommend')
 const color_input = document.querySelector('.font_settings>.color>.edit>input')
 const color_preview = document.querySelector('.font_settings>.color>.edit>div')
 const color_list = document.querySelector('.font_settings>.color>.list').children
+let chosen_danmaku_type = 'scroll'
 
+/*class Danmaku {
+    constructor(value, color, type) {
+        let danmaku = document.createElement('div')
+        danmaku.classList.add('danmaku')
+        danmaku.innerText = value;
+        danmaku.style.color = color;
+        danmaku.style.top = Danmaku.initTop()
+        danmaku.style.left = Danmaku.initLeft()
+        danmaku_area.appendChild(danmaku)
+        setTimeout(() => {
+            danmaku_area.removeChild(danmaku)
+        }, 12000)
+    }
+    static initTop(){
+        return Math.random() * 539 + "px"
+    }
+    static initLeft(){
+        return '802px'
+    }
+}*/
 
 function loadRecommend(data){
     data.forEach(v => {
@@ -36,8 +61,18 @@ function checkHex(hex){
         return false
     return hex.substring(1).every(v => '0123456789ABCDEF'.includes(v))
 }
+/*function randColor(){
+    return '#' + Math.floor(Math.random()*256*256*256).toString(16).toUpperCase()
+}*/
 
 function init(){
+    video.addEventListener('click', () => {
+        if(video.paused){
+            video.play()
+        } else {
+            video.pause()
+        }
+    })
     danmaku_switch.addEventListener('click', () => {
         if (danmaku_switch.classList.contains('on')) {
             danmaku_switch.classList.remove('on')
@@ -51,20 +86,26 @@ function init(){
     danmaku_font_switch.addEventListener('mouseout', () => danmaku_font_settings.style.display = 'none')
     danmaku_font_settings.addEventListener('mouseover', () => danmaku_font_settings.style.display = 'block')
     danmaku_font_settings.addEventListener('mouseout', () => danmaku_font_settings.style.display = 'none')
+    danmaku_send.addEventListener('click', () => {
+        new Danmaku(danmaku_input.value, color_input.value, chosen_danmaku_type)
+    })
     scroll_type.addEventListener('click', () => {
         scroll_type.classList.add('chosen')
         top_type.classList.remove('chosen')
         bottom_type.classList.remove('chosen')
+        chosen_danmaku_type = 'scroll'
     })
     top_type.addEventListener('click', () => {
         scroll_type.classList.remove('chosen')
         top_type.classList.add('chosen')
         bottom_type.classList.remove('chosen')
+        chosen_danmaku_type = 'top'
     })
     bottom_type.addEventListener('click', () => {
         scroll_type.classList.remove('chosen')
         top_type.classList.remove('chosen')
         bottom_type.classList.add('chosen')
+        chosen_danmaku_type = 'bottom'
     })
     color_input.addEventListener('input', () => {
         color_input.value = color_input.value.toUpperCase()
@@ -134,6 +175,10 @@ function test(){
     ]
 
     loadRecommend(recommend_data)
+    /*setInterval(() => {
+        let danmaku = new Danmaku("翔哥NB", randColor(),"scroll")
+        console.log(danmaku_area.children.length)
+    }, 10)*/
 }
 
 init()
