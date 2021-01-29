@@ -38,19 +38,6 @@
 | phone       | 必选 | 手机号      |
 | verify_code | 必选 | 验证码      |
 
-#### `/api/user/hasUsername`
-
-| Key          | Value                               |
-| ------------ | ----------------------------------- |
-| url          | `/api/user/hasUsername`            |
-| content-type | `application/x-www-form-urlencoded` |
-| method       | POST                                |
-| description  | 检验用户名是否存在                     |
-
-| 请求参数 | 类型 | 说明   |
-| -------- | ---- | ------ |
-| username | 必选 | 用户名 |
-
 #### `/api/user/info`
 
 | key         | value              |
@@ -167,7 +154,19 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 
 
 
+### Check
 
+#### `/api/user/username`
+
+| Key          | Value                               |
+| ------------ | ----------------------------------- |
+| url          | `/api/check/username`          |
+| method       | GET                                |
+| description  | 检验用户名是否存在                     |
+
+| 请求参数 | 类型 | 说明   |
+| -------- | ---- | ------ |
+| username | 必选 | 用户名 |
 
 ## 一般规定
 

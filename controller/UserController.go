@@ -19,9 +19,9 @@ type UserController struct {
 
 func (u *UserController) Router(engine *gin.Engine) {
 	engine.GET("/api/user/info", u.getSelfInfo)
+	engine.GET("/api/check/Username", u.judgeUsername)
 	engine.POST("/api/user/register", u.register)
 	engine.POST("/api/verify/phone", u.sendSms)
-	engine.POST("/api/user/hasUsername", u.judgeUsername)
 	engine.POST("/api/user/login", u.login)
 	engine.POST("/api/verify/email", u.sendEmailCode)
 	engine.PUT("/api/user/phone", u.changePhone)
@@ -350,7 +350,7 @@ func (u *UserController) login(ctx *gin.Context) {
 
 //检验用户名是否重复，是否符合规范
 func (u *UserController) judgeUsername(ctx *gin.Context) {
-	username := ctx.PostForm("username")
+	username := ctx.Query("username")
 
 	if username == "" || len(username) > 14 {
 		tool.Failed(ctx, "这不是一个规范的用户名")
