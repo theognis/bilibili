@@ -460,6 +460,10 @@ func (u *UserController) register(ctx *gin.Context) {
 
 	flag, err = us.JudgeVerifyCode(ctx, phone, givenCode)
 	if err != nil {
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "先发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("JudgePhoneCodeErr: ", err)
 		return
