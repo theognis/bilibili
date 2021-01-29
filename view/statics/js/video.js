@@ -91,7 +91,7 @@ function init(){
         new Danmaku(danmaku_input.value, color_input.value, chosen_danmaku_type)
     })
     controls_process.addEventListener('click', e => {
-        let player_ratio = (e.layerX - 6) / (controls_process.offsetWidth - 12)
+        let player_ratio = (e.layerX - 6) / controls_process.offsetWidth
         let played_length = player_ratio * 100 + '%'
         video.currentTime = player_ratio * video.duration
         controls_process.style.gridTemplateColumns = played_length + ' auto'
