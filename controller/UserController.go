@@ -367,11 +367,11 @@ func (u *UserController) judgeUsername(ctx *gin.Context) {
 
 	if flag == false {
 		//使存在用户名的时候返回true，此处特殊使用
-		tool.Failed(ctx, "该用户名未被使用")
+		tool.Success(ctx, "该用户名未被使用")
 		return
 	}
 
-	tool.Success(ctx, "用户名已经存在")
+	tool.Failed(ctx, "用户名已经存在")
 }
 
 //发送短信验证码

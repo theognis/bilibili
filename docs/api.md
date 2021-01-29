@@ -162,7 +162,7 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 | ------------ | ----------------------------------- |
 | url          | `/api/check/username`          |
 | method       | GET                                |
-| description  | 检验用户名是否存在                     |
+| description  | 检验用户名是否合法                   |
 
 | 请求参数 | 类型 | 说明   |
 | -------- | ---- | ------ |
