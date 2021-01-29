@@ -48,9 +48,15 @@
 | -------- | ---- | ----- |
 | token    | 必选 | token |
 
-返回参数: 有且仅有以下结构体userinfo中的字段 
-
-https://github.com/theognis/bilibili/blob/master/model/User.go 
+|   返回参数    | 说明    |
+| ------------ | -------|
+| Username     | string |
+| Password     | string |
+| Email        | string |
+| Phone        | string |
+| Salt         | string |
+| stRegDateatus| string |
+| Statement    | string |
 
 #### `/api/user/email`
 
