@@ -60,14 +60,20 @@
 | -------- | ---- | ----- |
 | token    | 必选 | token |
 
+| 返回参数     | 说明         |
+| ------------ | ------------ |
+| status       | 状态码       |
+| data         | 返回消息     |
+| info        | 若 `status` 为 `true`，则格式如下方代码所示；否则该项为`nil` |
+
 | status | data | 说明   |
 | -------- | ---- | ------ |
 | `false` | `"token 不可为空"` | `token` 为空 |
 | `false` | `"token 不合法"` | `token` 不合法 |
-| `true` | 以下 json | 参数合法 |
+| `true` | "" | 参数合法 |
 
 ```js
-{
+let info = {
     Uid: Number, // int64
     Username: String, // string
     Password: String, // string
