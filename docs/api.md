@@ -48,15 +48,16 @@
 | -------- | ---- | ----- |
 | token    | 必选 | token |
 
-|   返回参数    | 说明    |
-| ------------ | -------|
-| Username     | string |
-| Password     | string |
-| Email        | string |
-| Phone        | string |
-| Salt         | string |
-| stRegDateatus| string |
-| Statement    | string |
+|   返回参数    |   说明     |
+| ------------ | --------- |
+| Uid          | int64     |
+| Username     | string    |
+| Password     | string    |
+| Email        | string    |
+| Phone        | string    |
+| Salt         | string    |
+| RegDate      | time.Time |
+| Statement    | string    |
 
 #### `/api/user/email`
 
