@@ -69,10 +69,63 @@
     display: flex;
     flex-direction: column;
     height: 585px;
+    position: relative;
 }
 #video>video {
     background-color: #000;
 }
+
+/*@keyframes scroll {
+    to {
+        transform: translateX(-1604px);
+    }
+}
+#video>.danmaku_area {
+    position: absolute;
+    height: 539px;
+    width: 802px;
+    pointer-events: none;
+    overflow: hidden;
+}
+#video>.danmaku_area>.danmaku {
+    position: absolute;
+    font-size: 25px;
+    width: 100%;
+    font-family: SimHei, "Microsoft JhengHei", Arial, Helvetica, sans-serif;
+    text-shadow: rgb(0 0 0) 1px 0 1px, rgb(0 0 0) 0 1px 1px, rgb(0 0 0) 0 -1px 1px, rgb(0 0 0) -1px 0 1px;
+    font-weight: bold;
+    animation: scroll 12s linear infinite;
+}*/
+
+#video>.controls {
+    position: absolute;
+    width: 802px;
+    height: 100px;
+    bottom: 46px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 12px auto;
+}
+#video>.controls>.process {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: 16px;
+    display: grid;
+    grid-template-columns: 0 auto;
+    grid-template-rows: 2px;
+    align-content: center;
+    padding: 0 6px;
+}
+#video>.controls>.process:hover {
+    grid-template-rows: 4px;
+}
+#video>.controls>.process>.played {
+    background-color: #00a1d6;
+}
+#video>.controls>.process>.unplayed {
+    background-color: rgba(255,255,255,.2);
+}
+
 
 #video>.hover {
    position: relative;

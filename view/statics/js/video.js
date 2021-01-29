@@ -1,4 +1,5 @@
 const video = document.querySelector('video')
+const controls_process = document.querySelector('#video>.controls>.process')
 const danmaku_area = document.querySelector('#video>.danmaku_area')
 const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 const danmaku_font_settings = document.querySelector('#video>.hover>.font_settings')
@@ -120,6 +121,10 @@ function init(){
             color_preview.style.backgroundColor = color_list[i].style.backgroundColor
         })
     }
+    setInterval(() => {
+        let played_length = (video.currentTime/video.duration*100).toString() + '%'
+        controls_process.style.gridTemplateColumns = played_length + ' auto'
+    }, 1000)
 }
 function test(){
     let recommend_data = [
