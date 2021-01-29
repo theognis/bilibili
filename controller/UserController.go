@@ -352,26 +352,30 @@ func (u *UserController) login(ctx *gin.Context) {
 func (u *UserController) judgeUsername(ctx *gin.Context) {
 	username := ctx.Query("username")
 
-	if username == "" || len(username) > 14 {
-		tool.Failed(ctx, "这不是一个规范的用户名")
+	if username == "" {
+		tool.Failed(ctx, "请告诉我你的昵称吧")
+		return
+	}
+
+	if len(username) > 14 {
+		tool.Failed(ctx, "昵称过长")
 		return
 	}
 
 	us := service.UserService{}
 	flag, err := us.JudgeUsername(username)
 	if err != nil {
-		tool.Failed(ctx, "服务器错误")
-		fmt.Println("服务器错误")
+		tool.Failed(ctx, "服务器出错")
+		fmt.Println("服务器出错")
 		return
 	}
 
 	if flag == false {
-		//使存在用户名的时候返回true，此处特殊使用
-		tool.Success(ctx, "该用户名未被使用")
+		tool.Success(ctx, "")
 		return
 	}
 
-	tool.Failed(ctx, "用户名已经存在")
+	tool.Failed(ctx, "昵称已存在")
 }
 
 //发送短信验证码
