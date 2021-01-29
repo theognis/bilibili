@@ -3,11 +3,11 @@
 ### User
 
 #### `/api/user/login`
+
 | Key          | Value                               |
 | ------------ | ----------------------------------- |
-| url          | `/api/user/login`                   |
-| content-type | `application/x-www-form-urlencoded` |
 | method       | POST                                |
+| content-type | `application/x-www-form-urlencoded` |
 | description  | 登录                                |
 
 | 请求参数  | 类型 | 说明                |
@@ -24,11 +24,10 @@
 
 #### `/api/user/register`
 
-| Key          | Value                                                        |
-| ------------ | ------------------------------------------------------------ |
-| url          | `/api/user/register`                                         |
-| content-type | `application/x-www-form-urlencoded`                          |
-| method       | POST                                                         |
+| Key          | Value                                                 |
+| ------------ | ------------------------------------------------------|
+| method       | POST                                                  |
+| content-type | `application/x-www-form-urlencoded`                   |
 | description  | 先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单 |
 
 | 请求参数    | 类型 | 说明        |
@@ -42,7 +41,6 @@
 
 | key         | value              |
 | ----------- | ------------------ |
-| url         | /api/user/info     |
 | method      | GET                |
 | description | 获取自己的详细信息 |
 
@@ -58,14 +56,9 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 
 | key          | value                               |
 | ------------ | ----------------------------------- |
-| url          | /api/user/email                     |
-| content-type | `application/x-www-form-urlencoded` |
 | method       | PUT                                 |
-| description  | 修改/添加email                      |
-
-##### PS
-
-先调用/user/info接口获取用户原先手机/邮箱，然后调用/verify/phone or /verify/email 接口发送验证码。
+| content-type | `application/x-www-form-urlencoded` |
+| description  | 修改/添加email;先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` or `/verify/email` 接口发送验证码。|
 
 | 请求参数         | 类型 | 说明                         |
 | ---------------- | ---- | ---------------------------- |
@@ -77,7 +70,11 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 
 #### `/api/user/phone`
 
-修改电话，信息同上
+| key          | value                               |
+| ------------ | ----------------------------------- |
+| method       | PUT                                 |
+| content-type | `application/x-www-form-urlencoded` |
+| description  | 修改phone；信息同上                    |
 
 | 请求参数         | 类型 | 说明                         |
 | ---------------- | ---- | ---------------------------- |
@@ -87,25 +84,18 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 | new_code         | 必选 | 新手机验证码                 |
 | token            | 必选 | token                        |
 
-
-
 #### `/api/user/statement`
 
 | key          | value                               |
 | ------------ | ----------------------------------- |
-| url          | /api/user/statement                 |
-| content-type | `application/x-www-form-urlencoded` |
 | method       | PUT                                 |
-| description  | 修改个性签名                        |
+| content-type | `application/x-www-form-urlencoded` |
+| description  | 修改个性签名；如果无new_statement则更改为默认签名|
 
 | 请求参数      | 类型 | 说明       |
 | ------------- | ---- | ---------- |
 | token         | 必选 | token      |
 | new_statement | 可选 | 新个性签名 |
-
-##### PS
-
-如果无new_statement则更改为默认签名
 
 ### Verify
 
@@ -113,7 +103,6 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 
 | Key          | Value                       |
 | ------------ | --------------------------- |
-| url          | `/api/verify/token`         |
 | method       | GET                         |
 | description  | 使用refreshToken获取新token |
 
@@ -121,18 +110,17 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 | ------------ | ------------ |
 | refreshToken | refreshToken |
 
-| 返回参数 | 说明                                                         |
-| -------- | ------------------------------------------------------------ |
+| 返回参数 | 说明                                                     |
+| -------- | -------------------------------------------------------|
 | data     | 成功则为新的token，若refreshToken失效则为 "refreshToken失效" |
-| status   | 状态码                                                       |
+| status   | 状态码                                                  |
 
 #### `/api/verify/phone`
 
 | Key          | Value                               |
 | ------------ | ----------------------------------- |
-| url          | `/api/verify/phone`                 |
-| content-type | `application/x-www-form-urlencoded` |
 | method       | POST                                |
+| content-type | `application/x-www-form-urlencoded` |
 | description  | 发送短信验证码                      |
 
 | 请求参数 | 类型 | 说明   |
@@ -143,9 +131,8 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 
 | key          | value                               |
 | ------------ | ----------------------------------- |
-| url          | /api/verify/email                   |
-| content-type | `application/x-www-form-urlencoded` |
 | method       | POST                                |
+| content-type | `application/x-www-form-urlencoded` |
 | description  | 发送邮箱验证码                      |
 
 | 请求参数 | 类型 | 说明  |
@@ -156,11 +143,10 @@ https://github.com/theognis/bilibili/blob/master/model/User.go
 
 ### Check
 
-#### `/api/user/username`
+#### `/api/check/username`
 
 | Key          | Value                               |
 | ------------ | ----------------------------------- |
-| url          | `/api/check/username`          |
 | method       | GET                                |
 | description  | 检验用户名是否合法                   |
 
