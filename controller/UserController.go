@@ -421,7 +421,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	}
 
 	ctx.JSON(200, gin.H{
-		"status":       "0",
+		"status":       true,
 		"data":         "",
 		"token":        tokenString,
 		"refreshToken": refreshToken,
