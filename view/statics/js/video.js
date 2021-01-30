@@ -1,10 +1,10 @@
 const video = document.querySelector('video')
 const controls_process = document.querySelector('#video>.controls>.process')
-const controls_process_main = document.querySelector('#video>.controls>.process>.main')
-const controls_process_icon = document.querySelector('#video>.controls>.process>.hover>.icon')
+const controls_process_played = document.querySelector('#video>.controls>.process>.played')
+const controls_process_icon = document.querySelector('#video>.controls>.process>.icon')
 const controls_play = document.querySelector('#video>.controls>.left>img')
 const controls_location = document.querySelector('#video>.controls>.left>.location')
-const danmaku_area = document.querySelector('#video>.danmaku_area')
+//const danmaku_area = document.querySelector('#video>.danmaku_area')
 const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 const danmaku_font_settings = document.querySelector('#video>.hover>.font_settings')
 const danmaku_font_switch = document.querySelector('#video>.bottom>.control>.send>.edit>div')
@@ -61,8 +61,10 @@ function switchVideoPlayStatus(){
         controls_play.setAttribute('src', '/statics/images/video/controls-play.svg')
     }
 }
-function updateVideoLocation(){
+function updateVideoLocation(ratio = video.currentTime / video.duration){
+    controls_process_played.style.width = ratio * 790 + 'px'
     controls_location.children[0].innerText = formatDuration(video.currentTime)
+    controls_process_icon.style.left = ratio * 790 - 5 + 'px' // ratio * 790 - (22/2) + 6 + 'px'
 }
 
 function rgbToHex(rgb){
@@ -114,12 +116,9 @@ function init(){
         new Danmaku(danmaku_input.value, color_input.value, chosen_danmaku_type)
     })
     controls_process.addEventListener('click', e => {
-        let player_ratio = (e.layerX - 6) / controls_process.offsetWidth
-        let played_length = player_ratio * 790
+        let player_ratio = e.offsetX / controls_process.offsetWidth
         video.currentTime = player_ratio * video.duration
-        controls_process_main.style.gridTemplateColumns = played_length + 'px auto'
-        controls_process_icon.style.left = (played_length - 11) + 'px'
-        updateVideoLocation()
+        updateVideoLocation(player_ratio)
     })
     scroll_type.addEventListener('click', () => {
         scroll_type.classList.add('chosen')
@@ -152,12 +151,7 @@ function init(){
             color_preview.style.backgroundColor = color_list[i].style.backgroundColor
         })
     }
-    setInterval(() => {
-        let played_length = video.currentTime / video.duration * 790
-        controls_process_main.style.gridTemplateColumns = played_length + 'px auto'
-        controls_process_icon.style.left = (played_length - 11) + 'px'
-        updateVideoLocation()
-    }, 1000)
+    setInterval(updateVideoLocation, 500)
     video.addEventListener('canplay', () => {
         controls_location.children[2].innerText = formatDuration(video.duration)
     })
