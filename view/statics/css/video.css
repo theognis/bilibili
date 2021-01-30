@@ -130,9 +130,19 @@
 }
 #video>.controls>.left {
     padding-left: 8px;
+    display: flex;
+    align-items: center;
 }
 #video>.controls>.left>img {
     cursor: pointer;
+}
+#video>.controls>.left>.location {
+    color: rgba(255,255,255,.9);
+    margin-left: 4px;
+    font-size: 12px;
+}
+#video>.controls>.left>.location>.divider {
+    margin: 0 4px
 }
 
 #video>.hover {

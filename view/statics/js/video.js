@@ -1,6 +1,7 @@
 const video = document.querySelector('video')
 const controls_process = document.querySelector('#video>.controls>.process')
 const controls_play = document.querySelector('#video>.controls>.left>img')
+const controls_location = document.querySelector('#video>.controls>.left>.location')
 const danmaku_area = document.querySelector('#video>.danmaku_area')
 const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 const danmaku_font_settings = document.querySelector('#video>.hover>.font_settings')
@@ -58,6 +59,9 @@ function switchVideoPlayStatus(){
         controls_play.setAttribute('src', '/statics/images/video/controls-play.svg')
     }
 }
+function updateVideoLocation(){
+    controls_location.children[0].innerText = formatDuration(video.currentTime)
+}
 
 function rgbToHex(rgb){
     return '#' + rgb.slice(4, -1).split(', ').map(v => {
@@ -71,6 +75,18 @@ function checkHex(hex){
     if (hex[0] !== '#')
         return false
     return hex.substring(1).every(v => '0123456789ABCDEF'.includes(v))
+}
+function formatDuration(duration){
+    duration = Math.floor(duration)
+    let sec = duration % 60
+    let min = (duration - sec) / 60
+    if (sec < 10) {
+        sec = '0' + sec
+    }
+    if (min < 10) {
+        min = '0' + min
+    }
+    return `${min}:${sec}`
 }
 /*function randColor(){
     return '#' + Math.floor(Math.random()*256*256*256).toString(16).toUpperCase()
@@ -100,6 +116,7 @@ function init(){
         let played_length = player_ratio * 100 + '%'
         video.currentTime = player_ratio * video.duration
         controls_process.style.gridTemplateColumns = played_length + ' auto'
+        updateVideoLocation()
     })
     scroll_type.addEventListener('click', () => {
         scroll_type.classList.add('chosen')
@@ -135,7 +152,11 @@ function init(){
     setInterval(() => {
         let played_length = (video.currentTime/video.duration*100).toString() + '%'
         controls_process.style.gridTemplateColumns = played_length + ' auto'
+        updateVideoLocation()
     }, 1000)
+    video.addEventListener('canplay', () => {
+        controls_location.children[2].innerText = formatDuration(video.duration)
+    })
 }
 function test(){
     let recommend_data = [
