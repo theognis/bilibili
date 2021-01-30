@@ -18,11 +18,10 @@ type UserController struct {
 }
 
 func (u *UserController) Router(engine *gin.Engine) {
-	engine.GET("/api/user/info", u.getSelfInfo)
+	engine.GET("/api/user/info/self", u.getSelfInfo)
 	engine.GET("/api/check/username", u.judgeUsername)
 	engine.GET("/api/check/phone", u.judgePhone)
 	engine.POST("/api/user/register", u.register)
-	//	engine.POST("/api/verify/phone", u.sendSms)
 	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
 	engine.POST("/api/verify/sms/general", u.sendSms)
 	engine.POST("/api/user/login", u.login)
