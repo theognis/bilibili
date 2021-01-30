@@ -41,6 +41,7 @@ async function login(){
             sessionStorage.setItem('token', json.token)
             sessionStorage.setItem('refreshToken', json.refreshToken)
         }
+        window.location.href = '/'
     } else {
         alert("登录失败：" + json.data)
     }
