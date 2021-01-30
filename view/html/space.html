@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>sarail的个人空间 - ビリビリ ( ゜- ゜)つロ 乾杯~ Bilibili</title>
@@ -7,89 +8,93 @@
     <link rel="stylesheet" href="/statics/css/main.css">
     <link rel="stylesheet" href="/statics/css/space.css">
 </head>
+
 <body>
-<header>
-    <nav class="not_logged">
-        <div id="navigator">
-            <a id="nav_homepage" href="/">
-                <img src="/statics/images/bilibili.svg">
-                <span>主站</span>
-            </a>
-            <a href="javascript:alert('整天就知道看番！')">番剧</a>
-            <a href="javascript:alert('整天就知道打游戏！')">游戏中心</a>
-            <a href="javascript:alert('整天就知道看直播！')">直播</a>
-            <a href="javascript:alert('整天就知道买东西！')">会员购</a>
-            <a href="javascript:alert('整天就知道看漫画！')">漫画</a>
-            <a href="javascript:alert('整天就知道看比赛！')">赛事</a>
-            <a id="nav_download" href="https://github.com/Override0330/WinterExam-Android-2020" target="_blank"><span class="bilifont">&#xE72D;</span>下载APP</a>
+    <header>
+        <nav class="not_logged">
+            <div id="navigator">
+                <a id="nav_homepage" href="/">
+                    <img src="/statics/images/bilibili.svg">
+                    <span>主站</span>
+                </a>
+                <a href="javascript:alert('整天就知道看番！')">番剧</a>
+                <a href="javascript:alert('整天就知道打游戏！')">游戏中心</a>
+                <a href="javascript:alert('整天就知道看直播！')">直播</a>
+                <a href="javascript:alert('整天就知道买东西！')">会员购</a>
+                <a href="javascript:alert('整天就知道看漫画！')">漫画</a>
+                <a href="javascript:alert('整天就知道看比赛！')">赛事</a>
+                <a id="nav_download" href="https://github.com/Override0330/WinterExam-Android-2020"
+                    target="_blank"><span class="bilifont">&#xE72D;</span>下载APP</a>
+            </div>
+            <form id="search">
+                <input>
+                <button class="bilifont">&#xE72C;</button>
+            </form>
+            <div class="user_operation not_logged">
+                <img src="/statics/images/akari.jpg">
+                <a href="/passport/login">登录</a>
+                <a href="/passport/register">注册</a>
+            </div>
+            <div class="user_operation logged">
+                <img src="/statics/images/akari.jpg">
+                <a>大会员</a>
+                <a>消息</a>
+                <a>动态</a>
+                <a>收藏</a>
+                <a>历史</a>
+                <a>创作中心</a>
+            </div>
+            <div id="post"><a>投稿</a></div>
+        </nav>
+    </header>
+    <script src="/statics/js/header.js"></script>
+    <div id="banner">
+        <div class="left">
+            <img src="https://avatars.githubusercontent.com/u/57243380">
+            <div id="userinfo">
+                <span id="username">sarail</span>
+                <span class="user_tag level" lv="6"></span>
+                <span class="user_tag vip"><span>年度大会员</span></span>
+            </div>
+            <div id="statement">不中奖不改签名</div>
         </div>
-        <form id="search">
-            <input>
-            <button class="bilifont">&#xE72C;</button>
-        </form>
-        <div id="user_operation">
-            <img src="/statics/images/akari.jpg">
-            <a href="/passport/login">登录</a>
-            <a href="/passport/register">注册</a>
-        </div>
-        <!--div id="user_operation">
-        <img src="/statics/images/akari.jpg">
-        <a>大会员</a>
-        <a>消息</a>
-        <a>动态</a>
-        <a>收藏</a>
-        <a>历史</a>
-        <a>创作中心</a>
-    </div-->
-        <div id="post"><a>投稿</a></div>
-    </nav>
-</header>
-<div id="banner">
-    <div class="left">
-        <img src="https://avatars.githubusercontent.com/u/57243380">
-        <div id="userinfo">
-            <span id="username">sarail</span>
-            <span class="user_tag level" lv="6"></span>
-            <span class="user_tag vip"><span>年度大会员</span></span>
-        </div>
-        <div id="statement">不中奖不改签名</div>
-    </div>
-    <div class="right">
-        <button id="follow">关注</button>
-    </div>
-</div>
-<div id="banner_bottom">
-    <div class="left">
-        <div id="tab">
-            {{.tab_home}}
-            {{.tab_moments}}
-            {{.tab_post}}
-        </div>
-        {{.tab_underline}}
-    </div>
-    <div class="right">
-        <div class="following">
-            <span class="key">关注数</span>
-            <span class="value">50</span>
-        </div>
-        <div class="followers">
-            <span class="key">粉丝数</span>
-            <span class="value">3092万</span>
-        </div>
-        <div class="likes">
-            <span class="key">获赞数</span>
-            <span class="value">6065万</span>
-        </div>
-        <div class="plays">
-            <span class="key">播放数</span>
-            <span class="value">10.4亿</span>
-        </div>
-        <div class="reads">
-            <span class="key">阅读数</span>
-            <span class="value">389.7万</span>
+        <div class="right">
+            <button id="follow">关注</button>
         </div>
     </div>
-</div>
-<script src="/statics/js/space.js"></script>
+    <div id="banner_bottom">
+        <div class="left">
+            <div id="tab">
+                {{.tab_home}}
+                {{.tab_moments}}
+                {{.tab_post}}
+            </div>
+            {{.tab_underline}}
+        </div>
+        <div class="right">
+            <div class="following">
+                <span class="key">关注数</span>
+                <span class="value">50</span>
+            </div>
+            <div class="followers">
+                <span class="key">粉丝数</span>
+                <span class="value">3092万</span>
+            </div>
+            <div class="likes">
+                <span class="key">获赞数</span>
+                <span class="value">6065万</span>
+            </div>
+            <div class="plays">
+                <span class="key">播放数</span>
+                <span class="value">10.4亿</span>
+            </div>
+            <div class="reads">
+                <span class="key">阅读数</span>
+                <span class="value">389.7万</span>
+            </div>
+        </div>
+    </div>
+    <script src="/statics/js/space.js"></script>
 </body>
+
 </html>

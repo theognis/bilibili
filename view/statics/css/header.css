@@ -1,6 +1,7 @@
 body>header {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
+
 body>header>nav {
     display: grid;
     font-size: 14px;
@@ -8,11 +9,9 @@ body>header>nav {
     justify-items: center;
     align-items: center;
 }
-
 body>header>nav.not_logged {
     grid-template-columns: 540px auto 180px 120px;
 }
-
 body>header>nav.logged  {
     grid-template-columns: 540px auto 450px 120px;
 }
@@ -20,15 +19,12 @@ body>header>nav.logged  {
 body>header #navigator .bilifont {
     font-size: 18px;
 }
-
 body>header #nav_homepage .bilifont {
     margin-right: 6px;
 }
-
 body>header #nav_download .bilifont {
     margin-right: 2px;
 }
-
 body>header #nav_homepage img {
     width: 70px;
     height: 32px;
@@ -41,7 +37,6 @@ body>header>nav #search{
     width: 100%;
     max-width: 500px;
 }
-
 body>header>nav #search input{
     height: 36px;
     padding: 0 16px;
@@ -52,12 +47,9 @@ body>header>nav #search input{
     box-sizing: border-box;
     border: 1px solid #E7E7E7;
 }
-
 body>header>nav #search input:focus{
     color: #222222;
 }
-
-
 body>header>nav #search button{
     height: 36px;
     width: 48px;
@@ -71,21 +63,32 @@ body>header>nav #search button{
 body>header>nav>div:not(#post) a{
     color: #212121;
 }
-
 body>header>nav>#post {
     color: white;
 }
-
 body>header>nav input {
     background-color: #f4f4f4;
     color: #999;
 }
-
 body>header>nav>div .bilifont {
     color: #00a1d6
 }
 
-#navigator>a, #user_operation>a {
+nav.not_logged .user_operation.not_logged {
+    display: flex;
+}
+nav.not_logged .user_operation.logged {
+    display: none;
+}
+
+nav.logged .user_operation.not_logged {
+    display: none;
+}
+nav.logged .user_operation.logged {
+    display: flex;
+}
+
+#navigator>a, .user_operation>a {
     display: flex;
     margin: 6px;
     align-items: center;
@@ -95,16 +98,13 @@ body>header>nav>div .bilifont {
     display: flex;
 }
 
-#user_operation {
-    display: flex;
+.user_operation {
     justify-content: space-around;
 }
-
-#user_operation * {
+.user_operation * {
     margin: 10px
 }
-
-#user_operation img{
+.user_operation img{
     width: 32px;
     height: 32px;
     border-radius: 50%;
