@@ -192,7 +192,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "更新手机号成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) changeStatement(ctx *gin.Context) {
@@ -230,7 +230,7 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 		tool.Failed(ctx, "系统错误")
 	}
 
-	tool.Success(ctx, "修改成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) sendEmailCode(ctx *gin.Context) {
@@ -257,7 +257,7 @@ func (u *UserController) sendEmailCode(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "发送验证码成功")
+	tool.Success(ctx, "")
 
 }
 
@@ -374,7 +374,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "更新email成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) login(ctx *gin.Context) {
@@ -573,5 +573,5 @@ func (u *UserController) register(ctx *gin.Context) {
 		tool.Failed(ctx, "服务器错误")
 	}
 
-	tool.Success(ctx, "注册成功！")
+	tool.Success(ctx, "")
 }
