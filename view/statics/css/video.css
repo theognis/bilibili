@@ -100,34 +100,57 @@
 #video>.controls {
     position: absolute;
     width: 802px;
-    height: 56px;
     bottom: 46px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 12px auto;
-    grid-row-gap: 4px;
     box-sizing: border-box;
     padding: 6px;
 }
+
 #video>.controls>.process {
-    grid-column-start: 1;
-    grid-column-end: 4;
-    height: 16px;
-    display: grid;
-    grid-template-columns: 0 auto;
-    grid-template-rows: 2px;
-    align-content: center;
+    height: 10px;
     cursor: pointer;
 }
-#video>.controls>.process:hover {
-    grid-template-rows: 4px;
+#video>.controls>.process>.played,
+#video>.controls>.process>.unplayed{
+    top: 11px;
+    height: 2px;
+    width: 790px;
+    position: absolute;
+    transition: all ease .2s;
 }
 #video>.controls>.process>.played {
     background-color: #00a1d6;
+    transform-origin: left center;
+    width: 0;
 }
 #video>.controls>.process>.unplayed {
     background-color: rgba(255,255,255,.2);
 }
+#video>.controls>.process>.icon{
+    position: absolute;
+    top: 0;
+    left: -11px;
+    transition: all ease .2s;
+    transform: scale(0);
+    pointer-events: none;
+}
+#video>.controls>.process:hover>.played,
+#video>.controls>.process:hover>.unplayed{
+    transform: scaleY(2);
+}
+#video>.controls>.process:hover>.icon{
+    transform: scale(1);
+}
+/*#video>.controls>.process>.icon {
+    position: absolute;
+    top: -18px;
+    left: -11px;
+    transform: scale(0);
+    transition: transform ease .2s;
+    cursor: pointer;
+}
+#video>.controls>.process:hover>.icon {
+    transform: scale(1);
+}*/
 #video>.controls>.left {
     padding-left: 8px;
     display: flex;
