@@ -382,6 +382,16 @@ func (u *UserController) login(ctx *gin.Context) {
 	us := service.UserService{}
 	gs := service.GeneralService{}
 
+	if loginName == "" {
+		tool.Failed(ctx, "请输入注册时用的邮箱或者手机号呀")
+		return
+	}
+
+	if password == "" {
+		tool.Failed(ctx, "喵，你没输入密码么？")
+		return
+	}
+
 	userinfo, ok, err := us.Login(loginName, password)
 	if err != nil {
 		fmt.Println("loginErr: ", err)
@@ -390,7 +400,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	}
 
 	if ok == false {
-		tool.Failed(ctx, "密码不匹配")
+		tool.Failed(ctx, "用户名或密码错误")
 		return
 	}
 
@@ -412,7 +422,7 @@ func (u *UserController) login(ctx *gin.Context) {
 
 	ctx.JSON(200, gin.H{
 		"status":       "0",
-		"data":         "登录成功",
+		"data":         "",
 		"token":        tokenString,
 		"refreshToken": refreshToken,
 	})

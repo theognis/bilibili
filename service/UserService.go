@@ -71,6 +71,9 @@ func (u *UserService) Login(loginName, password string) (model.Userinfo, bool, e
 		//邮箱登录
 		userinfo, err := d.QueryByEmail(loginName)
 		if err != nil {
+			if err.Error() == "sql: no rows in result set" {
+				return model.Userinfo{}, false, nil
+			}
 			return model.Userinfo{}, false, err
 		}
 
@@ -90,6 +93,9 @@ func (u *UserService) Login(loginName, password string) (model.Userinfo, bool, e
 
 		userinfo, err := d.QueryByPhone(loginName)
 		if err != nil {
+			if err.Error() == "sql: no rows in result set" {
+				return model.Userinfo{}, false, nil
+			}
 			return model.Userinfo{}, false, err
 		}
 
