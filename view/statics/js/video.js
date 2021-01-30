@@ -4,7 +4,7 @@ const controls_process_played = document.querySelector('#video>.controls>.proces
 const controls_process_icon = document.querySelector('#video>.controls>.process>.icon')
 const controls_play = document.querySelector('#video>.controls>.left>img')
 const controls_location = document.querySelector('#video>.controls>.left>.location')
-//const danmaku_area = document.querySelector('#video>.danmaku_area')
+const danmaku_area = document.querySelector('#video>.danmaku_area')
 const danmaku_switch = document.querySelector('#video>.bottom>.control>.switch')
 const danmaku_font_settings = document.querySelector('#video>.hover>.font_settings')
 const danmaku_font_switch = document.querySelector('#video>.bottom>.control>.send>.edit>div')
@@ -19,7 +19,7 @@ const color_preview = document.querySelector('.font_settings>.color>.edit>div')
 const color_list = document.querySelector('.font_settings>.color>.list').children
 let chosen_danmaku_type = 'scroll'
 
-/*class Danmaku {
+class Danmaku {
     constructor(value, color, type) {
         let danmaku = document.createElement('div')
         danmaku.classList.add('danmaku')
@@ -33,12 +33,12 @@ let chosen_danmaku_type = 'scroll'
         }, 12000)
     }
     static initTop(){
-        return Math.random() * 539 + "px"
+        return Math.floor(Math.random() * 18) * 28 + "px"
     }
     static initLeft(){
         return '802px'
     }
-}*/
+}
 
 function loadRecommend(data){
     data.forEach(v => {
@@ -92,9 +92,9 @@ function formatDuration(duration){
     }
     return `${min}:${sec}`
 }
-/*function randColor(){
+function randColor(){
     return '#' + Math.floor(Math.random()*256*256*256).toString(16).toUpperCase()
-}*/
+}
 
 function init(){
     video.addEventListener('click', switchVideoPlayStatus)
@@ -210,10 +210,10 @@ function test(){
     ]
 
     loadRecommend(recommend_data)
-    /*setInterval(() => {
+    setInterval(() => {
         let danmaku = new Danmaku("翔哥NB", randColor(),"scroll")
         console.log(danmaku_area.children.length)
-    }, 10)*/
+    }, 10)
 }
 
 init()

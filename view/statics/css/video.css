@@ -75,7 +75,7 @@
     background-color: #000;
 }
 
-/*@keyframes scroll {
+@keyframes scroll {
     to {
         transform: translateX(-1604px);
     }
@@ -86,6 +86,7 @@
     width: 802px;
     pointer-events: none;
     overflow: hidden;
+    z-index: 2;
 }
 #video>.danmaku_area>.danmaku {
     position: absolute;
@@ -95,7 +96,7 @@
     text-shadow: rgb(0 0 0) 1px 0 1px, rgb(0 0 0) 0 1px 1px, rgb(0 0 0) 0 -1px 1px, rgb(0 0 0) -1px 0 1px;
     font-weight: bold;
     animation: scroll 12s linear infinite;
-}*/
+}
 
 #video>.controls {
     position: absolute;
@@ -103,6 +104,7 @@
     bottom: 46px;
     box-sizing: border-box;
     padding: 6px;
+    z-index: 3;
 }
 
 #video>.controls>.process {
@@ -140,17 +142,6 @@
 #video>.controls>.process:hover>.icon{
     transform: scale(1);
 }
-/*#video>.controls>.process>.icon {
-    position: absolute;
-    top: -18px;
-    left: -11px;
-    transform: scale(0);
-    transition: transform ease .2s;
-    cursor: pointer;
-}
-#video>.controls>.process:hover>.icon {
-    transform: scale(1);
-}*/
 #video>.controls>.left {
     padding-left: 8px;
     display: flex;
