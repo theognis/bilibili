@@ -20,13 +20,84 @@ type UserController struct {
 func (u *UserController) Router(engine *gin.Engine) {
 	engine.GET("/api/user/info", u.getSelfInfo)
 	engine.GET("/api/check/username", u.judgeUsername)
+	engine.GET("/api/check/phone", u.judgePhone)
 	engine.POST("/api/user/register", u.register)
-	engine.POST("/api/verify/phone", u.sendSms)
+	//	engine.POST("/api/verify/phone", u.sendSms)
+	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
+	engine.POST("/api/verify/sms/general", u.sendSms)
 	engine.POST("/api/user/login", u.login)
 	engine.POST("/api/verify/email", u.sendEmailCode)
 	engine.PUT("/api/user/phone", u.changePhone)
 	engine.PUT("/api/user/email", u.changeEmail)
 	engine.PUT("/api/user/statement", u.changeStatement)
+}
+
+func (u *UserController) sendSmsRegister(ctx *gin.Context) {
+	phone := ctx.PostForm("phone")
+
+	if phone == "" {
+		tool.Failed(ctx, "手机号不可为空")
+	}
+
+	us := service.UserService{}
+
+	flag, err := us.JudgePhone(phone)
+	if err != nil {
+		fmt.Println("JudgePhoneErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == true {
+		tool.Failed(ctx, "手机号已被使用")
+		return
+	}
+
+	verifyCode, err := us.SendCodeByPhone(phone)
+	if err != nil {
+		tool.Failed(ctx, "系统错误")
+		fmt.Println("SendCodeByPhoneErr")
+		return
+	}
+
+	if verifyCode == "isv.MOBILE_NUMBER_ILLEGAL" {
+		tool.Failed(ctx, "手机号不合法")
+		fmt.Println("sendCodeByPhoneErr")
+		return
+	}
+
+	//把验证码放到redis中
+	err = us.VerifyCodeIn(ctx, phone, verifyCode)
+	if err != nil {
+		tool.Failed(ctx, "服务器错误")
+		fmt.Println("SetRedisErr: ", err)
+		return
+	}
+
+	tool.Success(ctx, "")
+}
+
+func (u *UserController) judgePhone(ctx *gin.Context) {
+	phone := ctx.Query("phone")
+
+	if phone == "" {
+		tool.Failed(ctx, "请告诉我你的手机号吧")
+		return
+	}
+
+	us := service.UserService{}
+	flag, err := us.JudgePhone(phone)
+	if err != nil {
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == true {
+		tool.Failed(ctx, "手机号已被使用")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) changePhone(ctx *gin.Context) {
@@ -121,7 +192,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "更新手机号成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) changeStatement(ctx *gin.Context) {
@@ -159,7 +230,7 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 		tool.Failed(ctx, "系统错误")
 	}
 
-	tool.Success(ctx, "修改成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) sendEmailCode(ctx *gin.Context) {
@@ -186,7 +257,7 @@ func (u *UserController) sendEmailCode(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "发送验证码成功")
+	tool.Success(ctx, "")
 
 }
 
@@ -303,7 +374,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "更新email成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) login(ctx *gin.Context) {
@@ -382,6 +453,10 @@ func (u *UserController) judgeUsername(ctx *gin.Context) {
 func (u *UserController) sendSms(ctx *gin.Context) {
 	phone := ctx.PostForm("phone")
 
+	if phone == "" {
+		tool.Failed(ctx, "手机号不可为空")
+	}
+
 	us := service.UserService{}
 	verifyCode, err := us.SendCodeByPhone(phone)
 	if err != nil {
@@ -404,7 +479,7 @@ func (u *UserController) sendSms(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "发送验证码成功")
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) register(ctx *gin.Context) {
@@ -498,5 +573,5 @@ func (u *UserController) register(ctx *gin.Context) {
 		tool.Failed(ctx, "服务器错误")
 	}
 
-	tool.Success(ctx, "注册成功！")
+	tool.Success(ctx, "")
 }
