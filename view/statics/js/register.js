@@ -4,6 +4,7 @@ const username_hint = document.querySelector('#username_hint')
 const password_hint = document.querySelector('#password_hint')
 const agree_license = document.querySelector('#agree_license')
 const phone_number_input = document.querySelector('#phone_number input')
+const phone_number_hint = document.querySelector('#phone_number_hint')
 const verify_code_button = document.querySelector('#verify_code button')
 const verify_code_input = document.querySelector('#verify_code input')
 const register_button = document.querySelector('#register button')
@@ -11,6 +12,7 @@ const register_button = document.querySelector('#register button')
 
 username_input.addEventListener('input', checkUsername)
 password_input.addEventListener('input', checkPassword)
+phone_number_input.addEventListener('input', checkPhone)
 agree_license.addEventListener('click', () => {
     if (agree_license.checked) {
         register_button.removeAttribute('disabled')
@@ -23,6 +25,9 @@ register_button.addEventListener('click', register)
 
 async function checkUsername(){
     username_hint.innerText = (await checkUsernameReq(username_input.value)).data
+}
+async function checkPhone(){
+    phone_number_hint.innerText = (await checkPhoneReq(phone_number_input.value)).data
 }
 async function sendMessage(){
     verify_code_button.innerText = '获取中...'
@@ -74,7 +79,7 @@ function registerReq(form){
     }).then(data => data.json())
 }
 function sendMessageReq(phone){
-    return fetch('/api/verify/phone', {
+    return fetch('/api/verify/sms/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -84,6 +89,11 @@ function sendMessageReq(phone){
 }
 function checkUsernameReq(username){
     return fetch('/api/check/username?username=' + username, {
+        method: 'GET',
+    }).then(data => data.json())
+}
+function checkPhoneReq(phone){
+    return fetch('/api/check/phone?phone=' + phone, {
         method: 'GET',
     }).then(data => data.json())
 }
