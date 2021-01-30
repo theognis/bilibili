@@ -4,8 +4,8 @@
 
 #### `/api/user/login` `POST`
 
-* Content-Type:  `application/x-www-form-urlencoded`
-* 登录
+* `application/x-www-form-urlencoded`
+* 用户登录
 
 | 请求参数  | 类型 | 说明                |
 | --------- | ---- | ------------------- |
@@ -29,8 +29,8 @@
 
 #### `/api/user/register` `POST`
 
-* Content-Type: `application/x-www-form-urlencoded`
-* 先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单
+* `application/x-www-form-urlencoded`
+* 用户注册；先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单
 
 | 请求参数    | 类型 | 说明        |
 | ----------- | ---- | ----------- |
@@ -82,6 +82,8 @@ let info = {
     Salt: String, // string
     RegDate: Date, // time.Time
     Statement: String, // string
+    Exp: Number, // int64
+    Coins: Number, // float64
 }
 ```
 
@@ -92,7 +94,7 @@ let info = {
 
 #### `/api/user/email` `PUT`
 
-* Content-Type: `application/x-www-form-urlencoded` 
+* `application/x-www-form-urlencoded` 
 * 修改/添加email；先调用 `/user/info/self` 接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
 
 | 请求参数         | 类型 | 说明                         |
@@ -109,7 +111,7 @@ let info = {
 
 #### `/api/user/phone` `PUT`
 
-* Content-Type: `application/x-www-form-urlencoded`
+* `application/x-www-form-urlencoded`
 * 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
 
 | 请求参数         | 类型 | 说明                         |
@@ -126,7 +128,7 @@ let info = {
 
 #### `/api/user/statement` `PUT`
 
-* Content-Type `application/x-www-form-urlencoded`
+* `application/x-www-form-urlencoded`
 * 修改个性签名；如果无new_statement则更改为默认签名
 
 | 请求参数      | 类型 | 说明       |
@@ -137,6 +139,22 @@ let info = {
 | status | data | 说明   |
 | -------- | ---- | ------ |
 |  |  |  |
+
+#### `/api/user/check-in` `PUT`
+
+* `application/x-www-form-urlencoded`
+* 日常签到，硬币+1，经验+5
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token`失效 |
+| `false` | `"ALREADY_DONE"` | 已签到 |
+| `true` | `"SUCCESS"` | 签到成功 |
 
 ### Verify
 
@@ -156,7 +174,7 @@ let info = {
 
 #### `/api/verify/sms/general` `POST`
 
-* Content-Type: `application/x-www-form-urlencoded`
+* `application/x-www-form-urlencoded`
 * 向 `phone` 发送短信验证码
 
 | 请求参数 | 类型 | 说明   |
@@ -171,7 +189,7 @@ let info = {
 
 #### `/api/verify/sms/register` `POST`
 
-* Content-Type: `application/x-www-form-urlencoded`
+* `application/x-www-form-urlencoded`
 * 注册时向 `phone` 发送短信验证码
 
 | 请求参数 | 类型 | 说明   |
@@ -187,7 +205,7 @@ let info = {
 
 #### `/api/verify/email` `POST`
 
-* Content-Type: `application/x-www-form-urlencoded`
+* `application/x-www-form-urlencoded`
 * 发送邮箱验证码
 
 | 请求参数 | 类型 | 说明  |
