@@ -1,5 +1,7 @@
 const video = document.querySelector('video')
 const controls_process = document.querySelector('#video>.controls>.process')
+const controls_process_main = document.querySelector('#video>.controls>.process>.main')
+const controls_process_icon = document.querySelector('#video>.controls>.process>.hover>.icon')
 const controls_play = document.querySelector('#video>.controls>.left>img')
 const controls_location = document.querySelector('#video>.controls>.left>.location')
 const danmaku_area = document.querySelector('#video>.danmaku_area')
@@ -113,9 +115,10 @@ function init(){
     })
     controls_process.addEventListener('click', e => {
         let player_ratio = (e.layerX - 6) / controls_process.offsetWidth
-        let played_length = player_ratio * 100 + '%'
+        let played_length = player_ratio * 790
         video.currentTime = player_ratio * video.duration
-        controls_process.style.gridTemplateColumns = played_length + ' auto'
+        controls_process_main.style.gridTemplateColumns = played_length + 'px auto'
+        controls_process_icon.style.left = (played_length - 11) + 'px'
         updateVideoLocation()
     })
     scroll_type.addEventListener('click', () => {
@@ -150,8 +153,9 @@ function init(){
         })
     }
     setInterval(() => {
-        let played_length = (video.currentTime/video.duration*100).toString() + '%'
-        controls_process.style.gridTemplateColumns = played_length + ' auto'
+        let played_length = video.currentTime / video.duration * 790
+        controls_process_main.style.gridTemplateColumns = played_length + 'px auto'
+        controls_process_icon.style.left = (played_length - 11) + 'px'
         updateVideoLocation()
     }, 1000)
     video.addEventListener('canplay', () => {

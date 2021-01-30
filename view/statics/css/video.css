@@ -112,21 +112,43 @@
 #video>.controls>.process {
     grid-column-start: 1;
     grid-column-end: 4;
+}
+#video>.controls>.process>.main {
+    grid-column-start: 1;
+    grid-column-end: 4;
     height: 16px;
     display: grid;
     grid-template-columns: 0 auto;
     grid-template-rows: 2px;
     align-content: center;
+    align-items: center;
     cursor: pointer;
 }
-#video>.controls>.process:hover {
+#video>.controls>.process>.main:hover {
     grid-template-rows: 4px;
 }
-#video>.controls>.process>.played {
+#video>.controls>.process>.main>div {
+    height: 100%;
+}
+#video>.controls>.process>.main>.played {
     background-color: #00a1d6;
 }
-#video>.controls>.process>.unplayed {
+#video>.controls>.process>.main>.unplayed {
     background-color: rgba(255,255,255,.2);
+}
+#video>.controls>.process>.hover {
+    position: absolute;
+}
+#video>.controls>.process>.hover>.icon {
+    position: absolute;
+    top: -18px;
+    left: -11px;
+    transform: scale(0);
+    transition: transform ease .2s;
+    cursor: pointer;
+}
+#video>.controls>.process:hover>.hover>.icon {
+    transform: scale(1);
 }
 #video>.controls>.left {
     padding-left: 8px;
