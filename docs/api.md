@@ -92,6 +92,24 @@ let info = {
 * 获取 UID 为 `:uid` 的用户的个人信息
 * 暂未开发
 
+#### `/api/user/avatar` `PUT`
+
+* `multipart/form-data` 
+* 修改/添加头像；
+
+| 请求参数         | 类型 | 说明                         |
+| ---------------- | ---- | ---------------------------- |
+| avatar           | 必选 | 头像（二进制文件）             |
+| token            | 必选 | token                        |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"头像无效"` | `avatar` 无效或为空 |
+| `false` | `"上传失败"` | 上传失败 |
+| `true` | `"上传成功"` | 上传成功 |
+
 #### `/api/user/email` `PUT`
 
 * `application/x-www-form-urlencoded` 
