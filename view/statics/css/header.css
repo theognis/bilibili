@@ -15,6 +15,18 @@ body>header>nav.not_logged {
 body>header>nav.logged  {
     grid-template-columns: 540px auto 450px 120px;
 }
+body>header>nav.not_logged .user_operation.not_logged {
+    display: flex;
+}
+body>header>nav.not_logged .user_operation.logged {
+    display: none;
+}
+body>header>nav.logged .user_operation.not_logged {
+    display: none;
+}
+body>header>nav.logged .user_operation.logged {
+    display: flex;
+}
 
 body>header #navigator .bilifont {
     font-size: 18px;
@@ -74,43 +86,31 @@ body>header>nav>div .bilifont {
     color: #00a1d6
 }
 
-nav.not_logged .user_operation.not_logged {
-    display: flex;
-}
-nav.not_logged .user_operation.logged {
-    display: none;
-}
-
-nav.logged .user_operation.not_logged {
-    display: none;
-}
-nav.logged .user_operation.logged {
-    display: flex;
-}
-
-#navigator>a, .user_operation>a {
+body>header>#navigator>a, .user_operation>a {
     display: flex;
     margin: 6px;
     align-items: center;
 }
-
-#navigator {
+body>header>#navigator {
     display: flex;
 }
 
-.user_operation {
+body>header .user_operation {
     justify-content: space-around;
 }
-.user_operation * {
+body>header .user_operation * {
     margin: 10px
 }
-.user_operation img{
+body>header .user_operation img{
     width: 32px;
     height: 32px;
     border-radius: 50%;
+    cursor: pointer;
+    opacity: 1;
+    transition: all ease .3s;
 }
 
-#post {
+body>header #post {
     width: 100px;
     height: 36px;
     text-align: center;
@@ -118,4 +118,81 @@ nav.logged .user_operation.logged {
     background-color: #fb7299;
     border-radius: 2px;
     margin:10px;
+}
+
+body>header>.hover>.user {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 280px;
+    height: 180px;
+    box-shadow: 0 3px 6px rgba(0,0,0,.2);
+    border-radius: 2px;
+    background-color: #fff;
+    z-index: 2;
+    transition: all ease .3s;
+}
+body>header>.hover>.user>.avatar {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    top: -35px;
+    left: 105px;
+    cursor: pointer;
+}
+body>header>.hover>.user>.username {
+    color: #212121;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 42px;
+}
+body>header>.hover>.user>.level_content {
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+body>header>.hover>.user>.level_content>.info {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 5px 0;
+}
+body>header>.hover>.user>.level_content>.info>.level {
+    font-size: 14px;
+    color: #212121
+}
+body>header>.hover>.user>.level_content>.info>.exp {
+    font-size: 12px;
+    color: #999999;
+}
+body>header>.hover>.user>.level_content>.bar {
+    margin: 4px 0;
+    height: 2px;
+    background-color: #f4f4f4;
+}
+body>header>.hover>.user>.level_content>.bar>.progress {
+    height: 100%;
+    width: 50%;
+    background-color: #f3cb85;
+}
+body>header>.hover>.user>.money {
+    display: flex;
+    padding: 14px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+body>header>.hover>.user>.money>a {
+    display: flex;
+}
+body>header>.hover>.user>.money img {
+    height: 20px;
+    width: 20px;
+}
+body>header>.hover>.user>.money span {
+    margin: 0 20px 0 8px;
+    color: #212121;
+    font-size: 14px;
 }
