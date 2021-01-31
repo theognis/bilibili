@@ -86,12 +86,12 @@ body>header>nav>div .bilifont {
     color: #00a1d6
 }
 
-body>header>#navigator>a, .user_operation>a {
+body>header>nav>#navigator>a, body>header>nav>.user_operation>a {
     display: flex;
     margin: 6px;
     align-items: center;
 }
-body>header>#navigator {
+body>header>nav>#navigator {
     display: flex;
 }
 
@@ -134,7 +134,7 @@ body>header>.hover>.user {
     box-shadow: 0 3px 6px rgba(0,0,0,.2);
     border-radius: 2px;
     background-color: #fff;
-    z-index: 2;
+    z-index: 10;
     transition: all ease .3s;
 }
 body>header>.hover>.user>.avatar {
