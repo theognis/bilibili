@@ -33,7 +33,6 @@ async function login(){
     }
     const json = await loginReq(form)
     if (json.status) {
-        alert("登录成功")
         if (remember_me.checked) {
             localStorage.setItem('token', json.token)
             localStorage.setItem('refreshToken', json.refreshToken)

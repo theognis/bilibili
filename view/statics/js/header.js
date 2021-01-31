@@ -37,7 +37,7 @@ function initHeader() {
             localStorage.removeItem('refreshToken')
             sessionStorage.removeItem('token')
             sessionStorage.removeItem('refreshToken')
-            window.location.href = '/'
+            window.location.reload()
         }
     } else {
         nav.setAttribute('class', 'not_logged')
