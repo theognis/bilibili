@@ -1,6 +1,7 @@
 const nav = document.querySelector('body>header>nav')
 const user_button = document.querySelector('body>header>nav>.user_operation.logged>.user')
 const user_hover = document.querySelector('body>header>.hover>.user')
+const logout_button = document.querySelector('body>header>.hover>.user>.logout>span')
 
 let token, refreshToken
 
@@ -31,6 +32,13 @@ function initHeader() {
         user_button.onmouseout = hideUserHover
         user_hover.onmouseover = showUserHover
         user_hover.onmouseout = hideUserHover
+        logout_button.onclick = () => {
+            localStorage.removeItem('token')
+            localStorage.removeItem('refreshToken')
+            sessionStorage.removeItem('token')
+            sessionStorage.removeItem('refreshToken')
+            window.location.href = '/'
+        }
     } else {
         nav.setAttribute('class', 'not_logged')
     }
