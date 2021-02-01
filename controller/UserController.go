@@ -49,6 +49,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 //	if flag == false {
 //		return
 //	}
+//
 //	userinfo := clams.Userinfo
 //
 //}
@@ -420,7 +421,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	}
 
 	//创建token， 有效期两分钟
-	tokenString, err := gs.CreateToken(userinfo, 120, "TOKEN", time.Now())
+	tokenString, err := gs.CreateToken(userinfo, 120, "TOKEN")
 	if err != nil {
 		fmt.Println("CreateTokenErr:", err)
 		tool.Failed(ctx, "系统错误")
@@ -428,7 +429,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	}
 
 	//创建一个refresh token有效期一周
-	refreshToken, err := gs.CreateToken(userinfo, 604800, "REFRESH_TOKEN", time.Now())
+	refreshToken, err := gs.CreateToken(userinfo, 604800, "REFRESH_TOKEN")
 	if err != nil {
 		fmt.Println("CreateRefreshTokenErr:", err)
 		tool.Failed(ctx, "系统错误")
