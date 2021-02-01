@@ -19,6 +19,7 @@ func (g *GeneralController) getToken(ctx *gin.Context) {
 	refreshToken := ctx.Query("refreshToken")
 
 	gs := service.GeneralService{}
+	us := service.UserService{}
 
 	//判断refreshToken状态
 	model, err := gs.ParseRefreshToken(refreshToken)
@@ -39,8 +40,11 @@ func (g *GeneralController) getToken(ctx *gin.Context) {
 		return
 	}
 
+	//根据username更新userinfo
+	newUserinfo, err := us.GetUserinfo(model.Userinfo.Username)
+
 	//创建新token
-	newToken, err := gs.CreateToken(model.Userinfo, 120, "TOKEN")
+	newToken, err := gs.CreateToken(newUserinfo, 120, "TOKEN")
 	if err != nil {
 		fmt.Println("getTokenCreateErr:", err)
 		tool.Failed(ctx, "系统错误")

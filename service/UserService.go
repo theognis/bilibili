@@ -20,6 +20,13 @@ import (
 type UserService struct {
 }
 
+func (u *UserService) GetUserinfo(username string) (model.Userinfo, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	userinfo, err := d.QueryByUsername(username)
+	return userinfo, err
+}
+
 //签到服务
 func (u *UserService) CheckIn(username string) error {
 	d := dao.UserDao{tool.GetDb()}

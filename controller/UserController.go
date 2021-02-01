@@ -317,7 +317,7 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	userinfo := clams.Userinfo
 
 	userMap := tool.ObjToMap(userinfo)
-	ctx.JSON(200, userMap)
+	tool.Success(ctx, userMap)
 }
 
 func (u *UserController) changeEmail(ctx *gin.Context) {
