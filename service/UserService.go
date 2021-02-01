@@ -20,6 +20,47 @@ import (
 type UserService struct {
 }
 
+//签到服务
+func (u *UserService) CheckIn(username string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	//加经验
+	err := d.UpdateExp(username, 5)
+	if err != nil {
+		return err
+	}
+	//加硬币
+	err = d.UpdateCoins(username, 1)
+	if err != nil {
+		return err
+	}
+	//更新日期
+	err = d.UpdateLastCheckInDate(username)
+	return err
+}
+
+//可以签到返回true，否则返回false
+func (u *UserService) JudgeCheckIn(username string) (bool, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	userinfo, err := d.QueryByUsername(username)
+	if err != nil {
+		return false, err
+	}
+
+	lastCheckInDate := userinfo.LastCheckInDate[:10]
+	timeNow := time.Now().Format("2006-01-02")
+
+	fmt.Println("SQL:", lastCheckInDate)
+	fmt.Println("NOW:", timeNow)
+
+	if timeNow == lastCheckInDate {
+		return false, nil
+	}
+
+	return true, nil
+}
+
 func (u *UserService) ChangeStatement(username, newStatement string) error {
 	d := dao.UserDao{tool.GetDb()}
 

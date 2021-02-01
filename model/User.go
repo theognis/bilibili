@@ -10,6 +10,8 @@ type Userinfo struct {
 	Phone           string
 	Salt            string
 	RegDate         time.Time
-	LastCheckInDate time.Time
+	LastCheckInDate string
 	Statement       string
+	Coins           int64
+	Exp             int64
 }
