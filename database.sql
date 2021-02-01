@@ -1,7 +1,5 @@
-CREATE
-DATABASE IF NOT EXISTS bilibili;
-USE
-bilibili;
+CREATE DATABASE IF NOT EXISTS bilibili;
+USE bilibili;
 
 DROP TABLE IF EXISTS `userinfo`;
 
