@@ -29,7 +29,30 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/phone", u.changePhone)
 	engine.PUT("/api/user/email", u.changeEmail)
 	engine.PUT("/api/user/statement", u.changeStatement)
+	//engine.PUT("/api/user/check-in", u.checkIn)
 }
+
+//签到
+//func (u *UserController) checkIn(ctx *gin.Context) {
+//	token := ctx.PostForm("token")
+//
+//	flag := tool.CheckTokenNil(ctx, token)
+//	if flag == false {
+//		return
+//	}
+//
+//	us := service.UserService{}
+//	gs := service.GeneralService{}
+//
+//	clams, err := gs.ParseToken(token)
+//	flag = tool.CheckTokenErr(ctx, clams, err)
+//	if flag == false {
+//		return
+//	}
+//
+//	userinfo := clams.Userinfo
+//
+//}
 
 func (u *UserController) sendSmsRegister(ctx *gin.Context) {
 	phone := ctx.PostForm("phone")
