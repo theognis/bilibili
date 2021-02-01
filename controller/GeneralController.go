@@ -5,6 +5,7 @@ import (
 	"bilibili/tool"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 type GeneralController struct {
@@ -40,7 +41,7 @@ func (g *GeneralController) getToken(ctx *gin.Context) {
 	}
 
 	//创建新token
-	newToken, err := gs.CreateToken(model.Userinfo, 120, "TOKEN")
+	newToken, err := gs.CreateToken(model.Userinfo, 120, "TOKEN", time.Now())
 	if err != nil {
 		fmt.Println("getTokenCreateErr:", err)
 		tool.Failed(ctx, "系统错误")

@@ -52,13 +52,14 @@ func (u *GeneralService) ParseToken(tokenString string) (*model.MyCustomClaims, 
 }
 
 //构建一个jwt
-func (u *GeneralService) CreateToken(userinfo model.Userinfo, ExpireTime int64, tokenType string) (string, error) {
+func (u *GeneralService) CreateToken(userinfo model.Userinfo, ExpireTime int64, tokenType string, loginTime time.Time) (string, error) {
 	JwtCfg := tool.GetCfg().Jwt
 	mySigningKey := []byte(JwtCfg.SigningKey)
 
 	claims := model.MyCustomClaims{
 		Userinfo: userinfo,
 		Type:     tokenType,
+		Time:     loginTime,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Unix() + ExpireTime,
 		},
