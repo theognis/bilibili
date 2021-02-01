@@ -1,4 +1,7 @@
-/.idea
-go.sum
+.idea
 view/statics/video/test.mp4
 config/app.json
+config/ssl
+
+go.sum
+nohup.out
