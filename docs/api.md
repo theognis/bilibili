@@ -64,17 +64,16 @@
 | ------------ | ------------ |
 | status       | 状态码       |
 | data         | 返回消息     |
-| info        | 若 `status` 为 `true`，则格式如下方代码所示；否则该项为`nil` |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
 | `false` | `"NO_TOKEN_PROVIDED"` | `token` 为空 |
 | `false` | `TOKEN_EXPIRED` | `token`过期 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token` 解析错误 |
-| `true` | "" | 参数合法 |
+| `true` | 参见下述代码 | 参数合法 |
 
 ```js
-let info = {
+let data = {
     Uid: Number, // int64
     Username: String, // string
     Password: String, // string
