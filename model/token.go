@@ -5,7 +5,7 @@ import (
 )
 
 type MyCustomClaims struct {
-	Username string `json:"username"`
-	Userinfo    Userinfo `json:"phone"`
+	Userinfo Userinfo
+	Type     string //"REFRESH_TOKEN"表示为一个refresh token，"TOKEN"表示为一个token
 	jwt.StandardClaims
 }

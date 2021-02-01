@@ -108,14 +108,20 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 		return
 	}
 
-	us := service.UserService{}
-
-	//解析token
-	userinfo, flag := tool.CheckTokenErr(ctx, phoneChangeParam.Token)
-	if flag == false {
+	if phoneChangeParam.Token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
 		return
 	}
 
+	us := service.UserService{}
+	gs := service.GeneralService{}
+	//解析token
+	clams, err := gs.ParseToken(phoneChangeParam.Token)
+	flag := tool.CheckTokenErr(ctx, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
 	//判断原设备类型
 	if strings.Index(phoneChangeParam.OriginalAddress, "@") == -1 {
 		//原设备为手机号
@@ -197,14 +203,23 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 		return
 	}
 
-	us := service.UserService{}
-	userinfo, flag := tool.CheckTokenErr(ctx, token)
-	if flag == false {
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
 		return
 	}
 
+	us := service.UserService{}
+	gs := service.GeneralService{}
+
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
 	username := userinfo.Username
-	err := us.ChangeStatement(username, newStatement)
+	err = us.ChangeStatement(username, newStatement)
 	if err != nil {
 		fmt.Println("ChangeStatementErr: ", err)
 		tool.Failed(ctx, "系统错误")
@@ -243,11 +258,19 @@ func (u *UserController) sendEmailCode(ctx *gin.Context) {
 
 func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	token := ctx.Query("token")
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
 
-	userinfo, flag := tool.CheckTokenErr(ctx, token)
+	gs := service.GeneralService{}
+
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, err)
 	if flag == false {
 		return
 	}
+	userinfo := clams.Userinfo
 
 	userMap := tool.ObjToMap(userinfo)
 	ctx.JSON(200, userMap)
@@ -262,10 +285,21 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 		return
 	}
 
+	if emailChangeParam.Token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
 	//解析token
 	us := service.UserService{}
+	gs := service.GeneralService{}
 
-	userinfo, flag := tool.CheckTokenErr(ctx, emailChangeParam.Token)
+	clams, err := gs.ParseToken(emailChangeParam.Token)
+	flag := tool.CheckTokenErr(ctx, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
 
 	//判断原设备类型
 	if strings.Index(emailChangeParam.OriginalAddress, "@") == -1 {
@@ -364,7 +398,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	}
 
 	//创建token， 有效期两分钟
-	tokenString, err := gs.CreateToken(userinfo, 120)
+	tokenString, err := gs.CreateToken(userinfo, 120, "TOKEN")
 	if err != nil {
 		fmt.Println("CreateTokenErr:", err)
 		tool.Failed(ctx, "系统错误")
@@ -372,7 +406,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	}
 
 	//创建一个refresh token有效期一周
-	refreshToken, err := gs.CreateToken(userinfo, 604800)
+	refreshToken, err := gs.CreateToken(userinfo, 604800, "REFRESH_TOKEN")
 	if err != nil {
 		fmt.Println("CreateRefreshTokenErr:", err)
 		tool.Failed(ctx, "系统错误")

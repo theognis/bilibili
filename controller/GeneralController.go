@@ -21,7 +21,7 @@ func (g *GeneralController) getToken(ctx *gin.Context) {
 	gs := service.GeneralService{}
 
 	//判断refreshToken状态
-	model, err := gs.ParseToken(refreshToken)
+	model, err := gs.ParseRefreshToken(refreshToken)
 	if err != nil {
 		if err.Error()[:16] == "token is expired" {
 			tool.Failed(ctx, "refreshToken失效")
@@ -35,7 +35,7 @@ func (g *GeneralController) getToken(ctx *gin.Context) {
 	}
 
 	//创建新token
-	newToken, err := gs.CreateToken(model.Userinfo, 120)
+	newToken, err := gs.CreateToken(model.Userinfo, 120, "TOKEN")
 	if err != nil {
 		fmt.Println("getTokenCreateErr:", err)
 		tool.Failed(ctx, "系统错误")
