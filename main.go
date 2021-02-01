@@ -15,7 +15,7 @@ func main() {
 
 	router.LoadHTMLGlob("./view/html/*")
 	router.Static("statics", "./view/statics")
-	passport := router.Group("passport")
+	account := router.Group("account")
 	video := router.Group("video")
 	space := router.Group("space")
 	router.GET("/", func(c *gin.Context) {
@@ -24,11 +24,14 @@ func main() {
 	router.GET("/favicon.ico", func(c *gin.Context) {
 		c.File("./view/favicon.ico")
 	})
-	passport.GET("/register", func(c *gin.Context) {
+	account.GET("/register", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "register_pc.html", nil)
 	})
-	passport.GET("/login", func(c *gin.Context) {
+	account.GET("/login", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "login_pc.html", nil)
+	})
+	account.GET("/setting", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "setting.html", nil)
 	})
 	video.GET("/:av", func(c *gin.Context) {
 		av := c.Param("av")
