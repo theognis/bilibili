@@ -68,8 +68,9 @@
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"token 不可为空"` | `token` 为空 |
-| `false` | `"token 不合法"` | `token` 不合法 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token` 为空 |
+| `false` | `TOKEN_EXPIRED` | `token`过期 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token` 解析错误 |
 | `true` | "" | 参数合法 |
 
 ```js
@@ -106,6 +107,7 @@ let info = {
 | -------- | ---- | ------ |
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"头像无效"` | `avatar` 无效或为空 |
 | `false` | `"上传失败"` | 上传失败 |
 | `true` | `"上传成功"` | 上传成功 |
@@ -171,6 +173,7 @@ let info = {
 | -------- | ---- | ------ |
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token`失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"ALREADY_DONE"` | 已签到 |
 | `true` | `"SUCCESS"` | 签到成功 |
 
@@ -187,7 +190,7 @@ let info = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"refreshToken失效"` | refreshToken失效 |
+| `false` | `"TOKEN_EXPIRED"` | refreshToken失效 |
 | `true` | 新的token | 成功 |
 
 #### `/api/verify/sms/general` `POST`

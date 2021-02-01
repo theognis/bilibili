@@ -108,23 +108,13 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 		return
 	}
 
-	//解析token
-	gs := service.GeneralService{}
 	us := service.UserService{}
-	claims, err := gs.ParseToken(phoneChangeParam.Token)
 
-	if err != nil {
-		if err.Error()[:16] == "token is expired" {
-			tool.Failed(ctx, "token失效")
-			return
-		}
-
-		fmt.Println("getTokenParseTokenErr:", err)
-		tool.Failed(ctx, "refreshToken不正确或系统错误")
+	//解析token
+	userinfo, flag := tool.CheckTokenErr(ctx, phoneChangeParam.Token)
+	if flag == false {
 		return
 	}
-
-	userinfo := claims.Userinfo
 
 	//判断原设备类型
 	if strings.Index(phoneChangeParam.OriginalAddress, "@") == -1 {
@@ -147,7 +137,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	}
 
 	//验证原设备
-	flag, err := us.JudgeVerifyCode(ctx, phoneChangeParam.OriginalAddress, phoneChangeParam.OriginalCode)
+	flag, err = us.JudgeVerifyCode(ctx, phoneChangeParam.OriginalAddress, phoneChangeParam.OriginalCode)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("JudgeVerifyCode: ", err)
@@ -207,23 +197,14 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 		return
 	}
 
-	gs := service.GeneralService{}
 	us := service.UserService{}
-	claims, err := gs.ParseToken(token)
-
-	if err != nil {
-		if err.Error()[:16] == "token is expired" {
-			tool.Failed(ctx, "token失效")
-			return
-		}
-
-		fmt.Println("getTokenParseTokenErr:", err)
-		tool.Failed(ctx, "refreshToken不正确或系统错误")
+	userinfo, flag := tool.CheckTokenErr(ctx, token)
+	if flag == false {
 		return
 	}
 
-	username := claims.Userinfo.Username
-	err = us.ChangeStatement(username, newStatement)
+	username := userinfo.Username
+	err := us.ChangeStatement(username, newStatement)
 	if err != nil {
 		fmt.Println("ChangeStatementErr: ", err)
 		tool.Failed(ctx, "系统错误")
@@ -263,21 +244,12 @@ func (u *UserController) sendEmailCode(ctx *gin.Context) {
 func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	token := ctx.Query("token")
 
-	gs := service.GeneralService{}
-	claims, err := gs.ParseToken(token)
-
-	if err != nil {
-		if err.Error()[:16] == "token is expired" {
-			tool.Failed(ctx, "token失效")
-			return
-		}
-
-		fmt.Println("getTokenParseTokenErr:", err)
-		tool.Failed(ctx, "refreshToken不正确或系统错误")
+	userinfo, flag := tool.CheckTokenErr(ctx, token)
+	if flag == false {
 		return
 	}
 
-	userMap := tool.ObjToMap(claims.Userinfo)
+	userMap := tool.ObjToMap(userinfo)
 	ctx.JSON(200, userMap)
 }
 
@@ -291,22 +263,9 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	}
 
 	//解析token
-	gs := service.GeneralService{}
 	us := service.UserService{}
-	claims, err := gs.ParseToken(emailChangeParam.Token)
 
-	if err != nil {
-		if err.Error()[:16] == "token is expired" {
-			tool.Failed(ctx, "token失效")
-			return
-		}
-
-		fmt.Println("getTokenParseTokenErr:", err)
-		tool.Failed(ctx, "refreshToken不正确或系统错误")
-		return
-	}
-
-	userinfo := claims.Userinfo
+	userinfo, flag := tool.CheckTokenErr(ctx, emailChangeParam.Token)
 
 	//判断原设备类型
 	if strings.Index(emailChangeParam.OriginalAddress, "@") == -1 {
@@ -329,7 +288,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	}
 
 	//验证原设备
-	flag, err := us.JudgeVerifyCode(ctx, emailChangeParam.OriginalAddress, emailChangeParam.OriginalCode)
+	flag, err = us.JudgeVerifyCode(ctx, emailChangeParam.OriginalAddress, emailChangeParam.OriginalCode)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("JudgeVerifyCode: ", err)
