@@ -190,7 +190,8 @@ let info = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"TOKEN_EXPIRED"` | refreshToken失效 |
+| `false` | `"refreshToken失效"` | refreshToken失效 |
+| `false` | "refreshToken不正确或系统错误" | refreshToken不正确或系统错误 |
 | `true` | 新的token | 成功 |
 
 #### `/api/verify/sms/general` `POST`
