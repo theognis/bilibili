@@ -75,7 +75,7 @@ function registerReq(form){
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: encodeJson(form)
+        body: jsonToQuery(form)
     }).then(data => data.json())
 }
 function sendMessageReq(phone){
@@ -84,7 +84,7 @@ function sendMessageReq(phone){
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: encodeJson({phone: phone})
+        body: jsonToQuery({phone: phone})
     }).then(data => data.json())
 }
 function checkUsernameReq(username){
@@ -98,15 +98,6 @@ function checkPhoneReq(phone){
     }).then(data => data.json())
 }
 
-function encodeJson(json){
-    return Object.entries(json).map(v =>
-        v.map(v =>
-            v.toString()
-                .replace(/=/g,'%3D')
-                .replace(/&/g,'%26'))
-            .join('=')
-    ).join('&')
-}
 function getStrLength(string){
     let length = 0;
     for(let i = 0; i < string.length; i++){

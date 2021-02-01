@@ -23,6 +23,7 @@ function hideUserHover() {
 function initHeader() {
     if (user.token) {
         nav.setAttribute('class', 'logged')
+        user_hover.style.left = user_button.offsetLeft - 140 + 'px'
         user_button.onmouseover = showUserHover
         user_button.onmouseout = hideUserHover
         user_hover.onmouseover = showUserHover
@@ -34,17 +35,26 @@ function initHeader() {
     }
 }
 async function initUserHover() {
-    const info = (await getInfo()).data
+    const res = await getInfo()
+    if (!res.status) {
+        console.log('Failed to get info: ', res.data)
+        return
+    }
+    const info = res.data
     uh_username.innerText = info.Username
     uh_level.innerText = '等级 ' + getLevel(info.Exp)
     uh_exp.innerText = info.Exp + ' / ' + getMaxExp(info.Exp)
     uh_progress.style.width = info.Exp / getMaxExp(info.Exp) * 100 + '%'
     uh_coin.innerText = info.Coins
 }
-function locateHover() {
-    user_hover.style.left = user_button.offsetLeft - 140 + 'px'
-}
 
+function logout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('refreshToken')
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('refreshToken')
+    window.location.reload()
+}
 function getLevel(exp) {
     if (exp < 200) {
         return 1
@@ -75,15 +85,20 @@ function getMaxExp(exp) {
         return 114514
     }
 }
-function logout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('refreshToken')
-    sessionStorage.removeItem('token')
-    sessionStorage.removeItem('refreshToken')
-    window.location.reload()
+function isRemembered() {
+    return !!localStorage.getItem('token');
+}
+function jsonToQuery(json){
+    return Object.entries(json).map(v =>
+        v.map(v =>
+            v.toString()
+                .replace(/=/g,'%3D')
+                .replace(/&/g,'%26'))
+            .join('=')
+    ).join('&')
 }
 
-function initToken() {
+async function initToken() {
     if (localStorage.getItem('token')){
         user.token = localStorage.getItem('token')
         user.refreshToken = localStorage.getItem('refreshToken')
@@ -91,42 +106,51 @@ function initToken() {
         user.token = sessionStorage.getItem('token')
         user.refreshToken = sessionStorage.getItem('refreshToken')
     }
+    if (user.token !== '') {
+        await refreshToken()
+        await checkIn()
+    }
 }
-function isRemembered() {
-    return !!localStorage.getItem('token');
-}
-function refreshToken(refreshToken = user.refreshToken) {
+function refreshToken() {
     return fetch('/api/verify/token?refreshToken=' + user.refreshToken, {
         method: 'GET'
     })
         .then(data => data.json())
-        .then(json => {
-            if(json.status) {
-                user.token = json.data
-                if (isRemembered()) {
-                    localStorage.setItem('token', json.data)
-                } else {
-                    sessionStorage.setItem('token', json.data)
-                }
+        .then(RTokenRes => {
+            if(RTokenRes.status) {
+                user.token = RTokenRes.data
+                if (isRemembered())
+                    localStorage.setItem('token', RTokenRes.data)
+                else
+                    sessionStorage.setItem('token', RTokenRes.data)
+                console.log('刷新 Token 成功')
             } else {
-                console.log('Failed to refresh token: ', json.data)
+                console.log('刷新 Token 失败: ', RTokenRes.data)
             }
         })
 }
-
-async function getInfo(){
-    const res = (await fetch('/api/user/info/self?token=' + user.token, {
+function checkIn() {
+    return fetch('/api/user/check-in', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: jsonToQuery({token: user.token})
+    })
+        .then(data => data.json())
+        .then(checkInRes => {
+            if (checkInRes.status) {
+                console.log('签到成功')
+            } else {
+                console.log('签到失败: ', checkInRes.data)
+            }
+        })
+}
+function getInfo(){
+    return fetch('/api/user/info/self?token=' + user.token, {
         method: 'GET'
-    }).then(data => data.json()))
-    if (res.data === 'TOKEN_EXPIRED') {
-        await refreshToken()
-        return (await fetch('/api/user/info/self?token=' + user.token, {
-            method: 'GET'
-        }).then(data => data.json()))
-    }
-    return res
+    }).then(data => data.json())
 }
 
-initToken()
-initHeader()
-locateHover()
+initToken().then(() => initHeader())
+setInterval(refreshToken, 60000)

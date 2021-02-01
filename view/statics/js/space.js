@@ -16,15 +16,6 @@ function getInitTabLeft() {
     }
 }
 
-function jsonToQuery(json) {
-    return Object.entries(json).map(v =>
-        v.map(v =>
-            v.toString()
-                .replace(/=/g,'%3D')
-                .replace(/&/g,'%26'))
-            .join('=')
-    ).join('&')
-}
 function queryToJson() {
     const queryStr = window.location.search.substring(1)
     const json = {}

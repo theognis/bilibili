@@ -51,18 +51,8 @@ function loginReq(form){
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: encodeJson(form)
+        body: jsonToQuery(form)
     }).then(data => data.json())
-}
-
-function encodeJson(json){
-    return Object.entries(json).map(v =>
-        v.map(v =>
-            v.toString()
-                .replace(/=/g,'%3D')
-                .replace(/&/g,'%26'))
-            .join('=')
-    ).join('&')
 }
 
 function init(){
