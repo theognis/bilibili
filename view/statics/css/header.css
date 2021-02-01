@@ -175,7 +175,6 @@ body>header>.hover>.user>.level_content>.bar {
 }
 body>header>.hover>.user>.level_content>.bar>.progress {
     height: 100%;
-    width: 50%;
     background-color: #f3cb85;
 }
 body>header>.hover>.user>.money {
