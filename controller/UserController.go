@@ -317,6 +317,7 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	userinfo := clams.Userinfo
 
 	userMap := tool.ObjToMap(userinfo)
+	//success
 	tool.Success(ctx, userMap)
 }
 
