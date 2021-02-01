@@ -54,7 +54,7 @@ async function register(){
     })
     if(json.status){
         alert("注册成功")
-        window.location.href = '/passport/login'
+        window.location.href = '/account/login'
     } else {
         alert("注册失败：" + json.data)
     }

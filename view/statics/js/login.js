@@ -91,7 +91,7 @@ function init(){
         verify_code_status.innerText = verify_code.value.length === 0 ? '短信验证码不能为空' : ''
     }
     login_button.onclick = login
-    register_button.onclick = () => window.location.href = '/passport/register'
+    register_button.onclick = () => window.location.href = '/account/register'
 }
 
 init()
