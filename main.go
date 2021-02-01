@@ -4,7 +4,6 @@ import (
 	"bilibili/controller"
 	"bilibili/tool"
 	"github.com/gin-gonic/gin"
-	"html/template"
 	"log"
 	"net/http"
 )
@@ -37,35 +36,8 @@ func main() {
 			"av": av,
 		})
 	})
-	space.GET("/:uid", func(c *gin.Context) {
-		uid := c.Param("uid")
-		c.HTML(http.StatusOK, "space.html", gin.H{
-			"uid":           uid,
-			"tab_home":      template.HTML(`<div id="tab_home" class="now_tab">主页</div>`),
-			"tab_moments":   template.HTML(`<div id="tab_moments">动态</div>`),
-			"tab_post":      template.HTML(`<div id="tab_post">投稿</div>`),
-			"tab_underline": template.HTML(`<div id="tab_underline" style="left: 15px"></div>`),
-		})
-	})
-	space.GET("/:uid/moments", func(c *gin.Context) {
-		uid := c.Param("uid")
-		c.HTML(http.StatusOK, "space.html", gin.H{
-			"uid":           uid,
-			"tab_home":      template.HTML(`<div id="tab_home">主页</div>`),
-			"tab_moments":   template.HTML(`<div id="tab_moments" class="now_tab">动态</div>`),
-			"tab_post":      template.HTML(`<div id="tab_post">投稿</div>`),
-			"tab_underline": template.HTML(`<div id="tab_underline" style="left: 96px"></div>`),
-		})
-	})
-	space.GET("/:uid/post", func(c *gin.Context) {
-		uid := c.Param("uid")
-		c.HTML(http.StatusOK, "space.html", gin.H{
-			"uid":           uid,
-			"tab_home":      template.HTML(`<div id="tab_home">主页</div>`),
-			"tab_moments":   template.HTML(`<div id="tab_moments">动态</div>`),
-			"tab_post":      template.HTML(`<div id="tab_post" class="now_tab">投稿</div>`),
-			"tab_underline": template.HTML(`<div id="tab_underline" style="left: 177px"></div>`),
-		})
+	space.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "space.html", gin.H{})
 	})
 
 	routerRegister(router)

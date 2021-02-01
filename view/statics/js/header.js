@@ -47,12 +47,12 @@ function locateHover() {
     user_hover.style.left = user_button.offsetLeft - 140 + 'px'
 }
 
-/*async function info(){
+async function info(){
     let json = await fetch('/api/user/info/self?token=' + refreshToken, {
         method: 'GET'
     }).then(data => data.json())
     console.log(json)
-}*/
+}
 
 initToken()
 initHeader()

@@ -47,7 +47,7 @@
             <div id="post"><a>投稿</a></div>
         </nav>
         <div class="hover">
-            <div class="user" style="">
+            <div class="user" style="visibility: hidden;opacity: 0;">
                 <img class="avatar" src="/statics/images/akari.jpg">
                 <span class="username">admin</span>
                 <div class="level_content">
@@ -87,11 +87,11 @@
     <div id="banner_bottom">
         <div class="left">
             <div id="tab">
-                {{.tab_home}}
-                {{.tab_moments}}
-                {{.tab_post}}
+                <div id="tab_home">主页</div>
+                <div id="tab_moments">动态</div>
+                <div id="tab_post">投稿</div>
             </div>
-            {{.tab_underline}}
+            <div id="tab_underline"></div>
         </div>
         <div class="right">
             <div class="following">
