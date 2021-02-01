@@ -9,6 +9,7 @@ import (
 type Config struct {
 	AppPort  string         `json:"app_port"`
 	AppHost  string         `json:"app_host"`
+	AppHttps bool           `json:"app_https"`
 	Database DatabaseConfig `json:"database"`
 	Email    EmailConfig    `json:"email"`
 	Redis    RedisConfig    `json:"redis"`
