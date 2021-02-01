@@ -145,10 +145,30 @@ let data = {
 | -------- | ---- | ------ |
 |  |  |  |
 
+#### `/api/user/username` `PUT`
+
+* `application/x-www-form-urlencoded`
+* 修改用户名，消耗6个硬币
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+| new_username | 可选 | 新用户名 |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"昵称不可为空"` | `new_username` 为空 |
+| `false` | `"昵称太长了"` | `new_username` 大于 15 个字节 |
+| `false` | `"硬币不足"` | 硬币不足 |
+| `true` | `""` | 修改成功 |
+
 #### `/api/user/statement` `PUT`
 
 * `application/x-www-form-urlencoded`
-* 修改个性签名；如果无new_statement则更改为默认签名
+* 修改签名；如果无new_statement则更改为默认签名
 
 | 请求参数      | 类型 | 说明       |
 | ------------- | ---- | ---------- |
@@ -157,7 +177,11 @@ let data = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-|  |  |  |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"签名太长了"` | `new_username` 大于 15 个字节 |
+| `true` | `""` | 修改成功 |
 
 #### `/api/user/check-in` `PUT`
 
