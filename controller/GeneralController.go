@@ -34,6 +34,11 @@ func (g *GeneralController) getToken(ctx *gin.Context) {
 
 	}
 
+	if model.Type == "ERR" {
+		tool.Failed(ctx, "refreshToken不正确或系统错误")
+		return
+	}
+
 	//创建新token
 	newToken, err := gs.CreateToken(model.Userinfo, 120, "TOKEN")
 	if err != nil {

@@ -1,22 +1,29 @@
 package tool
 
 import (
+	"bilibili/model"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 //检查并解析token
 //token过期返回TOKEN_EXPIRED
-//token不正确返回PRASE_TOKEN_ERROR
-func CheckTokenErr(ctx *gin.Context, err error) bool {
+//token不正确返回PHRASE_TOKEN_ERROR
+func CheckTokenErr(ctx *gin.Context, claims *model.MyCustomClaims, err error) bool {
+	if err == nil && claims.Type == "ERR" {
+		Failed(ctx, "PHRASE_TOKEN_ERROR")
+		return false
+	}
+
 	if err != nil {
+		fmt.Println("HAHA")
 		if err.Error()[:16] == "token is expired" {
 			Failed(ctx, "TOKEN_EXPIRED")
 			return false
 		}
 
 		fmt.Println("getTokenParseTokenErr:", err)
-		Failed(ctx, "refreshToken不正确或系统错误")
+		Failed(ctx, "PHRASE_TOKEN_ERROR")
 		return false
 	}
 

@@ -117,7 +117,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	gs := service.GeneralService{}
 	//解析token
 	clams, err := gs.ParseToken(phoneChangeParam.Token)
-	flag := tool.CheckTokenErr(ctx, err)
+	flag := tool.CheckTokenErr(ctx, clams, err)
 	if flag == false {
 		return
 	}
@@ -212,7 +212,7 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 	gs := service.GeneralService{}
 
 	clams, err := gs.ParseToken(token)
-	flag := tool.CheckTokenErr(ctx, err)
+	flag := tool.CheckTokenErr(ctx, clams, err)
 	if flag == false {
 		return
 	}
@@ -266,7 +266,7 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	gs := service.GeneralService{}
 
 	clams, err := gs.ParseToken(token)
-	flag := tool.CheckTokenErr(ctx, err)
+	flag := tool.CheckTokenErr(ctx, clams, err)
 	if flag == false {
 		return
 	}
@@ -295,7 +295,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	gs := service.GeneralService{}
 
 	clams, err := gs.ParseToken(emailChangeParam.Token)
-	flag := tool.CheckTokenErr(ctx, err)
+	flag := tool.CheckTokenErr(ctx, clams, err)
 	if flag == false {
 		return
 	}

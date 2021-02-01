@@ -21,7 +21,9 @@ func (u *GeneralService) ParseRefreshToken(tokenString string) (*model.MyCustomC
 
 	if clams, ok := token.Claims.(*model.MyCustomClaims); ok && token.Valid {
 		if clams.Type == "TOKEN" {
-			return nil, err
+			errClaims := new(model.MyCustomClaims)
+			errClaims.Type = "ERR"
+			return errClaims, nil
 		}
 		return clams, nil
 	} else {
@@ -39,7 +41,9 @@ func (u *GeneralService) ParseToken(tokenString string) (*model.MyCustomClaims, 
 
 	if clams, ok := token.Claims.(*model.MyCustomClaims); ok && token.Valid {
 		if clams.Type == "REFRESH_TOKEN" {
-			return nil, err
+			errClaims := new(model.MyCustomClaims)
+			errClaims.Type = "ERR"
+			return errClaims, nil
 		}
 		return clams, nil
 	} else {
