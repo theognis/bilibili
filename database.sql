@@ -10,10 +10,10 @@ CREATE TABLE `userinfo` (
     `salt` VARCHAR(10) NOT NULL,
     `password` VARCHAR(32) NOT NULL,
     `reg_date` DATE NOT NULL,
-    `email` VARCHAR(20) NOT NULL DEFAULT "",
+    `email` VARCHAR(20) NOT NULL DEFAULT '',
     `statement` VARCHAR(90) NOT NULL DEFAULT '这个人很懒，什么都没有写',
     `exp` INT NOT NULL DEFAULT 0,
     `coins` INT NOT NULL DEFAULT 0,
     UNIQUE (`username`),
     UNIQUE (`phone`)
-);
+) charset="utf8mb4";
