@@ -8,10 +8,10 @@ import (
 
 //检查并解析token
 //token过期返回TOKEN_EXPIRED
-//token不正确返回PHRASE_TOKEN_ERROR
+//token不正确返回PARSE_TOKEN_ERROR
 func CheckTokenErr(ctx *gin.Context, claims *model.MyCustomClaims, err error) bool {
 	if err == nil && claims.Type == "ERR" {
-		Failed(ctx, "PHRASE_TOKEN_ERROR")
+		Failed(ctx, "PARSE_TOKEN_ERROR")
 		return false
 	}
 
@@ -23,7 +23,7 @@ func CheckTokenErr(ctx *gin.Context, claims *model.MyCustomClaims, err error) bo
 		}
 
 		fmt.Println("getTokenParseTokenErr:", err)
-		Failed(ctx, "PHRASE_TOKEN_ERROR")
+		Failed(ctx, "PARSE_TOKEN_ERROR")
 		return false
 	}
 
