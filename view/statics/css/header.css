@@ -128,7 +128,6 @@ body>header>.hover>.user {
     flex-direction: column;
     align-items: center;
     width: 280px;
-    height: 220px;
     box-shadow: 0 3px 6px rgba(0,0,0,.2);
     border-radius: 2px;
     background-color: #fff;
@@ -196,6 +195,30 @@ body>header>.hover>.user>.money span {
     color: #212121;
     font-size: 14px;
 }
+body>header>.hover>.user>.links {
+    padding: 7px 0;
+    width: 100%;
+    border-bottom: solid 1px #f4f4f4;
+}
+body>header>.hover>.user>.links>a {
+    padding: 8px 23px;
+    display: flex;
+    align-items: center;
+    transition: all ease .3s;
+    cursor: pointer;
+    color: #000
+}
+body>header>.hover>.user>.links>a:hover {
+    background-color: #f4f4f4;
+}
+body>header>.hover>.user>.links>.setting::before {
+    content: "\E722";
+    font-family: bilifont;
+    margin-right: 5px;
+    font-size: 24px;
+    color: #979797;
+}
+
 body>header>.hover>.user>.logout {
     padding: 7px 0;
     width: 100%;
