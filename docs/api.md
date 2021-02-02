@@ -2,10 +2,10 @@
 
 ### User
 
-#### `/api/user/login` `POST`
+#### `/api/user/login/pw` `POST`
 
 * `application/x-www-form-urlencoded`
-* 用户登录
+* 密码登录
 
 | 请求参数  | 类型 | 说明                |
 | --------- | ---- | ------------------- |
@@ -26,6 +26,30 @@
 | `false` | `"用户名或密码错误"` | `loginName` 不存在 |
 | `false` | `"用户名或密码错误"` | `loginName` 与 `password` 不匹配 |
 | `true` | `""` | `loginName` 与 `password` 匹配 |
+
+#### `/api/user/login/sms` `POST`
+
+* `application/x-www-form-urlencoded`
+* 短信登录
+
+| 请求参数  | 类型 | 说明     |
+| ------- | ---- | ------- |
+| phone  |  必选  |  手机号  |
+| verify_code | 必选 | 验证码  |
+
+| 返回参数     | 说明         |
+| ----------- | ------------ |
+| status       | 状态码       |
+| data         | 返回消息     |
+| token        | 用户token    |
+| refreshToken | refreshToken |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"手机号不能为空哦"` | `phone` 为空 |
+| `false` | `"短信验证码不能为空"` | `verify_code` 为空 |
+| `false` | `"验证码错误"` | `phone` 与 `verify_code` 不匹配 |
+| `true` | `""` | `phone` 与 `verify_code` 匹配 |
 
 #### `/api/user/register` `POST`
 
@@ -245,6 +269,22 @@ let data = {
 | -------- | ---- | ------ |
 | `false` | `"手机号不可为空"` | `phone` 为空 |
 | `false` | `"手机号已被使用"` | `phone` 已被使用 |
+| `false` | `"手机号不合法"` | `phone` 不合法 |
+| `true` | `""` | 发送验证码成功 |
+
+#### `/api/verify/sms/login` `POST`
+
+* `application/x-www-form-urlencoded`
+* 登录时向 `phone` 发送短信验证码
+
+| 请求参数 | 类型 | 说明   |
+| -------- | ---- | ------ |
+| phone    | 必选 | 手机号 |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"手机号不可为空"` | `phone` 为空 |
+| `false` | `"手机号未被注册"` | `phone` 未注册 |
 | `false` | `"手机号不合法"` | `phone` 不合法 |
 | `true` | `""` | 发送验证码成功 |
 
