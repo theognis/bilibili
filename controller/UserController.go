@@ -308,16 +308,23 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	}
 
 	gs := service.GeneralService{}
+	us := service.UserService{}
 
 	clams, err := gs.ParseToken(token)
 	flag := tool.CheckTokenErr(ctx, clams, err)
 	if flag == false {
 		return
 	}
-	userinfo := clams.Userinfo
+	username := clams.Userinfo.Username
+
+	userinfo, err := us.GetUserinfo(username)
+	if err != nil {
+		fmt.Println("GetUserinfoErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
 
 	userMap := tool.ObjToMap(userinfo)
-	//success
 	tool.Success(ctx, userMap)
 }
 
