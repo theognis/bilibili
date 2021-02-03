@@ -107,6 +107,7 @@ async function initToken() {
         user.refreshToken = sessionStorage.getItem('refreshToken')
     }
     if (user.token !== '') {
+        setInterval(refreshToken, 60000)
         await refreshToken()
         await checkIn()
     }
@@ -153,4 +154,3 @@ function getInfo(){
 }
 
 initToken().then(() => initHeader())
-setInterval(refreshToken, 60000)
