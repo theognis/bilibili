@@ -58,9 +58,6 @@ func (u *UserService) JudgeCheckIn(username string) (bool, error) {
 	lastCheckInDate := userinfo.LastCheckInDate[:10]
 	timeNow := time.Now().Format("2006-01-02")
 
-	fmt.Println("SQL:", lastCheckInDate)
-	fmt.Println("NOW:", timeNow)
-
 	if timeNow == lastCheckInDate {
 		return false, nil
 	}

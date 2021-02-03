@@ -15,7 +15,7 @@ func GetDb() *sql.DB {
 func init() {
 	cfg := GetCfg().Database
 
-	db, err := sql.Open(cfg.Driver, cfg.User + ":" + cfg.Password + "@tcp(" + cfg.Host + ":" + cfg.Port + ")/" + cfg.DbName + "?charset=utf8&parseTime=true")
+	db, err := sql.Open(cfg.Driver, cfg.User+":"+cfg.Password+"@tcp("+cfg.Host+":"+cfg.Port+")/"+cfg.DbName+"?charset=utf8&parseTime=true&loc=Local")
 	if err != nil {
 		fmt.Println(err)
 		return
