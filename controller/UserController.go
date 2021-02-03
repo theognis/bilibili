@@ -25,12 +25,74 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
 	engine.POST("/api/verify/sms/general", u.sendSms)
 	engine.POST("/api/user/login/pw", u.login)
+	engine.POST("/api/user/login/sms", u.loginBySms)
 	engine.POST("/api/verify/email", u.sendEmailCode)
 	engine.PUT("/api/user/phone", u.changePhone)
 	engine.PUT("/api/user/email", u.changeEmail)
 	engine.PUT("/api/user/statement", u.changeStatement)
 	engine.PUT("/api/user/check-in", u.checkIn)
 	engine.PUT("/api/user/avatar", u.changeAvatar)
+}
+
+//使用短信登录
+func (u *UserController) loginBySms(ctx *gin.Context) {
+	phone := ctx.PostForm("phone")
+	verifyCode := ctx.PostForm("verify_code")
+
+	if phone == "" {
+		tool.Failed(ctx, "手机号不能为空哦")
+		return
+	}
+
+	if verifyCode == "" {
+		tool.Failed(ctx, "短信验证码不能为空")
+		return
+	}
+
+	us := service.UserService{}
+	flag, err := us.JudgeVerifyCode(ctx, phone, verifyCode)
+	if err != nil {
+		fmt.Println("JudgePhoneErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "验证码错误")
+		return
+	}
+
+	userinfo, err := us.LoginBySms(phone)
+	if err != nil {
+		fmt.Println("loginErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	gs := service.GeneralService{}
+
+	//创建token， 有效期两分钟
+	tokenString, err := gs.CreateToken(userinfo, 120, "TOKEN")
+	if err != nil {
+		fmt.Println("CreateTokenErr:", err)
+		tool.Failed(ctx, "系统错误")
+		return
+	}
+
+	//创建一个refresh token有效期一周
+	refreshToken, err := gs.CreateToken(userinfo, 604800, "REFRESH_TOKEN")
+	if err != nil {
+		fmt.Println("CreateRefreshTokenErr:", err)
+		tool.Failed(ctx, "系统错误")
+		return
+	}
+
+	ctx.JSON(200, gin.H{
+		"status":       true,
+		"data":         "",
+		"token":        tokenString,
+		"refreshToken": refreshToken,
+	})
 }
 
 //更改用户头像

@@ -116,7 +116,15 @@ func (u *UserService) ChangeEmail(username, newEmail string) error {
 	return err
 }
 
-//返回一个实体
+//通过短信登录
+func (u *UserService) LoginBySms(phone string) (model.Userinfo, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	userinfo, err := d.QueryByPhone(phone)
+	return userinfo, err
+}
+
+//通过密码登录，返回一个实体
 func (u *UserService) Login(loginName, password string) (model.Userinfo, bool, error) {
 	d := dao.UserDao{tool.GetDb()}
 
