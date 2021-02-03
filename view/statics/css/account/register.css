@@ -8,23 +8,9 @@
     grid-template-rows: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
 }
 
-#main input[type="text"], #main input[type="password"] {
-    border: 1px solid #dcdfe6;
-    height: 40px;
-    color: #606266;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-#main input[type="text"]:focus, #main input[type="password"]:focus {
-    border-color: #00a1d6;
-    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-}
-
 #main input::-webkit-input-placeholder {
     color: #C0C4CC
 }
-
 #main p {
     position: relative;
     display: inline-block;
@@ -45,38 +31,15 @@
     display: grid;
     grid-template-columns: 130px auto;
 }
-
-#phone_number select{
-    border-radius: 4px 0 0 4px;
-    border: 1px solid #dcdfe6;
-    padding: 0 15px;
-    height: 40px;
-    font-size: 14px;
-    color: #909399;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
 #phone_number input{
     border-radius: 0 4px 4px 0;
 }
-
 #verify_code button{
-    background-color: #00a1d6;
-    border: none;
-    color: white;
-    border-radius: 4px;
     height: 36px;
     width: 130px;
     position: relative;
     top: -38px;
     left: 288px;
-    cursor: pointer;
-}
-
-#verify_code button:hover{
-    background: #33b4de;
-    transition: 0.1s;
 }
 
 #license>label * {
@@ -84,7 +47,6 @@
     margin: 0;
     cursor: pointer;
 }
-
 #license>label {
     font-size: 12px;
     line-height: 40px;
@@ -94,23 +56,6 @@
 #register button {
     width: 420px;
     height: 40px;
-    border-radius: 4px;
-    border: none;
-    background-color: #00a1d6;
-    color: white;
-    cursor: pointer;
-    transition: .1s;
-}
-
-#register button:hover {
-    background-color: #33b4de;
-}
-
-button:disabled {
-    background-color: #f5f5f5 !important;
-    color: rgba(0, 0, 0, 0.25) !important;
-    border: 1px #d9d9d9 solid !important;
-    cursor: not-allowed !important;
 }
 
 #to_login a {

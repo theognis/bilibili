@@ -18,11 +18,7 @@ const register_button = document.querySelector('#register')
 
 function login(){
     let chosen_tab = document.querySelector('.chosen_tab').getAttribute('id')
-    if (chosen_tab === 'to_by_password') {
-        loginPw()
-    } else {
-        loginSms()
-    }
+    chosen_tab === 'to_by_password' ? loginPw() : loginSms()
 }
 async function loginPw(){
     let ok = true
@@ -41,19 +37,8 @@ async function loginPw(){
         loginName: username_input.value,
         password: password_input.value
     }
-    const json = await loginPwReq(form)
-    if (json.status) {
-        if (remember_me.checked) {
-            localStorage.setItem('token', json.token)
-            localStorage.setItem('refreshToken', json.refreshToken)
-        } else {
-            sessionStorage.setItem('token', json.token)
-            sessionStorage.setItem('refreshToken', json.refreshToken)
-        }
-        window.location.href = '/'
-    } else {
-        alert("登录失败：" + json.data)
-    }
+    const json = await loginReq('pw', form)
+    handleLoginRes(json)
 }
 async function loginSms(){
     let ok = true
@@ -72,19 +57,8 @@ async function loginSms(){
         phone: phone_number_input.value,
         verify_code: verify_code_input.value
     }
-    const json = await loginSmsReq(form)
-    if (json.status) {
-        if (remember_me.checked) {
-            localStorage.setItem('token', json.token)
-            localStorage.setItem('refreshToken', json.refreshToken)
-        } else {
-            sessionStorage.setItem('token', json.token)
-            sessionStorage.setItem('refreshToken', json.refreshToken)
-        }
-        window.location.href = '/'
-    } else {
-        alert("登录失败：" + json.data)
-    }
+    const json = await loginReq('sms', form)
+    handleLoginRes(json)
 }
 async function sendMessage(){
     if (phone_number_input.value === '') {
@@ -102,17 +76,8 @@ async function sendMessage(){
         send_message_button.removeAttribute('disabled')
     }
 }
-function loginPwReq(form){
-    return fetch('/api/user/login/pw', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: jsonToQuery(form)
-    }).then(data => data.json())
-}
-function loginSmsReq(form){
-    return fetch('/api/user/login/sms', {
+function loginReq(type, form){
+    return fetch('/api/user/login/' + type, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -128,6 +93,20 @@ function sendMessageReq(phone){
         },
         body: jsonToQuery({phone: phone})
     }).then(data => data.json())
+}
+function handleLoginRes(json) {
+    if (json.status) {
+        if (remember_me.checked) {
+            localStorage.setItem('token', json.token)
+            localStorage.setItem('refreshToken', json.refreshToken)
+        } else {
+            sessionStorage.setItem('token', json.token)
+            sessionStorage.setItem('refreshToken', json.refreshToken)
+        }
+        window.location.href = '/'
+    } else {
+        alert("登录失败：" + json.data)
+    }
 }
 
 function init(){

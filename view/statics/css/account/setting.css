@@ -6,17 +6,6 @@
     border-radius: 4px;
     padding: 40px 50px;
 }
-#main button{
-    color: #fff;
-    background-color: #00a1d6;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: .1s;
-}
-#main button:hover{
-    background: #33b4de;
-}
 #main>div>h1 {
     margin: 0 0 20px 0;
     font-size: 20px;
