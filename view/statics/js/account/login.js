@@ -14,7 +14,7 @@ const remember_me = document.querySelector('#remember_me')
 const login_button = document.querySelector('#login')
 const register_button = document.querySelector('#register')
 
-async function login(){
+async function loginPw(){
     let ok = true
     if (username.value.length === 0) {
         username_status.innerText =  '请输入注册时用的邮箱或者手机号呀'
@@ -31,7 +31,7 @@ async function login(){
         loginName: username.value,
         password: password.value
     }
-    const json = await loginReq(form)
+    const json = await loginPwReq(form)
     if (json.status) {
         if (remember_me.checked) {
             localStorage.setItem('token', json.token)
@@ -45,8 +45,8 @@ async function login(){
         alert("登录失败：" + json.data)
     }
 }
-function loginReq(form){
-    return fetch('/api/user/login', {
+function loginPwReq(form){
+    return fetch('/api/user/login/pw', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -80,7 +80,7 @@ function init(){
     verify_code.oninput = () => {
         verify_code_status.innerText = verify_code.value.length === 0 ? '短信验证码不能为空' : ''
     }
-    login_button.onclick = login
+    login_button.onclick = loginPw
     register_button.onclick = () => window.location.href = '/account/register'
 }
 
