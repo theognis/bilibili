@@ -207,6 +207,43 @@ let data = {
 | `false` | `"签名太长了"` | `new_username` 大于 15 个字节 |
 | `true` | `""` | 修改成功 |
 
+#### `/api/user/gender` `PUT`
+
+* `application/x-www-form-urlencoded`
+* 修改性别
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+| new_gender    | 可选 | 新性别（感觉好怪）（`male`, `female`, `other`, `secret`） |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"无效的性别"` | `new_gender` 不合法 |
+| `true` | `""` | 修改成功 |
+
+#### `/api/user/birth` `PUT`
+
+* `application/x-www-form-urlencoded`
+* 修改出生日期
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+| new_birth    | 可选 | 新的出生日期，格式为`2006-01-02` |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"日期格式错误"` | `new_birth` 格式错误 |
+| `false` | `"出生日期无效"` | `new_birth` 晚于现在 |
+| `true` | `""` | 修改成功 |
+
 #### `/api/user/check-in` `PUT`
 
 * `application/x-www-form-urlencoded`
