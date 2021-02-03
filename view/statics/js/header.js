@@ -8,7 +8,7 @@ const uh_progress = document.querySelector('body>header>.hover>.user>.level_cont
 const uh_coin = document.querySelector('body>header>.hover>.user>.money>.coin>span')
 const logout_button = document.querySelector('body>header>.hover>.user>.logout>span')
 
-const user = { token: '', refreshToken: '' }
+const user = { token: '', refreshToken: '' , data: {}}
 
 function showUserHover() {
     user_hover.style.visibility = 'visible'
@@ -40,12 +40,12 @@ async function initUserHover() {
         console.log('Failed to get info: ', res.data)
         return
     }
-    const info = res.data
-    uh_username.innerText = info.Username
-    uh_level.innerText = '等级 ' + getLevel(info.Exp)
-    uh_exp.innerText = info.Exp + ' / ' + getMaxExp(info.Exp)
-    uh_progress.style.width = info.Exp / getMaxExp(info.Exp) * 100 + '%'
-    uh_coin.innerText = info.Coins
+    user.data = res.data
+    uh_username.innerText = user.data.Username
+    uh_level.innerText = '等级 ' + getLevel(user.data.Exp)
+    uh_exp.innerText = user.data.Exp + ' / ' + getMaxExp(user.data.Exp)
+    uh_progress.style.width = user.data.Exp / getMaxExp(user.data.Exp) * 100 + '%'
+    uh_coin.innerText = user.data.Coins
 }
 
 function logout() {
