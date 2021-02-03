@@ -33,6 +33,49 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/check-in", u.checkIn)
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
+	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+//更改生日
+func (u *UserController) changeBirth(ctx *gin.Context) {
+	token := ctx.PostForm("token")
+	newBirth := ctx.PostForm("new_birth")
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	newTime, err := time.ParseInLocation("2006-01-02", newBirth, time.Local)
+	if err != nil {
+		fmt.Println("ParseInLocationErr: ", err)
+		tool.Failed(ctx, "日期格式错误")
+		return
+	}
+
+	if time.Now().Before(newTime) {
+		tool.Failed(ctx, "出生日期无效")
+		return
+	}
+
+	err = us.ChangeBirthday(userinfo.Username, newTime)
+	if err != nil {
+		fmt.Println("ChangeBirthdayErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 //更改性别
