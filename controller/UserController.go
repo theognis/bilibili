@@ -24,7 +24,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.POST("/api/user/register", u.register)
 	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
 	engine.POST("/api/verify/sms/general", u.sendSms)
-	engine.POST("/api/user/login", u.login)
+	engine.POST("/api/user/login/pw", u.login)
 	engine.POST("/api/verify/email", u.sendEmailCode)
 	engine.PUT("/api/user/phone", u.changePhone)
 	engine.PUT("/api/user/email", u.changeEmail)
