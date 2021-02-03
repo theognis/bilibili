@@ -15,6 +15,17 @@ type Config struct {
 	Redis    RedisConfig    `json:"redis"`
 	Jwt      JwtCfg         `json:"jwt"`
 	Sms      SmsCfg         `json:"sms"`
+	Oss      OssCfg         `json:"oss"`
+}
+
+type OssCfg struct {
+	EndPoint     string `json:"end_point"`
+	AppKey       string `json:"app_key"`
+	AppSecret    string `json:"app_secret"`
+	AvatarBucket string `json:"avatar_bucket"`
+	AvatarUrl    string `json:"avatar_url"`
+	VideosBucket string `json:"videos_bucket"`
+	VideosUrl    string `json:"videos_url"`
 }
 
 type SmsCfg struct {
