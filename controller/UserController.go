@@ -24,6 +24,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.POST("/api/user/register", u.register)
 	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
 	engine.POST("/api/verify/sms/general", u.sendSms)
+	engine.POST("/api/verify/sms/login", u.sendSmsLogin)
 	engine.POST("/api/user/login/pw", u.login)
 	engine.POST("/api/user/login/sms", u.loginBySms)
 	engine.POST("/api/verify/email", u.sendEmailCode)
@@ -279,6 +280,50 @@ func (u *UserController) checkIn(ctx *gin.Context) {
 	}
 
 	tool.Success(ctx, "SUCCESS")
+}
+
+func (u *UserController) sendSmsLogin(ctx *gin.Context) {
+	phone := ctx.PostForm("phone")
+
+	if phone == "" {
+		tool.Failed(ctx, "手机号不可为空")
+	}
+
+	us := service.UserService{}
+	flag, err := us.JudgePhone(phone)
+	if err != nil {
+		fmt.Println("JudgePhoneErr: ", err)
+		tool.Failed(ctx, "f服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "手机号未被注册")
+		return
+	}
+
+	verifyCode, err := us.SendCodeByPhone(phone)
+	if err != nil {
+		tool.Failed(ctx, "系统错误")
+		fmt.Println("SendCodeByPhoneErr")
+		return
+	}
+
+	if verifyCode == "isv.MOBILE_NUMBER_ILLEGAL" {
+		tool.Failed(ctx, "手机号不合法")
+		fmt.Println("sendCodeByPhoneErr")
+		return
+	}
+
+	//把验证码放到redis中
+	err = us.VerifyCodeIn(ctx, phone, verifyCode)
+	if err != nil {
+		tool.Failed(ctx, "服务器错误")
+		fmt.Println("SetRedisErr: ", err)
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) sendSmsRegister(ctx *gin.Context) {
