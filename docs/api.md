@@ -132,6 +132,7 @@ let data = {
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"头像无效"` | `avatar` 无效或为空 |
+| `false` | `"头像文件过大"` | 头像大于2MB |
 | `false` | `"上传失败"` | 上传失败 |
 | `true` | `"上传成功"` | 上传成功 |
 
