@@ -69,7 +69,7 @@ func (u *UserController) loginBySms(ctx *gin.Context) {
 		return
 	}
 
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 
 	//创建token， 有效期两分钟
 	tokenString, err := gs.CreateToken(userinfo, 120, "TOKEN")
@@ -112,7 +112,7 @@ func (u *UserController) changeAvatar(ctx *gin.Context) {
 	}
 
 	us := service.UserService{}
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 	//解析token
 	clams, err := gs.ParseToken(token)
 	flag := tool.CheckTokenErr(ctx, clams, err)
@@ -169,7 +169,7 @@ func (u *UserController) checkIn(ctx *gin.Context) {
 	}
 
 	us := service.UserService{}
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 
 	clams, err := gs.ParseToken(token)
 	flag = tool.CheckTokenErr(ctx, clams, err)
@@ -285,7 +285,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	}
 
 	us := service.UserService{}
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 	//解析token
 	clams, err := gs.ParseToken(phoneChangeParam.Token)
 	flag := tool.CheckTokenErr(ctx, clams, err)
@@ -380,7 +380,7 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 	}
 
 	us := service.UserService{}
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 
 	clams, err := gs.ParseToken(token)
 	flag := tool.CheckTokenErr(ctx, clams, err)
@@ -434,7 +434,7 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 		return
 	}
 
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 	us := service.UserService{}
 
 	clams, err := gs.ParseToken(token)
@@ -471,7 +471,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 
 	//解析token
 	us := service.UserService{}
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 
 	clams, err := gs.ParseToken(emailChangeParam.Token)
 	flag := tool.CheckTokenErr(ctx, clams, err)
@@ -552,7 +552,7 @@ func (u *UserController) login(ctx *gin.Context) {
 	loginName := ctx.PostForm("loginName")
 	password := ctx.PostForm("password")
 	us := service.UserService{}
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 
 	if loginName == "" {
 		tool.Failed(ctx, "请输入注册时用的邮箱或者手机号呀")

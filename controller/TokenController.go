@@ -7,18 +7,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type GeneralController struct {
+type TokenController struct {
 }
 
-func (g *GeneralController) Router(engine *gin.Engine) {
+func (g *TokenController) Router(engine *gin.Engine) {
 	engine.GET("/api/verify/token", g.getToken)
 }
 
 //通过refreshToken获取token
-func (g *GeneralController) getToken(ctx *gin.Context) {
+func (g *TokenController) getToken(ctx *gin.Context) {
 	refreshToken := ctx.Query("refreshToken")
 
-	gs := service.GeneralService{}
+	gs := service.TokenService{}
 	us := service.UserService{}
 
 	//判断refreshToken状态

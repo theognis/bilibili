@@ -8,11 +8,11 @@ import (
 )
 
 //通用的服务
-type GeneralService struct {
+type TokenService struct {
 }
 
 //解析refreshToken
-func (u *GeneralService) ParseRefreshToken(tokenString string) (*model.MyCustomClaims, error) {
+func (u *TokenService) ParseRefreshToken(tokenString string) (*model.MyCustomClaims, error) {
 	JwtCfg := tool.GetCfg().Jwt
 	mySigningKey := []byte(JwtCfg.SigningKey)
 	token, err := jwt.ParseWithClaims(tokenString, &model.MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
@@ -32,7 +32,7 @@ func (u *GeneralService) ParseRefreshToken(tokenString string) (*model.MyCustomC
 }
 
 //解析Token
-func (u *GeneralService) ParseToken(tokenString string) (*model.MyCustomClaims, error) {
+func (u *TokenService) ParseToken(tokenString string) (*model.MyCustomClaims, error) {
 	JwtCfg := tool.GetCfg().Jwt
 	mySigningKey := []byte(JwtCfg.SigningKey)
 	token, err := jwt.ParseWithClaims(tokenString, &model.MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
@@ -52,7 +52,7 @@ func (u *GeneralService) ParseToken(tokenString string) (*model.MyCustomClaims, 
 }
 
 //构建一个jwt
-func (u *GeneralService) CreateToken(userinfo model.Userinfo, ExpireTime int64, tokenType string) (string, error) {
+func (u *TokenService) CreateToken(userinfo model.Userinfo, ExpireTime int64, tokenType string) (string, error) {
 	JwtCfg := tool.GetCfg().Jwt
 	mySigningKey := []byte(JwtCfg.SigningKey)
 

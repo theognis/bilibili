@@ -45,7 +45,7 @@ func main() {
 
 	routerRegister(router)
 	if cfg.AppHttps {
-		if err := router.RunTLS(cfg.AppHost + ":" + cfg.AppPort, "config/ssl/anonym.ink_chain.crt", "config/ssl/anonym.ink_key.key"); err != nil {
+		if err := router.RunTLS(cfg.AppHost+":"+cfg.AppPort, "config/ssl/anonym.ink_chain.crt", "config/ssl/anonym.ink_key.key"); err != nil {
 			log.Fatal(err)
 		}
 	} else {
@@ -57,5 +57,5 @@ func main() {
 
 func routerRegister(engine *gin.Engine) {
 	new(controller.UserController).Router(engine)
-	new(controller.GeneralController).Router(engine)
+	new(controller.TokenController).Router(engine)
 }
