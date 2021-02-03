@@ -77,6 +77,22 @@ func (dao *UserDao) UpdateStatement(username, newStatement string) error {
 	return nil
 }
 
+func (dao *UserDao) UpdateBirthday(username string, newBirthday time.Time) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET birthday = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newBirthday, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateGender(username, newGender string) error {
 	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET gender = ? WHERE username = ?`)
 	defer stmt.Close()
