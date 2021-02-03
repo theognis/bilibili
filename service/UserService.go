@@ -95,6 +95,13 @@ func (u *UserService) SendCodeByEmail(email string) (string, error) {
 	return strconv.Itoa(code), nil
 }
 
+func (u *UserService) ChangeGender(username, newGender string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdateGender(username, newGender)
+	return err
+}
+
 func (u *UserService) ChangeAvatar(username, url string) error {
 	d := dao.UserDao{tool.GetDb()}
 

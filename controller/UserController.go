@@ -32,6 +32,42 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/statement", u.changeStatement)
 	engine.PUT("/api/user/check-in", u.checkIn)
 	engine.PUT("/api/user/avatar", u.changeAvatar)
+	engine.PUT("/api/user/gender", u.changeGender)
+}
+
+//更改性别
+func (u *UserController) changeGender(ctx *gin.Context) {
+	token := ctx.PostForm("token")
+	newGender := ctx.PostForm("new_gender")
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	if newGender != "F" && newGender != "M" && newGender != "O" && newGender != "N" {
+		tool.Failed(ctx, "无效的性别")
+		return
+	}
+
+	err = us.ChangeGender(userinfo.Username, newGender)
+	if err != nil {
+		tool.Failed(ctx, "系统错误")
+		fmt.Println("ChangeGenderErr: ", err)
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 //使用短信登录

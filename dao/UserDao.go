@@ -77,6 +77,22 @@ func (dao *UserDao) UpdateStatement(username, newStatement string) error {
 	return nil
 }
 
+func (dao *UserDao) UpdateGender(username, newGender string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET gender = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newGender, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateAvatar(username, url string) error {
 	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET avatar = ? WHERE username = ?`)
 	defer stmt.Close()
