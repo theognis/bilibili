@@ -25,12 +25,10 @@ input[type="text"], input[type="password"] {
     padding: 0 15px;
     box-sizing: border-box;
 }
-
 input[type="text"]:focus, input[type="password"]:focus {
     border-color: #00a1d6;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
 }
-
 input#username, input#password, #verify_code input {
     border-radius: 4px;
     width: 420px;
@@ -40,7 +38,6 @@ input#username, input#password, #verify_code input {
     display: grid;
     grid-template-columns: 130px auto;
 }
-
 #phone_number select{
     border-radius: 4px 0 0 4px;
     border: 1px solid #dcdfe6;
@@ -51,7 +48,6 @@ input#username, input#password, #verify_code input {
     box-sizing: border-box;
     cursor: pointer;
 }
-
 #phone_number input{
     border-radius: 0 4px 4px 0;
 }
@@ -59,7 +55,6 @@ input#username, input#password, #verify_code input {
 #verify_code {
     height: 40px;
 }
-
 #verify_code button{
     background-color: #00a1d6;
     border: none;
@@ -72,10 +67,15 @@ input#username, input#password, #verify_code input {
     left: 288px;
     cursor: pointer;
 }
-
 #verify_code button:hover{
     background: #33b4de;
     transition: 0.1s;
+}
+#verify_code button:disabled {
+    background-color: #f5f5f5 !important;
+    color: rgba(0, 0, 0, 0.25) !important;
+    border: 1px #d9d9d9 solid !important;
+    cursor: not-allowed !important;
 }
 
 .error_info {
