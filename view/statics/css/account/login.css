@@ -7,7 +7,6 @@
 #type_tab {
     margin-bottom: 12px;
 }
-
 #type_tab span {
     color: #555;
     margin-right: 20px;
@@ -16,19 +15,6 @@
 
 .chosen_tab {
     color: #02a7de !important;
-}
-
-input[type="text"], input[type="password"] {
-    border: 1px solid #dcdfe6;
-    height: 40px;
-    color: #606266;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-input[type="text"]:focus, input[type="password"]:focus {
-    border-color: #00a1d6;
-    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
 }
 
 input#username, input#password, #verify_code input {
@@ -40,18 +26,6 @@ input#username, input#password, #verify_code input {
     display: grid;
     grid-template-columns: 130px auto;
 }
-
-#phone_number select{
-    border-radius: 4px 0 0 4px;
-    border: 1px solid #dcdfe6;
-    padding: 0 15px;
-    height: 40px;
-    font-size: 14px;
-    color: #909399;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
 #phone_number input{
     border-radius: 0 4px 4px 0;
 }
@@ -59,23 +33,12 @@ input#username, input#password, #verify_code input {
 #verify_code {
     height: 40px;
 }
-
 #verify_code button{
-    background-color: #00a1d6;
-    border: none;
-    color: white;
-    border-radius: 4px;
     height: 36px;
     width: 130px;
     position: relative;
     top: -38px;
     left: 288px;
-    cursor: pointer;
-}
-
-#verify_code button:hover{
-    background: #33b4de;
-    transition: 0.1s;
 }
 
 .error_info {
@@ -92,16 +55,13 @@ label[for="remember_me"] {
 #remember_me_parent {
     cursor: pointer;
 }
-
 #remember_me_parent * {
     vertical-align: middle;
     cursor: pointer;
 }
-
 #remember_me {
     margin: 0 8px 0 0;
 }
-
 #remember_me_hint {
     color: #bbb;
     font-size: 12px;
@@ -117,31 +77,15 @@ label[for="remember_me"] {
     display: flex;
     justify-content: space-between;
 }
-
 button {
     width: 180px;
     height: 40px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: .1s;
 }
-
-button#login {
-    background-color: #00a1d6;
-    color: white;
-}
-
 button#register {
     background-color: #ffffff;
     color: black;
     border: 1px #ccc solid;
 }
-
-button#login:hover {
-    background-color: #33b4de;
-}
-
 button#register:hover {
     background-color: #f7f7f7;
 }

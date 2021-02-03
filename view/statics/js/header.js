@@ -1,14 +1,17 @@
 const nav = document.querySelector('body>header>nav')
 const user_button = document.querySelector('body>header>nav>.user_operation.logged>.user')
 const user_hover = document.querySelector('body>header>.hover>.user')
+const pre_avatar = document.querySelector('body>header>nav>.user_operation.logged>img')
+const uh_avatar = document.querySelector('body>header>.hover>.user>.avatar')
 const uh_username = document.querySelector('body>header>.hover>.user>.username')
 const uh_level = document.querySelector('body>header>.hover>.user>.level_content>.info>.level')
 const uh_exp = document.querySelector('body>header>.hover>.user>.level_content>.info>.exp')
 const uh_progress = document.querySelector('body>header>.hover>.user>.level_content>.bar>.progress')
 const uh_coin = document.querySelector('body>header>.hover>.user>.money>.coin>span')
+const uh_bCoin = document.querySelector('body>header>.hover>.user>.money>.b-coin>span')
 const logout_button = document.querySelector('body>header>.hover>.user>.logout>span')
 
-const user = { token: '', refreshToken: '' }
+const user = { token: '', refreshToken: '', data: {} }
 
 function showUserHover() {
     user_hover.style.visibility = 'visible'
@@ -35,17 +38,18 @@ function initHeader() {
     }
 }
 async function initUserHover() {
-    const res = await getInfo()
-    if (!res.status) {
-        console.log('Failed to get info: ', res.data)
+    if (!(user.data instanceof Object)) {
         return
     }
-    const info = res.data
+    const info = user.data
+    pre_avatar.src = info.Avatar
+    uh_avatar.src = info.Avatar
     uh_username.innerText = info.Username
     uh_level.innerText = '等级 ' + getLevel(info.Exp)
     uh_exp.innerText = info.Exp + ' / ' + getMaxExp(info.Exp)
     uh_progress.style.width = info.Exp / getMaxExp(info.Exp) * 100 + '%'
     uh_coin.innerText = info.Coins
+    uh_bCoin.innerText = info.BCoins
 }
 
 function logout() {
@@ -107,8 +111,15 @@ async function initToken() {
         user.refreshToken = sessionStorage.getItem('refreshToken')
     }
     if (user.token !== '') {
+        setInterval(refreshToken, 60000)
         await refreshToken()
         await checkIn()
+        const res = await getInfo()
+        if (!res.status) {
+            console.log('Failed to get info: ', res.data)
+            return
+        }
+        user.data = res.data
     }
 }
 function refreshToken() {
@@ -152,5 +163,5 @@ function getInfo(){
     }).then(data => data.json())
 }
 
-initToken().then(() => initHeader())
-setInterval(refreshToken, 60000)
+const tokenInit = initToken()
+tokenInit.then(() => initHeader())

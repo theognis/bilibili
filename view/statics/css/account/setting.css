@@ -6,17 +6,6 @@
     border-radius: 4px;
     padding: 40px 50px;
 }
-#main button{
-    color: #fff;
-    background-color: #00a1d6;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: .1s;
-}
-#main button:hover{
-    background: #33b4de;
-}
 #main>div>h1 {
     margin: 0 0 20px 0;
     font-size: 20px;
@@ -47,6 +36,25 @@
     border: 1px solid #e6eaf0;
     border-radius: 50%;
     margin-bottom: 20px;
+}
+#main>#setting>.wrapper>.avatar>label {
+    background-color: #00A1D6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.1s;
+    height: 36px;
+    display: flex;
+    font-size: 13px;
+    justify-content: center;
+    align-items: center;
+}
+#main>#setting>.wrapper>.avatar>label:hover {
+    background: #33b4de;
+}
+#main>#setting>.wrapper>.avatar>input {
+    display: none;
 }
 #main>#setting>.wrapper>.info>label {
     color: #898989;
