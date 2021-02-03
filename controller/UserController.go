@@ -30,6 +30,71 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/email", u.changeEmail)
 	engine.PUT("/api/user/statement", u.changeStatement)
 	engine.PUT("/api/user/check-in", u.checkIn)
+	engine.PUT("/api/user/avatar", u.changeAvatar)
+}
+
+//更改用户头像
+func (u *UserController) changeAvatar(ctx *gin.Context) {
+	file, header, err := ctx.Request.FormFile("avatar")
+	token := ctx.PostForm("token")
+
+	if err != nil {
+		fmt.Println("FormFileErr: ", err)
+		tool.Failed(ctx, "上传失败")
+		return
+	}
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.GeneralService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	//大小限制2Mb
+	if header.Size > (2 << 20) {
+		tool.Failed(ctx, "头像文件过大")
+		return
+	}
+
+	//格式限制
+	extension := tool.GetExtension(header.Filename)
+	extension = strings.ToLower(extension)
+	if extension != "jpg" && extension != "png" {
+		tool.Failed(ctx, "头像无效")
+		return
+	}
+
+	Os := service.OssService{}
+
+	fileName := strconv.FormatInt(userinfo.Uid, 10) + "." + extension
+	err = Os.UploadAvatar(file, fileName)
+	if err != nil {
+		fmt.Println("UploadAvatarErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	cfg := tool.GetCfg().Oss
+	url := cfg.AvatarUrl + fileName
+
+	//头像入数据库
+	err = us.ChangeAvatar(userinfo.Username, url)
+	if err != nil {
+		fmt.Println("ChangeAvatarErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "上传成功")
 }
 
 //签到

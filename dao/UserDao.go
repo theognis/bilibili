@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+//更改主键查询
 type UserDao struct {
 	*sql.DB
 }
@@ -69,6 +70,22 @@ func (dao *UserDao) UpdateStatement(username, newStatement string) error {
 	}
 
 	_, err = stmt.Exec(newStatement, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (dao *UserDao) UpdateAvatar(username, url string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET avatar = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(url, username)
 	if err != nil {
 		return err
 	}
