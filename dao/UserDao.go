@@ -112,7 +112,7 @@ func (dao *UserDao) UpdateEmail(username, newEmail string) error {
 func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date FROM userinfo WHERE email = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender FROM userinfo WHERE email = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(email)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender)
 	if err != nil {
 		return userinfo, err
 	}
@@ -133,7 +133,7 @@ func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date FROM userinfo WHERE phone = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender FROM userinfo WHERE phone = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -142,7 +142,7 @@ func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(phone)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender)
 	if err != nil {
 		return userinfo, err
 	}
@@ -154,7 +154,7 @@ func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date FROM userinfo WHERE username = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender FROM userinfo WHERE username = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -163,7 +163,7 @@ func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(username)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender)
 	if err != nil {
 		return userinfo, err
 	}
