@@ -2,10 +2,10 @@
 
 ### User
 
-#### `/api/user/login` `POST`
+#### `/api/user/login/pw` `POST`
 
 * `application/x-www-form-urlencoded`
-* 用户登录
+* 密码登录
 
 | 请求参数  | 类型 | 说明                |
 | --------- | ---- | ------------------- |
@@ -26,6 +26,30 @@
 | `false` | `"用户名或密码错误"` | `loginName` 不存在 |
 | `false` | `"用户名或密码错误"` | `loginName` 与 `password` 不匹配 |
 | `true` | `""` | `loginName` 与 `password` 匹配 |
+
+#### `/api/user/login/sms` `POST`
+
+* `application/x-www-form-urlencoded`
+* 短信登录
+
+| 请求参数  | 类型 | 说明     |
+| ------- | ---- | ------- |
+| phone  |  必选  |  手机号  |
+| verify_code | 必选 | 验证码  |
+
+| 返回参数     | 说明         |
+| ----------- | ------------ |
+| status       | 状态码       |
+| data         | 返回消息     |
+| token        | 用户token    |
+| refreshToken | refreshToken |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"手机号不能为空哦"` | `phone` 为空 |
+| `false` | `"短信验证码不能为空"` | `verify_code` 为空 |
+| `false` | `"验证码错误"` | `phone` 与 `verify_code` 不匹配 |
+| `true` | `""` | `phone` 与 `verify_code` 匹配 |
 
 #### `/api/user/register` `POST`
 
@@ -153,7 +177,7 @@ let data = {
 | 请求参数      | 类型 | 说明       |
 | ------------- | ---- | ---------- |
 | token         | 必选 | token      |
-| new_username | 可选 | 新用户名 |
+| new_username | 必选 | 新用户名 |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -181,6 +205,43 @@ let data = {
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"签名太长了"` | `new_username` 大于 15 个字节 |
+| `true` | `""` | 修改成功 |
+
+#### `/api/user/gender` `PUT`
+
+* `application/x-www-form-urlencoded`
+* 修改性别
+
+| 请求参数   | 类型 | 说明                                                      |
+| ---------- | ---- | --------------------------------------------------------- |
+| token      | 必选 | token                                                     |
+| new_gender | 必选 | 新性别（感觉好怪）（`male`, `female`, `other`, `secret`） |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"无效的性别"` | `new_gender` 不合法 |
+| `true` | `""` | 修改成功 |
+
+#### `/api/user/birth` `PUT`
+
+* `application/x-www-form-urlencoded`
+* 修改出生日期
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+| new_birth    | 必选 | 新的出生日期，格式为`2006-01-02` |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"日期格式错误"` | `new_birth` 格式错误 |
+| `false` | `"出生日期无效"` | `new_birth` 晚于现在 |
 | `true` | `""` | 修改成功 |
 
 #### `/api/user/check-in` `PUT`
@@ -245,6 +306,22 @@ let data = {
 | -------- | ---- | ------ |
 | `false` | `"手机号不可为空"` | `phone` 为空 |
 | `false` | `"手机号已被使用"` | `phone` 已被使用 |
+| `false` | `"手机号不合法"` | `phone` 不合法 |
+| `true` | `""` | 发送验证码成功 |
+
+#### `/api/verify/sms/login` `POST`
+
+* `application/x-www-form-urlencoded`
+* 登录时向 `phone` 发送短信验证码
+
+| 请求参数 | 类型 | 说明   |
+| -------- | ---- | ------ |
+| phone    | 必选 | 手机号 |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"手机号不可为空"` | `phone` 为空 |
+| `false` | `"手机号未被注册"` | `phone` 未注册 |
 | `false` | `"手机号不合法"` | `phone` 不合法 |
 | `true` | `""` | 发送验证码成功 |
 

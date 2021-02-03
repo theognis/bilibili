@@ -25,13 +25,13 @@ func main() {
 		c.File("./view/favicon.ico")
 	})
 	account.GET("/register", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "register_pc.html", nil)
+		c.HTML(http.StatusOK, "act_register.html", nil)
 	})
 	account.GET("/login", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "login_pc.html", nil)
+		c.HTML(http.StatusOK, "act_login.html", nil)
 	})
 	account.GET("/setting", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "setting.html", nil)
+		c.HTML(http.StatusOK, "act_setting.html", nil)
 	})
 	video.GET("/:av", func(c *gin.Context) {
 		av := c.Param("av")
