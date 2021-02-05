@@ -160,6 +160,7 @@ let data = {
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `true` | `""` | 修改成功 |
 
 #### `/api/user/email` `PUT`
 
@@ -189,6 +190,7 @@ let data = {
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `true` | `""` | 修改成功 |
 
 #### `/api/user/phone` `PUT`
 
@@ -218,6 +220,7 @@ let data = {
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `true` | `""` | 修改成功 |
 
 #### `/api/user/username` `PUT`
 
@@ -420,6 +423,26 @@ let data = {
 | `false` | `"请告诉我你的手机号吧"` | `phone` 参数为空 |
 | `false` | `"手机号已被使用"` | 手机号已被使用 |
 | `true` | `""` | 手机号合法 |
+
+### Video
+
+#### `/api/video/video` `POST`
+
+* `multipart/form-data` 
+* 视频投稿；
+
+| 请求参数       | 类型 | 说明                        |
+| ------------ | ---- | --------------------------- |
+| video        | 必选 | 视频（视频格式，二进制文件）      |
+| cover        | 必选 | 封面（图片格式，二进制文件）       |
+| title        | 必选 | 标题，至多 80 字              |
+| channel      | 必选 | 分区                        |
+| label        | 必选 | 标签，至多 10 个             |
+| description  | 必选 | 简介，至多 250 字             |
+| token        | 必选 | token                       |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
 
 ## 一般规定
 
