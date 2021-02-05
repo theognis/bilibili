@@ -136,6 +136,31 @@ let data = {
 | `false` | `"上传失败"` | 上传失败 |
 | `true` | `"上传成功"` | 上传成功 |
 
+#### `/api/user/password` `PUT`
+
+* `application/x-www-form-urlencoded` 
+* 修改密码；
+
+| 请求参数         | 类型 | 说明                         |
+| ---------------- | ---- | ---------------------------- |
+| account | 必选 | 账号 手机号/邮箱地址 |
+| code    | 必选 | 验证码             |
+| new_password  | 必选 | 新密码                   |
+| token         | 必选 | token                    |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"账号为空"` | `account`为空 |
+| `false` | `"账号不存在"` | `account`未注册 |
+| `false` | `"账号无效"` | `account`不合法 |
+| `false` | `"验证码为空"` | `code`为空 |
+| `false` | `"验证码错误"` | `code`错误 |
+| `false` | `"密码不能小于6个字符"` | `new_password` 长度少于 6 个字节 |
+| `false` | `"密码不能大于16个字符"` | `new_password` 长度超过 16 个字节 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+
 #### `/api/user/email` `PUT`
 
 * `application/x-www-form-urlencoded` 
@@ -143,7 +168,7 @@ let data = {
 
 | 请求参数         | 类型 | 说明                         |
 | ---------------- | ---- | ---------------------------- |
-| original_address | 必选 | 原有设备账号 手机号/邮箱地址 |
+| original_account | 必选 | 原有设备账号 手机号/邮箱地址 |
 | original_code    | 必选 | 原有设备验证码               |
 | new_email        | 必选 | 新email                      |
 | new_code         | 必选 | 新email验证码                |
@@ -151,7 +176,19 @@ let data = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-|  |  |  |
+| `false` | `"原账号为空"` | `original_account`为空 |
+| `false` | `"原账号不存在"` | `original_account`未注册 |
+| `false` | `"原账号无效"` | `original_account`不合法 |
+| `false` | `"原账号验证码为空"` | `original_code`为空 |
+| `false` | `"原账号验证码错误"` | `original_code`错误 |
+| `false` | `"新邮箱为空"` | `new_email`为空 |
+| `false` | `"新邮箱已存在"` | `new_email`已注册 |
+| `false` | `"新邮箱无效"` | `new_email`不合法 |
+| `false` | `"新邮箱验证码为空"` | `new_code`为空 |
+| `false` | `"新邮箱验证码错误"` | `new_code`错误 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 
 #### `/api/user/phone` `PUT`
 
@@ -160,7 +197,7 @@ let data = {
 
 | 请求参数         | 类型 | 说明                         |
 | ---------------- | ---- | ---------------------------- |
-| original_address | 必选 | 原有设备账号 手机号/邮箱地址 |
+| original_account | 必选 | 原有设备账号 手机号/邮箱地址 |
 | original_code    | 必选 | 原有设备验证码               |
 | new_phone        | 必选 | 新手机号                     |
 | new_code         | 必选 | 新手机验证码                 |
@@ -168,7 +205,19 @@ let data = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-|  |  |  |
+| `false` | `"原账号为空"` | `original_account`为空 |
+| `false` | `"原账号不存在"` | `original_account`未注册 |
+| `false` | `"原账号无效"` | `original_account`不合法 |
+| `false` | `"原账号验证码为空"` | `original_code`为空 |
+| `false` | `"原账号验证码错误"` | `original_code`错误 |
+| `false` | `"新手机为空"` | `new_phone`为空 |
+| `false` | `"新手机已存在"` | `new_phone`已注册 |
+| `false` | `"新手机无效"` | `new_phone`不合法 |
+| `false` | `"新手机验证码为空"` | `new_code`为空 |
+| `false` | `"新手机验证码错误"` | `new_code`错误 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 
 #### `/api/user/username` `PUT`
 
