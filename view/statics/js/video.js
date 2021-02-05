@@ -29,15 +29,15 @@ class Danmaku {
         danmaku.style.top = Danmaku.initTop()
         danmaku.style.left = Danmaku.initLeft()
         danmaku_area.appendChild(danmaku)
-        setTimeout(() => {
+        danmaku.onanimationend = () => {
             danmaku_area.removeChild(danmaku)
-        }, 12000)
+        }
     }
     static initTop(){
         return Math.floor(Math.random() * 18) * 28 + "px"
     }
     static initLeft(){
-        return '802px'
+        return '0'
     }
 }
 
@@ -216,7 +216,7 @@ function test(){
     setInterval(() => {
         let danmaku = new Danmaku("翔哥NB", randColor(),"scroll")
         console.log(danmaku_area.children.length)
-    }, 10)
+    }, 50)
 }
 
 init()

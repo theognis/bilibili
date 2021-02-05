@@ -76,8 +76,10 @@
 }
 
 @keyframes scroll {
-    to {
-        transform: translateX(-1604px);
+    from {
+        transform: translateX(802px);
+    } to {
+        transform: translateX(-100%);
     }
 }
 #video_wrapper>.danmaku_area {
@@ -91,11 +93,10 @@
 #video_wrapper>.danmaku_area>.danmaku {
     position: absolute;
     font-size: 25px;
-    width: 100%;
     font-family: SimHei, "Microsoft JhengHei", Arial, Helvetica, sans-serif;
     text-shadow: rgb(0 0 0) 1px 0 1px, rgb(0 0 0) 0 1px 1px, rgb(0 0 0) 0 -1px 1px, rgb(0 0 0) -1px 0 1px;
     font-weight: bold;
-    animation: scroll 12s linear infinite;
+    animation: scroll 12s linear 1;
 }
 #video_wrapper.paused>.danmaku_area>.danmaku {
     animation-play-state:paused;
