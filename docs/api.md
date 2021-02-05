@@ -166,21 +166,21 @@ let data = {
 * `application/x-www-form-urlencoded` 
 * 修改/添加email；先调用 `/user/info/self` 接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
 
-| 请求参数         | 类型 | 说明                         |
-| ---------------- | ---- | ---------------------------- |
-| original_account | 必选 | 原有设备账号 手机号/邮箱地址 |
-| original_code    | 必选 | 原有设备验证码               |
-| new_email        | 必选 | 新email                      |
-| new_code         | 必选 | 新email验证码                |
-| token            | 必选 | token                        |
+| 请求参数    | 类型 | 说明                         |
+| ----------- | ---- | ---------------------------- |
+| old_account | 必选 | 原有设备账号 手机号/邮箱地址 |
+| old_code    | 必选 | 原有设备验证码               |
+| new_email   | 必选 | 新email                      |
+| new_code    | 必选 | 新email验证码                |
+| token       | 必选 | token                        |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"原账号为空"` | `original_account`为空 |
-| `false` | `"原账号不存在"` | `original_account`未注册 |
-| `false` | `"原账号无效"` | `original_account`不合法 |
-| `false` | `"原账号验证码为空"` | `original_code`为空 |
-| `false` | `"原账号验证码错误"` | `original_code`错误 |
+| `false` | `"原账号为空"` | `old_account`为空 |
+| `false` | `"原账号不存在"` | `old_account`未注册 |
+| `false` | `"原账号无效"` | `old_account`不合法 |
+| `false` | `"原账号验证码为空"` | `old_code`为空 |
+| `false` | `"原账号验证码错误"` | `old_code`错误 |
 | `false` | `"新邮箱为空"` | `new_email`为空 |
 | `false` | `"新邮箱已存在"` | `new_email`已注册 |
 | `false` | `"新邮箱无效"` | `new_email`不合法 |
@@ -195,26 +195,26 @@ let data = {
 * `application/x-www-form-urlencoded`
 * 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
 
-| 请求参数         | 类型 | 说明                         |
-| ---------------- | ---- | ---------------------------- |
-| original_account | 必选 | 原有设备账号 手机号/邮箱地址 |
-| original_code    | 必选 | 原有设备验证码               |
-| new_phone        | 必选 | 新手机号                     |
-| new_code         | 必选 | 新手机验证码                 |
-| token            | 必选 | token                        |
+| 请求参数    | 类型 | 说明                         |
+| ----------- | ---- | ---------------------------- |
+| old_account | 必选 | 原有设备账号 手机号/邮箱地址 |
+| old_code    | 必选 | 原有设备验证码               |
+| new_phone   | 必选 | 新手机号                     |
+| new_code    | 必选 | 新手机验证码                 |
+| token       | 必选 | token                        |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"原账号为空"` | `original_account`为空 |
-| `false` | `"原账号不存在"` | `original_account`未注册 |
-| `false` | `"原账号无效"` | `original_account`不合法 |
-| `false` | `"原账号验证码为空"` | `original_code`为空 |
-| `false` | `"原账号验证码错误"` | `original_code`错误 |
-| `false` | `"新手机为空"` | `new_phone`为空 |
-| `false` | `"新手机已存在"` | `new_phone`已注册 |
-| `false` | `"新手机无效"` | `new_phone`不合法 |
-| `false` | `"新手机验证码为空"` | `new_code`为空 |
-| `false` | `"新手机验证码错误"` | `new_code`错误 |
+| `false` | `"原账号为空"` | `old_account`为空 |
+| `false` | `"原账号不存在"` | `old_account`未注册 |
+| `false` | `"原账号无效"` | `old_account`不合法 |
+| `false` | `"原账号验证码为空"` | `old_code`为空 |
+| `false` | `"原账号验证码错误"` | `old_code`错误 |
+| `false` | `"新手机号为空"` | `new_phone`为空 |
+| `false` | `"新手机号已存在"` | `new_phone`已注册 |
+| `false` | `"新手机号无效"` | `new_phone`不合法 |
+| `false` | `"新手机号验证码为空"` | `new_code`为空 |
+| `false` | `"新手机号验证码错误"` | `new_code`错误 |
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
