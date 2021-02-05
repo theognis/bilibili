@@ -1,8 +1,8 @@
-## API
+# API
 
-### User
+## User
 
-#### `/api/user/login/pw` `POST`
+### `/api/user/login/pw` `POST`
 
 * `application/x-www-form-urlencoded`
 * 密码登录
@@ -27,7 +27,7 @@
 | `false` | `"用户名或密码错误"` | `loginName` 与 `password` 不匹配 |
 | `true` | `""` | `loginName` 与 `password` 匹配 |
 
-#### `/api/user/login/sms` `POST`
+### `/api/user/login/sms` `POST`
 
 * `application/x-www-form-urlencoded`
 * 短信登录
@@ -51,7 +51,7 @@
 | `false` | `"验证码错误"` | `phone` 与 `verify_code` 不匹配 |
 | `true` | `""` | `phone` 与 `verify_code` 匹配 |
 
-#### `/api/user/register` `POST`
+### `/api/user/register` `POST`
 
 * `application/x-www-form-urlencoded`
 * 用户注册；先调用接口发送验证码， 并检查用户名及密码的规范性，确认数据符合规范之后再发送表单
@@ -76,7 +76,7 @@
 | `false` | `"验证码错误"` | `verify_code` 与对应验证码不符 |
 | `true` | `"注册成功！"` | 参数合法 |
 
-#### `/api/user/info/self` `GET`
+### `/api/user/info/self` `GET`
 
 * 获取自己的详细信息
 
@@ -111,12 +111,12 @@ let data = {
 }
 ```
 
-#### `/api/user/info/:uid` `GET`
+### `/api/user/info/:uid` `GET`
 
 * 获取 UID 为 `:uid` 的用户的个人信息
 * 暂未开发
 
-#### `/api/user/avatar` `PUT`
+### `/api/user/avatar` `PUT`
 
 * `multipart/form-data` 
 * 修改/添加头像；
@@ -136,7 +136,7 @@ let data = {
 | `false` | `"上传失败"` | 上传失败 |
 | `true` | `"上传成功"` | 上传成功 |
 
-#### `/api/user/password` `PUT`
+### `/api/user/password` `PUT`
 
 * `application/x-www-form-urlencoded` 
 * 修改密码；
@@ -162,7 +162,7 @@ let data = {
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/email` `PUT`
+### `/api/user/email` `PUT`
 
 * `application/x-www-form-urlencoded` 
 * 修改/添加email；先调用 `/user/info/self` 接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
@@ -192,7 +192,7 @@ let data = {
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/phone` `PUT`
+### `/api/user/phone` `PUT`
 
 * `application/x-www-form-urlencoded`
 * 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
@@ -222,7 +222,7 @@ let data = {
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/username` `PUT`
+### `/api/user/username` `PUT`
 
 * `application/x-www-form-urlencoded`
 * 修改用户名，消耗6个硬币
@@ -242,7 +242,7 @@ let data = {
 | `false` | `"硬币不足"` | 硬币不足 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/statement` `PUT`
+### `/api/user/statement` `PUT`
 
 * `application/x-www-form-urlencoded`
 * 修改签名；如果无new_statement则更改为默认签名
@@ -260,7 +260,7 @@ let data = {
 | `false` | `"签名太长了"` | `new_username` 大于 15 个字节 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/gender` `PUT`
+### `/api/user/gender` `PUT`
 
 * `application/x-www-form-urlencoded`
 * 修改性别
@@ -278,7 +278,7 @@ let data = {
 | `false` | `"无效的性别"` | `new_gender` 不合法 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/birth` `PUT`
+### `/api/user/birth` `PUT`
 
 * `application/x-www-form-urlencoded`
 * 修改出生日期
@@ -297,7 +297,7 @@ let data = {
 | `false` | `"出生日期无效"` | `new_birth` 晚于现在 |
 | `true` | `""` | 修改成功 |
 
-#### `/api/user/check-in` `PUT`
+### `/api/user/check-in` `PUT`
 
 * `application/x-www-form-urlencoded`
 * 日常签到，硬币+1，经验+5
@@ -314,9 +314,9 @@ let data = {
 | `false` | `"ALREADY_DONE"` | 已签到 |
 | `true` | `"SUCCESS"` | 签到成功 |
 
-### Verify
+## Verify
 
-####  `/api/verify/token` `GET`
+###  `/api/verify/token` `GET`
 
 * 使用refreshToken获取新token
 
@@ -331,7 +331,7 @@ let data = {
 | `false` | "refreshToken不正确或系统错误" | refreshToken不正确或系统错误 |
 | `true` | 新的token | 成功 |
 
-#### `/api/verify/sms/general` `POST`
+### `/api/verify/sms/general` `POST`
 
 * `application/x-www-form-urlencoded`
 * 向 `phone` 发送短信验证码
@@ -346,7 +346,7 @@ let data = {
 | `false` | `"手机号不合法"` | `phone` 不合法 |
 | `true` | `""` | 发送验证码成功 |
 
-#### `/api/verify/sms/register` `POST`
+### `/api/verify/sms/register` `POST`
 
 * `application/x-www-form-urlencoded`
 * 注册时向 `phone` 发送短信验证码
@@ -362,7 +362,7 @@ let data = {
 | `false` | `"手机号不合法"` | `phone` 不合法 |
 | `true` | `""` | 发送验证码成功 |
 
-#### `/api/verify/sms/login` `POST`
+### `/api/verify/sms/login` `POST`
 
 * `application/x-www-form-urlencoded`
 * 登录时向 `phone` 发送短信验证码
@@ -378,7 +378,7 @@ let data = {
 | `false` | `"手机号不合法"` | `phone` 不合法 |
 | `true` | `""` | 发送验证码成功 |
 
-#### `/api/verify/email` `POST`
+### `/api/verify/email` `POST`
 
 * `application/x-www-form-urlencoded`
 * 发送邮箱验证码
@@ -393,9 +393,9 @@ let data = {
 | `false` | `"邮箱格式不合法"` | `email` 不合法 |
 | `true` | `""` | 发送验证码成功 |
 
-### Check
+## Check
 
-#### `/api/check/username` `GET`
+### `/api/check/username` `GET`
 
 * 检验用户名是否合法
 
@@ -410,7 +410,7 @@ let data = {
 | `false` | `"昵称已存在"` | `username` 已被使用 |
 | `true` | `""` | `username` 合法 |
 
-#### `/api/check/phone` `GET`
+### `/api/check/phone` `GET`
 
 * 检验手机号是否合法
 
@@ -424,9 +424,9 @@ let data = {
 | `false` | `"手机号已被使用"` | 手机号已被使用 |
 | `true` | `""` | 手机号合法 |
 
-### Video
+## Video
 
-#### `/api/video/video` `POST`
+### `/api/video/video` `POST`
 
 * `multipart/form-data` 
 * 视频投稿；
@@ -443,8 +443,9 @@ let data = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
+|  |  |  |
 
-## 一般规定
+# 一般规定
 
 如无特殊说明，则返回一个以下格式的 json：
 
