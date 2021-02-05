@@ -64,14 +64,14 @@
      background-color: #00b5e6;
 }
 
-#video {
+#video_wrapper {
     box-shadow: 0 0 8px #e5e9ef;
     display: flex;
     flex-direction: column;
     height: 585px;
     position: relative;
 }
-#video>video {
+#video_wrapper>video {
     background-color: #000;
 }
 
@@ -80,7 +80,7 @@
         transform: translateX(-1604px);
     }
 }
-#video>.danmaku_area {
+#video_wrapper>.danmaku_area {
     position: absolute;
     height: 539px;
     width: 802px;
@@ -88,7 +88,7 @@
     overflow: hidden;
     z-index: 2;
 }
-#video>.danmaku_area>.danmaku {
+#video_wrapper>.danmaku_area>.danmaku {
     position: absolute;
     font-size: 25px;
     width: 100%;
@@ -97,8 +97,12 @@
     font-weight: bold;
     animation: scroll 12s linear infinite;
 }
+#video_wrapper.paused>.danmaku_area>.danmaku {
+    animation-play-state:paused;
+}
 
-#video>.controls {
+
+#video_wrapper>.controls {
     position: absolute;
     width: 802px;
     bottom: 46px;
@@ -107,27 +111,27 @@
     z-index: 3;
 }
 
-#video>.controls>.process {
+#video_wrapper>.controls>.process {
     height: 10px;
     cursor: pointer;
 }
-#video>.controls>.process>.played,
-#video>.controls>.process>.unplayed{
+#video_wrapper>.controls>.process>.played,
+#video_wrapper>.controls>.process>.unplayed{
     top: 11px;
     height: 2px;
     width: 790px;
     position: absolute;
     transition: all ease .2s;
 }
-#video>.controls>.process>.played {
+#video_wrapper>.controls>.process>.played {
     background-color: #00a1d6;
     transform-origin: left center;
     width: 0;
 }
-#video>.controls>.process>.unplayed {
+#video_wrapper>.controls>.process>.unplayed {
     background-color: rgba(255,255,255,.2);
 }
-#video>.controls>.process>.icon{
+#video_wrapper>.controls>.process>.icon{
     position: absolute;
     top: 0;
     left: -11px;
@@ -135,34 +139,34 @@
     transform: scale(0);
     pointer-events: none;
 }
-#video>.controls>.process:hover>.played,
-#video>.controls>.process:hover>.unplayed{
+#video_wrapper>.controls>.process:hover>.played,
+#video_wrapper>.controls>.process:hover>.unplayed{
     transform: scaleY(2);
 }
-#video>.controls>.process:hover>.icon{
+#video_wrapper>.controls>.process:hover>.icon{
     transform: scale(1);
 }
-#video>.controls>.left {
+#video_wrapper>.controls>.left {
     padding-left: 8px;
     display: flex;
     align-items: center;
 }
-#video>.controls>.left>img {
+#video_wrapper>.controls>.left>img {
     cursor: pointer;
 }
-#video>.controls>.left>.location {
+#video_wrapper>.controls>.left>.location {
     color: rgba(255,255,255,.9);
     margin-left: 4px;
     font-size: 12px;
 }
-#video>.controls>.left>.location>.divider {
+#video_wrapper>.controls>.left>.location>.divider {
     margin: 0 4px
 }
 
-#video>.hover {
+#video_wrapper>.hover {
    position: relative;
 }
-#video>.hover>.font_settings {
+#video_wrapper>.hover>.font_settings {
     padding: 10px 20px;
     box-sizing: border-box;
     width: 216px;
@@ -173,122 +177,122 @@
     border-radius: 2px;
     user-select: none;
 }
-#video>.hover>.font_settings>span {
+#video_wrapper>.hover>.font_settings>span {
     color: #fff;
     font-size: 12px;
 }
-#video>.hover>.font_settings>div {
+#video_wrapper>.hover>.font_settings>div {
     margin: 8px 0 10px 0;
 }
-#video>.hover>.font_settings>.type {
+#video_wrapper>.hover>.font_settings>.type {
     display: grid;
     grid-template-columns: repeat(3, 26px);
     grid-column-gap: 22px;
     font-size: 12px;
     color: rgba(255,255,255,.8);
 }
-#video>.hover>.font_settings>.type>div {
+#video_wrapper>.hover>.font_settings>.type>div {
     display: flex;
     align-items: center;
     flex-direction: column;
     cursor: pointer;
 }
-#video>.hover>.font_settings>.type>div:hover {
+#video_wrapper>.hover>.font_settings>.type>div:hover {
     color: #FFFFFF
 }
-#video>.hover>.font_settings>.type>div.chosen {
+#video_wrapper>.hover>.font_settings>.type>div.chosen {
     color: #00A1D6
 }
-#video>.hover>.font_settings>.type>div.scroll>img {
+#video_wrapper>.hover>.font_settings>.type>div.scroll>img {
     content: url("/statics/images/video/scroll-type.svg");
 }
-#video>.hover>.font_settings>.type>div.scroll:hover>img {
+#video_wrapper>.hover>.font_settings>.type>div.scroll:hover>img {
     content: url("/statics/images/video/scroll-type-hover.svg");
 }
-#video>.hover>.font_settings>.type>div.scroll.chosen>img {
+#video_wrapper>.hover>.font_settings>.type>div.scroll.chosen>img {
     content: url("/statics/images/video/scroll-type-chosen.svg");
 }
-#video>.hover>.font_settings>.type>div.top>img {
+#video_wrapper>.hover>.font_settings>.type>div.top>img {
     content: url("/statics/images/video/scroll-type.svg");
 }
-#video>.hover>.font_settings>.type>div.top:hover>img {
+#video_wrapper>.hover>.font_settings>.type>div.top:hover>img {
     content: url("/statics/images/video/scroll-type-hover.svg");
 }
-#video>.hover>.font_settings>.type>div.top.chosen>img {
+#video_wrapper>.hover>.font_settings>.type>div.top.chosen>img {
     content: url("/statics/images/video/scroll-type-chosen.svg");
 }
-#video>.hover>.font_settings>.type>div.bottom>img {
+#video_wrapper>.hover>.font_settings>.type>div.bottom>img {
     content: url("/statics/images/video/scroll-type.svg");
 }
-#video>.hover>.font_settings>.type>div.bottom:hover>img {
+#video_wrapper>.hover>.font_settings>.type>div.bottom:hover>img {
     content: url("/statics/images/video/scroll-type-hover.svg");
 }
-#video>.hover>.font_settings>.type>div.bottom.chosen>img {
+#video_wrapper>.hover>.font_settings>.type>div.bottom.chosen>img {
     content: url("/statics/images/video/scroll-type-chosen.svg");
 }
-#video>.hover>.font_settings>.color>.edit {
+#video_wrapper>.hover>.font_settings>.color>.edit {
     display: grid;
     grid-template-columns: 120px 50px;
     grid-template-rows: 22px;
     justify-content: space-between;
     margin-bottom: 6px;
 }
-#video>.hover>.font_settings>.color>.edit>input {
+#video_wrapper>.hover>.font_settings>.color>.edit>input {
     background-color: transparent;
     color: #fff;
     border: 1px solid rgba(255,255,255,.2);
     border-radius: 2px;
     padding: 4px 7px;
 }
-#video>.hover>.font_settings>.color>.edit>div {
+#video_wrapper>.hover>.font_settings>.color>.edit>div {
     border-radius: 2px;
 }
-#video>.hover>.font_settings>.color>.list {
+#video_wrapper>.hover>.font_settings>.color>.list {
     display: grid;
     grid-template-columns: repeat(7, 14px);
     grid-template-rows: repeat(2, 14px);
     grid-row-gap: 4px;
     justify-content: space-between;
 }
-#video>.hover>.font_settings>.color>.list>* {
+#video_wrapper>.hover>.font_settings>.color>.list>* {
     border-radius: 2px;
     cursor: pointer;
 }
 
-#video>.bottom {
+#video_wrapper>.bottom {
     padding: 0 12px 0 20px;
     display: flex;
     height: 46px;
     justify-content: space-between;
 }
-#video>.bottom>.info{
+#video_wrapper>.bottom>.info{
     display: flex;
     align-items: center;
 }
-#video>.bottom>.info>.audience_number{
+#video_wrapper>.bottom>.info>.audience_number{
     font-size: 14px;
     font-weight: 600;
     color: #505050;
 }
-#video>.bottom>.info>.audience_number::after {
+#video_wrapper>.bottom>.info>.audience_number::after {
     content: "人正在看，";
     margin-left: 4px;
     font-size: 12px;
     font-weight: 400;
 }
-#video>.bottom>.info>.danmaku_number::after {
+#video_wrapper>.bottom>.info>.danmaku_number::after {
     content: "条弹幕";
     margin-left: 4px;
 }
-#video>.bottom>.info>span{
+#video_wrapper>.bottom>.info>span{
     font-size: 12px;
 }
 
-#video>.bottom>.control {
+#video_wrapper>.bottom>.control {
     display: flex;
     align-items: center;
 }
-#video>.bottom>.control>.switch {
+#video_wrapper>.bottom>.control>.switch {
     height: 18px;
     width: 30px;
     border-radius: 12px;
@@ -299,7 +303,7 @@
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
-#video>.bottom>.control>.switch>.sign {
+#video_wrapper>.bottom>.control>.switch>.sign {
     width: 27px;
     height: 27px;
     border-radius: 50%;
@@ -311,33 +315,33 @@
     transform: scale(0.65);
     position: relative;
 }
-#video>.bottom>.control>.switch.off {
+#video_wrapper>.bottom>.control>.switch.off {
     border: 2px #757575 solid;
     background-color: #757575;
 }
-#video>.bottom>.control>.switch.off>.sign {
+#video_wrapper>.bottom>.control>.switch.off>.sign {
     left: -5px;
     color: #757575;
 }
-#video>.bottom>.control>.switch.on {
+#video_wrapper>.bottom>.control>.switch.on {
     border: 2px #00a1d6 solid;
     background-color: #00a1d6;
 }
-#video>.bottom>.control>.switch.on>.sign {
+#video_wrapper>.bottom>.control>.switch.on>.sign {
     left: 8px;
     color: #00a1d6;
 }
-#video>.bottom>.control>.settings {
+#video_wrapper>.bottom>.control>.settings {
     display: flex;
     align-items: center;
     margin-right: 8px;
     cursor: pointer;
 }
-#video>.bottom>.control>.send {
+#video_wrapper>.bottom>.control>.send {
     display: flex;
     align-items: center;
 }
-#video>.bottom>.control>.send>.edit {
+#video_wrapper>.bottom>.control>.send>.edit {
     display: flex;
     align-items: center;
     border: 1px solid #e7e7e7;
@@ -346,16 +350,16 @@
     height: 30px;
     box-sizing: border-box;
 }
-#video>.bottom>.control>.send>.edit>div {
+#video_wrapper>.bottom>.control>.send>.edit>div {
     height: 24px;
     width: 36px;
     background-image: url(/statics/images/video/danmaku-font.svg);
     cursor: pointer;
 }
-#video>.bottom>.control>.send>.edit>div:hover {
+#video_wrapper>.bottom>.control>.send>.edit>div:hover {
     background-image: url(/statics/images/video/danmaku-font-hover.svg);
 }
-#video>.bottom>.control>.send>.edit>div:hover::before {
+#video_wrapper>.bottom>.control>.send>.edit>div:hover::before {
     content: "";
     position: relative;
     display: block;
@@ -364,27 +368,27 @@
     height: 16px;
     width: 72px;
 }
-#video>.bottom>.control>.send>.edit>input {
+#video_wrapper>.bottom>.control>.send>.edit>input {
     border: none;
     background-color: #f4f4f4;
     font-size: 12px;
     color: #212121;
     width: 280px;
 }
-#video>.bottom>.control>.send>.edit>input::-webkit-input-placeholder {
+#video_wrapper>.bottom>.control>.send>.edit>input::-webkit-input-placeholder {
     color: #999999
 }
-#video>.bottom>.control>.send>.edit>a {
+#video_wrapper>.bottom>.control>.send>.edit>a {
     color: #757575;
     font-size: 12px;
     margin: 0 9px;
     cursor: pointer;
     transition: all .3s;
 }
-#video>.bottom>.control>.send>.edit>a:hover {
+#video_wrapper>.bottom>.control>.send>.edit>a:hover {
     color: #00a1d6;
 }
-#video>.bottom>.control>.send>button {
+#video_wrapper>.bottom>.control>.send>button {
     background-color: #00a1d6;
     color: #fff;
     border: none;
@@ -394,7 +398,7 @@
     cursor: pointer;
     transition: all .2s;
 }
-#video>.bottom>.control>.send>button:hover {
+#video_wrapper>.bottom>.control>.send>button:hover {
     background-color: #00b5e5;
 }
 
