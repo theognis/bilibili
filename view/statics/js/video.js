@@ -106,9 +106,11 @@ function init(){
         if (danmaku_switch.classList.contains('on')) {
             danmaku_switch.classList.remove('on')
             danmaku_switch.classList.add('off')
+            danmaku_area.style.visibility = 'hidden'
         } else {
             danmaku_switch.classList.remove('off')
             danmaku_switch.classList.add('on')
+            danmaku_area.style.visibility = 'visible'
         }
     })
     danmaku_font_switch.addEventListener('mouseover', () => danmaku_font_settings.style.display = 'block')
