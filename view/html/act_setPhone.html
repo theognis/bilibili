@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/statics/css/header.css">
     <link rel="stylesheet" href="/statics/css/main.css">
     <link rel="stylesheet" href="/statics/css/account/account.css">
-    <link rel="stylesheet" href="/statics/css/account/setting.css">
+    <link rel="stylesheet" href="/statics/css/account/sets.css">
 </head>
 
 <body>
@@ -78,41 +78,33 @@
 <div id="banner">
     <img src="/statics/images/account/banner.png">
 </div>
+<div id="title">
+    <span>修改手机</span>
+</div>
 <div id="main">
-    <div id="setting">
-        <h1>资料修改</h1>
-        <div class="wrapper">
-            <div class="avatar">
-                <img src="/statics/images/akari.jpg">
-                <label for="upload_avatar">上传头像</label>
-                <input id="upload_avatar" type="file">
-            </div>
-            <div class="info">
-                <label>昵称</label><span class="username"></span><button class="username">修改</button>
-                <label>签名</label><span class="statement"></span><button class="statement">修改</button>
-                <label>性别</label><span class="gender"></span><button class="gender">修改</button>
-                <label>生日</label><span class="birthday"></span><button class="birthday">修改</button>
-            </div>
-        </div>
+    <div id="old_account">
+        <input type="text" placeholder="请输入原账号（手机号/邮箱地址）">
+        <p id="old_account_hint"></p>
     </div>
-    <div id="bonus">
-        <h1>每日奖励</h1>
-        <div class="wrapper">
-            <label>每日登录</label><label>每日观看视频</label><label>每日投币</label>
-            <span class="prize">5 经验值 & 1 硬币</span><span class="prize">5 经验值</span><span class="prize">50 经验值</span>
-            <span class="now done">已完成</span><span class="now doing">未完成</span><span class="now doing">0 / 50</span>
-        </div>
+    <div id="old_code" class="verify_code">
+        <input type="text" placeholder="请输入原账号的短信/邮箱验证码">
+        <button>点击获取</button>
+        <p id="old_code_hint"></p>
     </div>
-    <div id="safe">
-        <h1>账号安全</h1>
-        <div class="wrapper">
-            <button onclick="window.open('/account/set/password')">修改密码</button>
-            <button onclick="window.open('/account/set/phone')">修改手机</button>
-            <button onclick="window.open('/account/set/email')">修改邮箱</button>
-        </div>
+    <div id="new_phone">
+        <input type="text" placeholder="请输入新手机号">
+        <p id="new_phone_hint"></p>
+    </div>
+    <div id="new_code" class="verify_code">
+        <input type="text" placeholder="请输入新手机的验证码">
+        <button>点击获取</button>
+        <p id="new_code_hint"></p>
+    </div>
+    <div id="submit">
+        <button>提交</button>
     </div>
 </div>
-<script src="/statics/js/account/setting.js"></script>
+<script src="/statics/js/account/setPhonejs"></script>
 </body>
 
 </html>

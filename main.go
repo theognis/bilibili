@@ -33,6 +33,15 @@ func main() {
 	account.GET("/setting", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "act_setting.html", nil)
 	})
+	account.GET("/set/password", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "act_setPassword.html", nil)
+	})
+	account.GET("/set/email", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "act_setEmail.html", nil)
+	})
+	account.GET("/set/phone", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "act_setPhone.html", nil)
+	})
 	video.GET("/:av", func(c *gin.Context) {
 		av := c.Param("av")
 		c.HTML(http.StatusOK, "video.html", gin.H{

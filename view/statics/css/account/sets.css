@@ -1,0 +1,43 @@
+#main {
+    margin: 0 auto;
+    padding: 60px 0;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 420px;
+    width: 420px;
+    grid-template-rows: 40px 40px 40px 40px 40px;
+    grid-row-gap: 20px;
+}
+
+#main input::-webkit-input-placeholder {
+    color: #C0C4CC
+}
+
+#main p {
+    position: relative;
+    display: inline-block;
+    line-height: 40px;
+    color: #f45d90;
+    font-size: 12px;
+    margin: 0;
+    top: -40px;
+    left: 440px;
+}
+
+input {
+    border-radius: 4px;
+    width: 420px;
+}
+
+.verify_code button{
+    height: 36px;
+    width: 130px;
+    position: relative;
+    top: -38px;
+    left: 288px;
+}
+
+#submit button {
+    width: 420px;
+    height: 40px;
+}
