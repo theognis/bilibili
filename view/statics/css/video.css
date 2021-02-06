@@ -166,6 +166,7 @@
 
 #video_wrapper>.hover {
    position: relative;
+    z-index: 3;
 }
 #video_wrapper>.hover>.font_settings {
     padding: 10px 20px;
