@@ -20,6 +20,13 @@ import (
 type UserService struct {
 }
 
+func (u *UserService) ChangePassword(uid int64, newPassword string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdatePassword(uid, newPassword)
+	return err
+}
+
 func (u *UserService) ChangeUsername(uid int64, newUsername string) error {
 	d := dao.UserDao{tool.GetDb()}
 

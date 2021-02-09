@@ -29,6 +29,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.POST("/api/user/login/sms", u.loginBySms)
 	engine.POST("/api/verify/email", u.sendEmailCode)
 	engine.PUT("/api/user/username", u.changeUsername)
+	engine.PUT("/api/user/password", u.changePassword)
 	engine.PUT("/api/user/phone", u.changePhone)
 	engine.PUT("/api/user/email", u.changeEmail)
 	engine.PUT("/api/user/statement", u.changeStatement)
@@ -36,6 +37,103 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
 	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+func (u *UserController) changePassword(ctx *gin.Context) {
+	var ChangePasswordParam param.ChangePasswordParam
+	err := ctx.ShouldBind(&ChangePasswordParam)
+	if err != nil {
+		tool.Failed(ctx, "参数解析失败")
+		return
+	}
+
+	token := ChangePasswordParam.Token
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	//检测账号相关
+	if ChangePasswordParam.Account == "" {
+		tool.Failed(ctx, "账号为空")
+		return
+	}
+
+	if strings.Index(ChangePasswordParam.Account, "@") == -1 {
+		//手机号
+		flag, err = us.JudgePhone(ChangePasswordParam.Account)
+		if err != nil {
+			fmt.Println("JudgePhoneErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+
+		if flag == false {
+			tool.Failed(ctx, "账号不存在")
+			return
+		}
+	} else {
+		//邮箱
+		flag, err = us.JudgeEmail(ChangePasswordParam.Account)
+		if err != nil {
+			fmt.Println("JudgeEmailErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+
+		if flag == false {
+			tool.Failed(ctx, "账号不存在")
+		}
+	}
+
+	//验证码相关
+	if ChangePasswordParam.Code == "" {
+		tool.Failed(ctx, "验证码为空")
+		return
+	}
+
+	flag, err = us.JudgeVerifyCode(ctx, ChangePasswordParam.Account, ChangePasswordParam.Code)
+	if err != nil {
+		fmt.Println("JudgeVerifyCodeErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "验证码错误")
+		return
+	}
+
+	//验证新密码
+	if len(ChangePasswordParam.NewPassword) < 6 {
+		tool.Failed(ctx, "密码不能小于6个字符")
+		return
+	}
+
+	if len(ChangePasswordParam.NewPassword) > 16 {
+		tool.Failed(ctx, "密码不能大于16个字符")
+		return
+	}
+
+	uid := userinfo.Uid
+	err = us.ChangePassword(uid, ChangePasswordParam.NewPassword)
+	if err != nil {
+		fmt.Println("ChangePasswordErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 func (u *UserController) changeUsername(ctx *gin.Context) {

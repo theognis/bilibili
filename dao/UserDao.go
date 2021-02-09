@@ -45,6 +45,22 @@ func (dao *UserDao) UpdateCoins(uid int64, num int64) error {
 	return nil
 }
 
+func (dao *UserDao) UpdatePassword(uid int64, newPassword string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET password = ? WHERE uid = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newPassword, uid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateUsername(uid int64, newUsername string) error {
 	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET username = ? WHERE uid = ?`)
 	defer stmt.Close()
