@@ -11,17 +11,17 @@ type UserDao struct {
 	*sql.DB
 }
 
-func (dao *UserDao) UpdateLastCheckInDate(username string) error {
+func (dao *UserDao) UpdateLastCheckInDate(uid int64) error {
 	timeNow := time.Now()
 
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET last_check_in_date = ? WHERE username = ?`)
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET last_check_in_date = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(timeNow, username)
+	_, err = stmt.Exec(timeNow, uid)
 	if err != nil {
 		return err
 	}
@@ -29,15 +29,15 @@ func (dao *UserDao) UpdateLastCheckInDate(username string) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateCoins(username string, num int64) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET coins = coins + ? WHERE username = ?`)
+func (dao *UserDao) UpdateCoins(uid int64, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET coins = coins + ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(num, username)
+	_, err = stmt.Exec(num, uid)
 	if err != nil {
 		return err
 	}
@@ -45,15 +45,15 @@ func (dao *UserDao) UpdateCoins(username string, num int64) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateUsername(username, newUsername string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET username = ? WHERE username = ?`)
+func (dao *UserDao) UpdateUsername(uid int64, newUsername string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET username = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(newUsername, username)
+	_, err = stmt.Exec(newUsername, uid)
 	if err != nil {
 		return err
 	}
@@ -61,15 +61,15 @@ func (dao *UserDao) UpdateUsername(username, newUsername string) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateExp(username string, num int64) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET exp = exp + ? WHERE username = ?`)
+func (dao *UserDao) UpdateExp(uid int64, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET exp = exp + ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(num, username)
+	_, err = stmt.Exec(num, uid)
 	if err != nil {
 		return err
 	}
@@ -77,15 +77,15 @@ func (dao *UserDao) UpdateExp(username string, num int64) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateStatement(username, newStatement string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET statement = ? WHERE username = ?`)
+func (dao *UserDao) UpdateStatement(uid int64, newStatement string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET statement = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(newStatement, username)
+	_, err = stmt.Exec(newStatement, uid)
 	if err != nil {
 		return err
 	}
@@ -93,15 +93,15 @@ func (dao *UserDao) UpdateStatement(username, newStatement string) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateBirthday(username string, newBirthday time.Time) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET birthday = ? WHERE username = ?`)
+func (dao *UserDao) UpdateBirthday(uid int64, newBirthday time.Time) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET birthday = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(newBirthday, username)
+	_, err = stmt.Exec(newBirthday, uid)
 	if err != nil {
 		return err
 	}
@@ -109,15 +109,15 @@ func (dao *UserDao) UpdateBirthday(username string, newBirthday time.Time) error
 	return nil
 }
 
-func (dao *UserDao) UpdateGender(username, newGender string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET gender = ? WHERE username = ?`)
+func (dao *UserDao) UpdateGender(uid int64, newGender string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET gender = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(newGender, username)
+	_, err = stmt.Exec(newGender, uid)
 	if err != nil {
 		return err
 	}
@@ -125,15 +125,15 @@ func (dao *UserDao) UpdateGender(username, newGender string) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateAvatar(username, url string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET avatar = ? WHERE username = ?`)
+func (dao *UserDao) UpdateAvatar(uid int64, url string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET avatar = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(url, username)
+	_, err = stmt.Exec(url, uid)
 	if err != nil {
 		return err
 	}
@@ -141,15 +141,15 @@ func (dao *UserDao) UpdateAvatar(username, url string) error {
 	return nil
 }
 
-func (dao *UserDao) UpdatePhone(username, newPhone string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET phone = ? WHERE username = ?`)
+func (dao *UserDao) UpdatePhone(uid int64, newPhone string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET phone = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(newPhone, username)
+	_, err = stmt.Exec(newPhone, uid)
 	if err != nil {
 		return err
 	}
@@ -157,20 +157,41 @@ func (dao *UserDao) UpdatePhone(username, newPhone string) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateEmail(username, newEmail string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET email = ? WHERE username = ?`)
+func (dao *UserDao) UpdateEmail(uid int64, newEmail string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET email = ? WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(newEmail, username)
+	_, err = stmt.Exec(newEmail, uid)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+//根据uid查询
+func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
+	userinfo := model.Userinfo{}
+
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender FROM userinfo WHERE uid = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return userinfo, err
+	}
+
+	row := stmt.QueryRow(uid)
+
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender)
+	if err != nil {
+		return userinfo, err
+	}
+
+	return userinfo, nil
 }
 
 //根据邮箱查询

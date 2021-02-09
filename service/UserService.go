@@ -20,47 +20,47 @@ import (
 type UserService struct {
 }
 
-func (u *UserService) ChangeUsername(username, newUsername string) error {
+func (u *UserService) ChangeUsername(uid int64, newUsername string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdateUsername(username, newUsername)
+	err := d.UpdateUsername(uid, newUsername)
 	return err
 
-	err = d.UpdateCoins(newUsername, -6)
+	err = d.UpdateCoins(uid, -6)
 	return err
 }
 
-func (u *UserService) GetUserinfo(username string) (model.Userinfo, error) {
+func (u *UserService) GetUserinfo(uid int64) (model.Userinfo, error) {
 	d := dao.UserDao{tool.GetDb()}
 
-	userinfo, err := d.QueryByUsername(username)
+	userinfo, err := d.QueryByUid(uid)
 	return userinfo, err
 }
 
 //签到服务
-func (u *UserService) CheckIn(username string) error {
+func (u *UserService) CheckIn(uid int64) error {
 	d := dao.UserDao{tool.GetDb()}
 
 	//加经验
-	err := d.UpdateExp(username, 5)
+	err := d.UpdateExp(uid, 5)
 	if err != nil {
 		return err
 	}
 	//加硬币
-	err = d.UpdateCoins(username, 1)
+	err = d.UpdateCoins(uid, 1)
 	if err != nil {
 		return err
 	}
 	//更新日期
-	err = d.UpdateLastCheckInDate(username)
+	err = d.UpdateLastCheckInDate(uid)
 	return err
 }
 
 //可以签到返回true，否则返回false
-func (u *UserService) JudgeCheckIn(username string) (bool, error) {
+func (u *UserService) JudgeCheckIn(uid int64) (bool, error) {
 	d := dao.UserDao{tool.GetDb()}
 
-	userinfo, err := d.QueryByUsername(username)
+	userinfo, err := d.QueryByUid(uid)
 	if err != nil {
 		return false, err
 	}
@@ -75,10 +75,10 @@ func (u *UserService) JudgeCheckIn(username string) (bool, error) {
 	return true, nil
 }
 
-func (u *UserService) ChangeStatement(username, newStatement string) error {
+func (u *UserService) ChangeStatement(uid int64, newStatement string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdateStatement(username, newStatement)
+	err := d.UpdateStatement(uid, newStatement)
 	return err
 }
 
@@ -102,38 +102,38 @@ func (u *UserService) SendCodeByEmail(email string) (string, error) {
 	return strconv.Itoa(code), nil
 }
 
-func (u *UserService) ChangeBirthday(username string, newBirth time.Time) error {
+func (u *UserService) ChangeBirthday(uid int64, newBirth time.Time) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdateBirthday(username, newBirth)
+	err := d.UpdateBirthday(uid, newBirth)
 	return err
 }
 
-func (u *UserService) ChangeGender(username, newGender string) error {
+func (u *UserService) ChangeGender(uid int64, newGender string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdateGender(username, newGender)
+	err := d.UpdateGender(uid, newGender)
 	return err
 }
 
-func (u *UserService) ChangeAvatar(username, url string) error {
+func (u *UserService) ChangeAvatar(uid int64, url string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdateAvatar(username, url)
+	err := d.UpdateAvatar(uid, url)
 	return err
 }
 
-func (u *UserService) ChangePhone(username, newEmail string) error {
+func (u *UserService) ChangePhone(uid int64, newEmail string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdatePhone(username, newEmail)
+	err := d.UpdatePhone(uid, newEmail)
 	return err
 }
 
-func (u *UserService) ChangeEmail(username, newEmail string) error {
+func (u *UserService) ChangeEmail(uid int64, newEmail string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdateEmail(username, newEmail)
+	err := d.UpdateEmail(uid, newEmail)
 	return err
 }
 

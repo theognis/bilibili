@@ -72,7 +72,7 @@ func (u *UserController) changeUsername(ctx *gin.Context) {
 		return
 	}
 
-	err = us.ChangeUsername(userinfo.Username, newUsername)
+	err = us.ChangeUsername(userinfo.Uid, newUsername)
 	if err != nil {
 		fmt.Println("ChangeUsernameErr: ", err)
 		tool.Failed(ctx, "服务器错误")
@@ -114,7 +114,7 @@ func (u *UserController) changeBirth(ctx *gin.Context) {
 		return
 	}
 
-	err = us.ChangeBirthday(userinfo.Username, newTime)
+	err = us.ChangeBirthday(userinfo.Uid, newTime)
 	if err != nil {
 		fmt.Println("ChangeBirthdayErr: ", err)
 		tool.Failed(ctx, "服务器错误")
@@ -149,7 +149,7 @@ func (u *UserController) changeGender(ctx *gin.Context) {
 		return
 	}
 
-	err = us.ChangeGender(userinfo.Username, newGender)
+	err = us.ChangeGender(userinfo.Uid, newGender)
 	if err != nil {
 		tool.Failed(ctx, "系统错误")
 		fmt.Println("ChangeGenderErr: ", err)
@@ -274,7 +274,7 @@ func (u *UserController) changeAvatar(ctx *gin.Context) {
 	url := cfg.AvatarUrl + fileName
 
 	//头像入数据库
-	err = us.ChangeAvatar(userinfo.Username, url)
+	err = us.ChangeAvatar(userinfo.Uid, url)
 	if err != nil {
 		fmt.Println("ChangeAvatarErr: ", err)
 		tool.Failed(ctx, "服务器错误")
@@ -305,7 +305,7 @@ func (u *UserController) checkIn(ctx *gin.Context) {
 	userinfo := clams.Userinfo
 
 	//查询是否可以签到
-	flag, err = us.JudgeCheckIn(userinfo.Username)
+	flag, err = us.JudgeCheckIn(userinfo.Uid)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("JudgeCheckInErr: ", err)
@@ -317,7 +317,7 @@ func (u *UserController) checkIn(ctx *gin.Context) {
 		return
 	}
 
-	err = us.CheckIn(userinfo.Username)
+	err = us.CheckIn(userinfo.Uid)
 	if err != nil {
 		tool.Failed(ctx, "系统错误")
 		fmt.Println("CheckInErr: ", err)
@@ -520,7 +520,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 		return
 	}
 
-	err = us.ChangePhone(userinfo.Username, phoneChangeParam.NewPhone)
+	err = us.ChangePhone(userinfo.Uid, phoneChangeParam.NewPhone)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("ChangeEmailErr: ", err)
@@ -558,8 +558,7 @@ func (u *UserController) changeStatement(ctx *gin.Context) {
 	}
 	userinfo := clams.Userinfo
 
-	username := userinfo.Username
-	err = us.ChangeStatement(username, newStatement)
+	err = us.ChangeStatement(userinfo.Uid, newStatement)
 	if err != nil {
 		fmt.Println("ChangeStatementErr: ", err)
 		tool.Failed(ctx, "系统错误")
@@ -611,9 +610,9 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 	if flag == false {
 		return
 	}
-	username := clams.Userinfo.Username
+	uid := clams.Userinfo.Uid
 
-	userinfo, err := us.GetUserinfo(username)
+	userinfo, err := us.GetUserinfo(uid)
 	if err != nil {
 		fmt.Println("GetUserinfoErr: ", err)
 		tool.Failed(ctx, "服务器错误")
@@ -707,7 +706,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 		return
 	}
 
-	err = us.ChangeEmail(userinfo.Username, emailChangeParam.NewEmail)
+	err = us.ChangeEmail(userinfo.Uid, emailChangeParam.NewEmail)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("ChangeEmailErr: ", err)

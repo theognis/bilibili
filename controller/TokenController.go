@@ -40,8 +40,8 @@ func (g *TokenController) getToken(ctx *gin.Context) {
 		return
 	}
 
-	//根据username更新userinfo
-	newUserinfo, err := us.GetUserinfo(model.Userinfo.Username)
+	//根据uid更新userinfo
+	newUserinfo, err := us.GetUserinfo(model.Userinfo.Uid)
 
 	//创建新token
 	newToken, err := gs.CreateToken(newUserinfo, 120, "TOKEN")
