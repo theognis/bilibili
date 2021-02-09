@@ -20,6 +20,16 @@ import (
 type UserService struct {
 }
 
+func (u *UserService) ChangeUsername(username, newUsername string) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdateUsername(username, newUsername)
+	return err
+
+	err = d.UpdateCoins(newUsername, -6)
+	return err
+}
+
 func (u *UserService) GetUserinfo(username string) (model.Userinfo, error) {
 	d := dao.UserDao{tool.GetDb()}
 

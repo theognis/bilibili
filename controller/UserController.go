@@ -28,6 +28,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.POST("/api/user/login/pw", u.login)
 	engine.POST("/api/user/login/sms", u.loginBySms)
 	engine.POST("/api/verify/email", u.sendEmailCode)
+	engine.PUT("/api/user/username", u.changeUsername)
 	engine.PUT("/api/user/phone", u.changePhone)
 	engine.PUT("/api/user/email", u.changeEmail)
 	engine.PUT("/api/user/statement", u.changeStatement)
@@ -35,6 +36,50 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
 	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+func (u *UserController) changeUsername(ctx *gin.Context) {
+	token := ctx.PostForm("token")
+	newUsername := ctx.PostForm("new_username")
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	if newUsername == "" {
+		tool.Failed(ctx, "昵称不可为空")
+		return
+	}
+
+	if len(newUsername) > 15 {
+		tool.Failed(ctx, "昵称太长了")
+		return
+	}
+
+	if userinfo.Coins < 6 {
+		tool.Failed(ctx, "硬币不足")
+		return
+	}
+
+	err = us.ChangeUsername(userinfo.Username, newUsername)
+	if err != nil {
+		fmt.Println("ChangeUsernameErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 //更改生日

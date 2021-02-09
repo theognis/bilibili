@@ -45,6 +45,22 @@ func (dao *UserDao) UpdateCoins(username string, num int64) error {
 	return nil
 }
 
+func (dao *UserDao) UpdateUsername(username, newUsername string) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET username = ? WHERE username = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(newUsername, username)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateExp(username string, num int64) error {
 	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET exp = exp + ? WHERE username = ?`)
 	defer stmt.Close()
