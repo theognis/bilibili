@@ -445,7 +445,7 @@ let data = {
 	cover: String, // string, 封面地址
 	title: String, // string, 视频标题
 	channel: String, // string, 分区，字符串编号，参见`channel.md`
-	label: Obejct, // []string, 标签，字符串切片
+	label: Object, // []string, 标签，字符串切片
 	description: String, // string, 简介
     author: Number, // int64, 作者 UID
     time: String, // Time, 上传时间
@@ -454,8 +454,8 @@ let data = {
     coins: Number, // int64, 投币数量
     saves: Number, // int64, 收藏数量
     shares: Number, // int64, 分享数量
-    danmakus: Obejct, // []Danmaku, 弹幕，弹幕切片
-    comments: Obejct, // []Comment, 评论，评论切片
+    danmakus: Object, // []Danmaku, 弹幕，弹幕切片
+    comments: Object, // []Comment, 评论，评论切片
 }
 ```
 
