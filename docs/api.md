@@ -426,6 +426,39 @@ let data = {
 
 ## Video
 
+### `/api/video/video` `GET`
+
+* 请求视频；
+
+| 请求参数      | 类型 | 说明         |
+| ------------ | ---- | ----------- |
+| id           | 必选 | 视频 ID      |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `ID 不存在` | `id` 不存在 |
+| `true` | 参见下述代码 | 参数合法 |
+
+```js
+let data = {
+	video: String, // string, 视频地址
+	cover: String, // string, 封面地址
+	title: String, // string, 视频标题
+	channel: String, // string, 分区，字符串编号，参见`channel.md`
+	label: Obejct, // []string, 标签，字符串切片
+	description: String, // string, 简介
+    author: Number, // int64, 作者 UID
+    time: String, // Time, 上传时间
+    views: Number, // int64, 播放次数
+    likes: Number, // int64, 点赞数量
+    coins: Number, // int64, 投币数量
+    saves: Number, // int64, 收藏数量
+    shares: Number, // int64, 分享数量
+    danmakus: Obejct, // []Danmaku, 弹幕，弹幕切片
+    comments: Obejct, // []Comment, 评论，评论切片
+}
+```
+
 ### `/api/video/video` `POST`
 
 * `multipart/form-data` 
@@ -436,14 +469,27 @@ let data = {
 | video        | 必选 | 视频（视频格式，二进制文件）      |
 | cover        | 必选 | 封面（图片格式，二进制文件）       |
 | title        | 必选 | 标题，至多 80 字              |
-| channel      | 必选 | 分区                        |
-| label        | 必选 | 标签，至多 10 个             |
+| channel      | 必选 | 分区，字符串编号，参见`channel.md` |
+| label        | 必选 | 标签，至多 10 个，数组转 json 字符串 |
 | description  | 必选 | 简介，至多 250 字             |
 | token        | 必选 | token                       |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-|  |  |  |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频不可为空"` | `video`为空 |
+| `false` | `"视频体积不可大于 2GB"` | `video`体积大于 2GB |
+| `false` | `"封面不可为空"` | `cover`为空 |
+| `false` | `"封面体积不可大于 2MB"` | `cover`体积大于 2MB |
+| `false` | `"标题不可为空"` | `title`为空 |
+| `false` | `"标题过长"` | `title`长度大于 80 |
+| `false` | `"分区无效"` | `channel`为空、无效或过长 |
+| `false` | `"标签无效"` | `label`为空或无效 |
+| `false` | `"简介不可为空"` | `description`为空 |
+| `false` | `"简介过长"` | `description`长度大于 250 |
+| `true` | `""` | 上传成功 |
 
 # 一般规定
 
