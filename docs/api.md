@@ -441,12 +441,12 @@ let data = {
 
 ```js
 let data = {
-	video: String, // string, 视频地址
-	cover: String, // string, 封面地址
-	title: String, // string, 视频标题
-	channel: String, // string, 分区，字符串编号，参见`channel.md`
-	label: Object, // []string, 标签，字符串切片
-	description: String, // string, 简介
+    video: String, // string, 视频地址
+    cover: String, // string, 封面地址
+    title: String, // string, 视频标题
+    channel: String, // string, 分区，字符串编号，参见`channel.md`
+    label: Object, // []string, 标签，字符串切片
+    description: String, // string, 简介
     author: Number, // int64, 作者 UID
     time: String, // Time, 上传时间
     views: Number, // int64, 播放次数
