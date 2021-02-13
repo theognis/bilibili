@@ -1,7 +1,80 @@
-const nav = document.querySelector('body>header>nav')
-const user_button = document.querySelector('body>header>nav>.user_operation.logged>.user')
+function renderHeader() {
+    const logged = localStorage.getItem('token') || sessionStorage.getItem('token')
+    const home = location.pathname === '/'
+    document.write(
+        `<header>
+            <nav class="${logged ? 'logged' : 'not_logged'}">
+            <div id="navigator">
+                <a id="nav_homepage" href="/">
+                    ${home ? 
+                        `<span class="bilifont">&#xE72B;</span>` :
+                        `<img src="/statics/images/bilibili.svg">`
+                    }
+                    <span>主站</span>
+                </a>
+                <a href="javascript:alert('整天就知道看番！')">番剧</a>
+                <a href="javascript:alert('整天就知道打游戏！')">游戏中心</a>
+                <a href="javascript:alert('整天就知道看直播！')">直播</a>
+                <a href="javascript:alert('整天就知道买东西！')">会员购</a>
+                <a href="javascript:alert('整天就知道看漫画！')">漫画</a>
+                <a href="javascript:alert('整天就知道看比赛！')">赛事</a>
+                <a id="nav_download" href="https://github.com/Override0330/WinterExam-Android-2020"
+                    target="_blank"><span class="bilifont">&#xE72D;</span>下载APP</a>
+            </div>
+            <form id="search">
+                <input>
+                <button class="bilifont">&#xE72C;</button>
+            </form>
+            <div class="user_operation">
+                ${logged ? 
+                    `<img class="user">
+                    <a>大会员</a>
+                    <a>消息</a>
+                    <a>动态</a>
+                    <a>收藏</a>
+                    <a>历史</a>
+                    <a>创作中心</a>` :
+                    `<img src="/statics/images/akari.jpg">
+                    <a href="/account/login">登录</a>
+                    <a href="/account/register">注册</a>`
+                }
+            </div>
+            <a id="post" href="/video/upload">投稿</a>
+            </nav>
+            ${logged ?
+                `<div class="hover">
+                    <div class="user" style="visibility: hidden;opacity: 0;">
+                        <img class="avatar">
+                        <span class="username">admin</span>
+                        <div class="level_content">
+                            <div class="info">
+                                <span class="level">等级 0</span>
+                                <span class="exp">0 / 0</span>
+                            </div>
+                            <div class="bar"><div class="progress"></div></div>
+                        </div>
+                        <div class="money">
+                            <a class="coin"><img src="/statics/images/coin.svg"><span>0</span></a>
+                            <a class="b-coin"><img src="/statics/images/b-coin.svg"><span>0</span></a>
+                        </div>
+                        <div class="links">
+                            <a class="setting" href="/account/setting">个人中心</a>
+                        </div>
+                        <div class="logout">
+                            <span>登出</span>
+                        </div>
+                    </div>
+                </div>` : ``
+            }
+        </header>`
+    )
+}
+
+renderHeader()
+
+const user_button = document.querySelector('body>header>nav>.user_operation>.user')
 const user_hover = document.querySelector('body>header>.hover>.user')
-const pre_avatar = document.querySelector('body>header>nav>.user_operation.logged>img')
+const pre_avatar = document.querySelector('body>header>nav>.user_operation>img')
 const uh_avatar = document.querySelector('body>header>.hover>.user>.avatar')
 const uh_username = document.querySelector('body>header>.hover>.user>.username')
 const uh_level = document.querySelector('body>header>.hover>.user>.level_content>.info>.level')
@@ -25,7 +98,6 @@ function hideUserHover() {
 }
 function initHeader() {
     if (user.token) {
-        nav.setAttribute('class', 'logged')
         user_hover.style.left = user_button.offsetLeft - 140 + 'px'
         user_button.onmouseover = showUserHover
         user_button.onmouseout = hideUserHover
@@ -33,11 +105,9 @@ function initHeader() {
         user_hover.onmouseout = hideUserHover
         logout_button.onclick = logout
         initUserHover()
-    } else {
-        nav.setAttribute('class', 'not_logged')
     }
 }
-async function initUserHover() {
+function initUserHover() {
     if (!(user.data instanceof Object)) {
         return
     }
@@ -92,21 +162,21 @@ function getMaxExp(exp) {
 function isRemembered() {
     return !!localStorage.getItem('token');
 }
-function jsonToQuery(json){
+function jsonToQuery(json) {
     return Object.entries(json).map(v =>
         v.map(v =>
             v.toString()
-                .replace(/=/g,'%3D')
-                .replace(/&/g,'%26'))
+                .replace(/=/g, '%3D')
+                .replace(/&/g, '%26'))
             .join('=')
     ).join('&')
 }
 
 async function initToken() {
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         user.token = localStorage.getItem('token')
         user.refreshToken = localStorage.getItem('refreshToken')
-    } else if (sessionStorage.getItem('token')){
+    } else if (sessionStorage.getItem('token')) {
         user.token = sessionStorage.getItem('token')
         user.refreshToken = sessionStorage.getItem('refreshToken')
     }
@@ -128,7 +198,7 @@ function refreshToken() {
     })
         .then(data => data.json())
         .then(RTokenRes => {
-            if(RTokenRes.status) {
+            if (RTokenRes.status) {
                 user.token = RTokenRes.data
                 if (isRemembered())
                     localStorage.setItem('token', RTokenRes.data)
@@ -146,7 +216,7 @@ function checkIn() {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: jsonToQuery({token: user.token})
+        body: jsonToQuery({ token: user.token })
     })
         .then(data => data.json())
         .then(checkInRes => {
@@ -157,7 +227,7 @@ function checkIn() {
             }
         })
 }
-function getInfo(){
+function getInfo() {
     return fetch('/api/user/info/self?token=' + user.token, {
         method: 'GET'
     }).then(data => data.json())

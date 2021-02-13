@@ -15,16 +15,7 @@ body>header>nav.not_logged {
 body>header>nav.logged  {
     grid-template-columns: 540px auto 450px 120px;
 }
-body>header>nav.not_logged .user_operation.not_logged {
-    display: flex;
-}
-body>header>nav.not_logged .user_operation.logged {
-    display: none;
-}
-body>header>nav.logged .user_operation.not_logged {
-    display: none;
-}
-body>header>nav.logged .user_operation.logged {
+body>header>nav>.user_operation {
     display: flex;
 }
 
