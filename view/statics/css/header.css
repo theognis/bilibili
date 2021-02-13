@@ -72,11 +72,20 @@ body>header>nav #search button{
     border:none;
 }
 
-body>header>nav>div:not(#post) a{
+body>header>nav>div a{
     color: #212121;
 }
-body>header>nav>div#post a{
+body>header>nav>#post{
     color: white;
+    width: 100px;
+    height: 36px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #fb7299;
+    border-radius: 2px;
+    margin:10px;
+    user-select: none;
+    cursor: pointer;
 }
 body>header>nav input {
     background-color: #f4f4f4;
@@ -108,18 +117,6 @@ body>header .user_operation img{
     cursor: pointer;
     opacity: 1;
     transition: all ease .3s;
-}
-
-body>header #post {
-    width: 100px;
-    height: 36px;
-    text-align: center;
-    font-size: 14px;
-    background-color: #fb7299;
-    border-radius: 2px;
-    margin:10px;
-    user-select: none;
-    cursor: pointer;
 }
 
 body>header>.hover>.user {
