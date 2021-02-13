@@ -98,7 +98,7 @@ function hideUserHover() {
 }
 function initHeader() {
     if (user.token) {
-        user_hover.style.left = user_button.offsetLeft - 140 + 'px'
+        user_hover.style.left = user_button.offsetLeft - 124 + 'px' //user_button.left - (280 / 2) + (32 / 2) + px
         user_button.onmouseover = showUserHover
         user_button.onmouseout = hideUserHover
         user_hover.onmouseover = showUserHover
