@@ -445,7 +445,7 @@ let data = {
     cover: String, // string, 封面地址
     title: String, // string, 视频标题
     channel: String, // string, 分区，字符串编号，参见`channel.md`
-    label: Object, // []string, 标签，字符串切片
+    label: Array, // []string, 标签，字符串切片
     description: String, // string, 简介
     author: Number, // int64, 作者 UID
     time: String, // Time, 上传时间
@@ -485,8 +485,8 @@ let data = {
 | `false` | `"封面体积不可大于 2MB"` | `cover`体积大于 2MB |
 | `false` | `"标题不可为空"` | `title`为空 |
 | `false` | `"标题过长"` | `title`长度大于 80 |
-| `false` | `"分区无效"` | `channel`为空、无效或过长 |
-| `false` | `"标签无效"` | `label`为空或无效 |
+| `false` | `"分区无效"` | `channel`为空、无效 |
+| `false` | `"标签无效"` | `label`为空或无效或过多 |
 | `false` | `"简介不可为空"` | `description`为空 |
 | `false` | `"简介过长"` | `description`长度大于 250 |
 | `true` | `""` | 上传成功 |
