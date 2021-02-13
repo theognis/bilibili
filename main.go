@@ -42,11 +42,11 @@ func main() {
 	account.GET("/set/phone", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "act_setPhone.html", nil)
 	})
-	video.GET("/:av", func(c *gin.Context) {
-		av := c.Param("av")
-		c.HTML(http.StatusOK, "video.html", gin.H{
-			"av": av,
-		})
+	video.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "video.html", gin.H{})
+	})
+	video.GET("/upload", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "video_upload.html", gin.H{})
 	})
 	space.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "space.html", gin.H{})

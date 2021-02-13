@@ -75,7 +75,7 @@ body>header>nav #search button{
 body>header>nav>div:not(#post) a{
     color: #212121;
 }
-body>header>nav>#post {
+body>header>nav>div#post a{
     color: white;
 }
 body>header>nav input {
