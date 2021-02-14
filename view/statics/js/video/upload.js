@@ -90,12 +90,43 @@ let channel_data = [
     { 'id': '1804', 'main': '电影', 'sub': '国产电影', 'description': '' },
 ]
 
+const video_preview = document.querySelector('#video video')
+const cover_preview = document.querySelector('#cover img')
+const upload_video = document.querySelector('#upload_video')
+const upload_cover = document.querySelector('#upload_cover')
 const main_channel = document.querySelector('#main_channel')
 const sub_channel = document.querySelector('#sub_channel')
 const channel_description = document.querySelector('#channel_description')
 const label_list = document.querySelector('#label>div')
 const label_input = document.querySelector('#label>input')
 const label_button = document.querySelector('#label>button')
+const video_reader = new FileReader()
+const cover_reader = new FileReader()
+
+function createLabel(){
+    const newLabel = document.createElement('span')
+    newLabel.textContent = label_input.value
+    newLabel.onclick = function () {
+        label_list.removeChild(newLabel)
+        updateLabelButton()
+    }
+    return newLabel
+}
+function updateLabelButton () {
+    if (label_list.children.length === 10) {
+        label_button.setAttribute('disabled', 'disabled')
+        return
+    }
+    if (label_input.value === '') {
+        label_button.setAttribute('disabled', 'disabled')
+        return
+    }
+    if([...label_list.children].map(v => v.textContent).filter(v => v === label_input.value).length) {
+        label_button.setAttribute('disabled', 'disabled')
+        return
+    }
+    label_button.removeAttribute('disabled')
+}
 
 main_channel.onchange = function () {
     sub_channel.innerHTML =
@@ -124,27 +155,17 @@ label_button.onclick = function () {
     label_list.appendChild(newLabel)
     updateLabelButton()
 }
-function createLabel(){
-    const newLabel = document.createElement('span')
-    newLabel.textContent = label_input.value
-    newLabel.onclick = function () {
-        label_list.removeChild(newLabel)
-        updateLabelButton()
-    }
-    return newLabel
+upload_video.onchange = function () {
+    let file = upload_video.files[0]
+    video_reader.readAsDataURL(file)
 }
-function updateLabelButton () {
-    if (label_list.children.length === 10) {
-        label_button.setAttribute('disabled', 'disabled')
-        return
-    }
-    if (label_input.value === '') {
-        label_button.setAttribute('disabled', 'disabled')
-        return
-    }
-    if([...label_list.children].map(v => v.textContent).filter(v => v === label_input.value).length) {
-        label_button.setAttribute('disabled', 'disabled')
-        return
-    }
-    label_button.removeAttribute('disabled')
+upload_cover.onchange = function () {
+    let file = upload_cover.files[0]
+    cover_reader.readAsDataURL(file)
+}
+video_reader.onload = function () {
+    video_preview.src = video_reader.result
+}
+cover_reader.onload = function () {
+    cover_preview.src = cover_reader.result
 }

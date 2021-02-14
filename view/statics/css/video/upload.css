@@ -17,9 +17,12 @@ body>header {
     grid-template-columns: 400px 400px;
     justify-content: space-between;
 }
-#main>#upload>div>button {
-    display: block;
+#main>#upload>div>label {
     margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
 }
 #main>#upload>#cover>img {
     width: 400px;
@@ -107,7 +110,7 @@ body>header {
     margin: 20px auto 0 auto;
 }
 
-#main button {
+#main button, #main>#upload>div>label {
     background-color: #00A1D6;
     color: #fff;
     border: none;
@@ -123,6 +126,6 @@ body>header {
     border: 1px #d9d9d9 solid !important;
     cursor: not-allowed !important;
 }
-#main button:hover{
+#main button:hover, #main>#upload>div>label:hover{
     background: #33b4de;
 }
