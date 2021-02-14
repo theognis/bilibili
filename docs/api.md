@@ -485,8 +485,8 @@ let data = {
 | `false` | `"封面体积不可大于 2MB"` | `cover`体积大于 2MB |
 | `false` | `"标题不可为空"` | `title`为空 |
 | `false` | `"标题过长"` | `title`长度大于 80 |
-| `false` | `"分区无效"` | `channel`为空、无效 |
-| `false` | `"标签无效"` | `label`为空或无效或过多 |
+| `false` | `"分区无效"` | `channel`为空或无效 |
+| `false` | `"标签无效"` | `label`为空、无效、重复或过多 |
 | `false` | `"简介过长"` | `description`长度大于 250 |
 | `true` | `""` | 上传成功 |
 
