@@ -471,7 +471,7 @@ let data = {
 | title        | 必选 | 标题，至多 80 字              |
 | channel      | 必选 | 分区，字符串编号，参见`channel.md` |
 | label        | 必选 | 标签，至多 10 个，数组转 json 字符串 |
-| description  | 必选 | 简介，至多 250 字             |
+| description  | 可选 | 简介，至多 250 字             |
 | token        | 必选 | token                       |
 
 | status | data | 说明   |
@@ -487,7 +487,6 @@ let data = {
 | `false` | `"标题过长"` | `title`长度大于 80 |
 | `false` | `"分区无效"` | `channel`为空、无效 |
 | `false` | `"标签无效"` | `label`为空或无效或过多 |
-| `false` | `"简介不可为空"` | `description`为空 |
 | `false` | `"简介过长"` | `description`长度大于 250 |
 | `true` | `""` | 上传成功 |
 
