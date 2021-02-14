@@ -93,6 +93,9 @@ let channel_data = [
 const main_channel = document.querySelector('#main_channel')
 const sub_channel = document.querySelector('#sub_channel')
 const channel_description = document.querySelector('#channel_description')
+const label_list = document.querySelector('#label>div')
+const label_input = document.querySelector('#label>input')
+const label_button = document.querySelector('#label>button')
 
 main_channel.onchange = function () {
     sub_channel.innerHTML =
@@ -114,4 +117,34 @@ sub_channel.onchange = function () {
                 v.main === main_channel.options[main_channel.selectedIndex].value &&
                 v.sub === sub_channel.options[sub_channel.selectedIndex].value
             )[0].description
+}
+label_input.oninput = updateLabelButton
+label_button.onclick = function () {
+    let newLabel = createLabel()
+    label_list.appendChild(newLabel)
+    updateLabelButton()
+}
+function createLabel(){
+    const newLabel = document.createElement('span')
+    newLabel.textContent = label_input.value
+    newLabel.onclick = function () {
+        label_list.removeChild(newLabel)
+        updateLabelButton()
+    }
+    return newLabel
+}
+function updateLabelButton () {
+    if (label_list.children.length === 10) {
+        label_button.setAttribute('disabled', 'disabled')
+        return
+    }
+    if (label_input.value === '') {
+        label_button.setAttribute('disabled', 'disabled')
+        return
+    }
+    if([...label_list.children].map(v => v.textContent).filter(v => v === label_input.value).length) {
+        label_button.setAttribute('disabled', 'disabled')
+        return
+    }
+    label_button.removeAttribute('disabled')
 }

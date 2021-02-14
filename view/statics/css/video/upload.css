@@ -67,6 +67,7 @@ body>header {
 #main>#label>div {
     display: flex;
     margin-bottom: 16px;
+    flex-wrap: wrap;
 }
 #main>#label>div>span {
     border: 1px solid #ccd0d7;
@@ -75,7 +76,7 @@ body>header {
     border-radius: 15px;
     padding: 0 15px;
     user-select: none;
-    margin-right: 10px;
+    margin: 0 10px 8px 0;
     min-width: 20px;
     text-align: center;
     cursor: pointer;
@@ -83,7 +84,7 @@ body>header {
 #main>#label>button {
     position: relative;
     top: -41px;
-    left: 856px;
+    left: 855px;
 }
 #main>div>textarea {
     padding: 10px;
