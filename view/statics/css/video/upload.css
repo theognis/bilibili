@@ -48,8 +48,13 @@ body>header {
     border-radius: 4px;
     height: 40px;
     padding: 0 10px;
-    width: 120px;
     margin-right: 16px;
+}
+#main>#channel>div>select#main_channel {
+    width: 90px;
+}
+#main>#channel>div>select#sub_channel {
+    width: 160px;
 }
 #main>#channel>div>span {
     color: #999;
