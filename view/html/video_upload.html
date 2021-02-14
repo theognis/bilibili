@@ -10,11 +10,72 @@
 </head>
 
 <body>
-<script src="/statics/js/header.js"></script>
-<div id="main">
-
-</div>
-<script src="/statics/js/video/upload.js"></script>
+    <script src="/statics/js/header.js"></script>
+    <div id="main">
+        <div id="upload">
+            <div id="video">
+                <video controls></video>
+                <button>上传视频</button>
+            </div>
+            <div id="cover">
+                <img>
+                <button>上传封面</button>
+            </div>
+        </div>
+        <div id="title">
+            <h1 class="required">标题</h1>
+            <input type="text" placeholder="请输入稿件标题（至多80字）">
+        </div>
+        <div id="channel">
+            <h1 class="required">分区</h1>
+            <div>
+                <select>
+                    <option value="生活" selected>生活</option>
+                    <option value="游戏">游戏</option>
+                    <option value="娱乐">娱乐</option>
+                    <option value="知识">知识</option>
+                    <option value="影视">影视</option>
+                    <option value="音乐">音乐</option>
+                    <option value="动画">动画</option>
+                    <option value="时尚">时尚</option>
+                    <option value="美食">美食</option>
+                    <option value="数码">数码</option>
+                    <option value="动物圈">动物圈</option>
+                    <option value="舞蹈">舞蹈</option>
+                    <option value="国创">国创</option>
+                    <option value="鬼畜">鬼畜</option>
+                    <option value="纪录片">纪录片</option>
+                    <option value="番剧">番剧</option>
+                    <option value="电视剧">电视剧</option>
+                    <option value="电影">电影</option>
+                </select>
+                <select>
+                    <option value="日常">日常</option>
+                    <option value="搞笑">搞笑</option>
+                    <option value="运动">运动</option>
+                    <option value="汽车">汽车</option>
+                    <option value="绘画">绘画</option>
+                    <option value="手工">手工</option>
+                    <option value="其他" selected>其他</option>
+                </select>
+                <span>无法判断分区所属的视频</span>
+            </div>
+        </div>
+        <div id="label">
+            <h1 class="required">标签</h1>
+            <div>
+                <span>asd</span>
+                <span>qwe</span>
+            </div>
+            <input type="text" placeholder="可添加10个标签，点击已添加标签可将其删除"><button>添加标签</button>
+        </div>
+        <div id="description">
+            <h1>简介</h1>
+            <textarea placeholder="填写更全面的相关信息，让更多的人能找到你的视频吧！"></textarea>
+        </div>
+        <button id="submit">提交</button>
+    </div>
+    <script src="/statics/js/video/upload.js"></script>
 </body>
 
 </html>
