@@ -496,6 +496,67 @@ let data = {
 | `false` | `"简介过长"` | `description`长度大于 250 |
 | `true` | `""` | 上传成功 |
 
+### `/api/video/danmaku` `GET`
+
+* 获取弹幕
+
+| 请求参数     | 类型 | 说明                        |
+| ----------- | ---- | --------------------------- |
+| video_id    | 必选 | 视频ID                      |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
+| `true` | 参见以下代码 | 获取成功 |
+
+```js
+[{
+    // Integer; 弹幕 ID;
+    "id": 1,
+    // Integer; 视频 ID;
+    "video_id": 1, 
+    // Integer; 发送弹幕的用户 ID;
+    "user_id": 1,
+    // String; 弹幕内容;
+    "value": "2333",
+    // String[6]; 弹幕颜色; 
+    "color": "FFFFFF",
+    // String; 弹幕类型;
+    "type": "scroll" || "top" || "bottom",
+    // Time; 弹幕发送时间;
+    "time": "1970/1/1 00:00:00", 
+    // Integer; 弹幕弹出位置，单位为秒; 例如此处弹幕发送于 1min 54s 处
+    "location": 114,
+}, {
+    // 如上...
+}]
+```
+
+### `/api/video/danmaku` `POST`
+
+* `application/json` 
+* 发送弹幕；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+| value      | 必选 | 弹幕内容 |
+| color      | 必选 | 弹幕颜色 |
+| type       | 必选 | 弹幕类型 |
+| location   | 必选 | 弹幕位置 |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"弹幕不可为空"` | `value`为空 |
+| `false` | `"弹幕过长"` | `value`大于 100 字符 |
+| `false` | `"参数无效"` | `video_id`、`color`、`type`、`location`为空或无效 |
+| `true` | `""` | 发布成功 |
+
 # 一般规定
 
 如无特殊说明，则返回一个以下格式的 json：
