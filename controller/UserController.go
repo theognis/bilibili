@@ -561,27 +561,27 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	}
 	userinfo := clams.Userinfo
 	//判断原设备类型
-	if strings.Index(phoneChangeParam.OriginalAddress, "@") == -1 {
+	if strings.Index(phoneChangeParam.OldAccount, "@") == -1 {
 		//原设备为手机号
-		if phoneChangeParam.OriginalAddress != userinfo.Phone {
+		if phoneChangeParam.OldAccount != userinfo.Phone {
 			tool.Failed(ctx, "请输入原先绑定的手机号")
 			return
 		}
 	} else {
 		//原设备为email
-		if phoneChangeParam.OriginalAddress != userinfo.Email {
+		if phoneChangeParam.OldAccount != userinfo.Email {
 			tool.Failed(ctx, "请输入原先绑定的email")
 			return
 		}
 	}
 
-	if phoneChangeParam.OriginalCode == "" {
+	if phoneChangeParam.OldCode == "" {
 		tool.Failed(ctx, "请输入验证码")
 		return
 	}
 
 	//验证原设备
-	flag, err = us.JudgeVerifyCode(ctx, phoneChangeParam.OriginalAddress, phoneChangeParam.OriginalCode)
+	flag, err = us.JudgeVerifyCode(ctx, phoneChangeParam.OldAccount, phoneChangeParam.OldCode)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("JudgeVerifyCode: ", err)
@@ -747,27 +747,27 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	userinfo := clams.Userinfo
 
 	//判断原设备类型
-	if strings.Index(emailChangeParam.OriginalAddress, "@") == -1 {
+	if strings.Index(emailChangeParam.OldAccount, "@") == -1 {
 		//原设备为手机号
-		if emailChangeParam.OriginalAddress != userinfo.Phone {
+		if emailChangeParam.OldAccount != userinfo.Phone {
 			tool.Failed(ctx, "请输入原先绑定的手机号")
 			return
 		}
 	} else {
 		//原设备为email
-		if emailChangeParam.OriginalAddress != userinfo.Email {
+		if emailChangeParam.OldAccount != userinfo.Email {
 			tool.Failed(ctx, "请输入原先绑定的email")
 			return
 		}
 	}
 
-	if emailChangeParam.OriginalCode == "" {
+	if emailChangeParam.OldCode == "" {
 		tool.Failed(ctx, "请输入验证码")
 		return
 	}
 
 	//验证原设备
-	flag, err = us.JudgeVerifyCode(ctx, emailChangeParam.OriginalAddress, emailChangeParam.OriginalCode)
+	flag, err = us.JudgeVerifyCode(ctx, emailChangeParam.OldAccount, emailChangeParam.OldCode)
 	if err != nil {
 		tool.Failed(ctx, "服务器错误")
 		fmt.Println("JudgeVerifyCode: ", err)
