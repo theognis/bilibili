@@ -27,3 +27,23 @@ func (f *OssService) UploadAvatar(file multipart.File, filename string) error {
 	err = bucket.PutObject(filename, file)
 	return err
 }
+
+//上传到视频库
+func (f *OssService) UploadVideoBucket(file multipart.File, filename string) error {
+	cfg := tool.GetCfg().Oss
+
+	client, err := oss.New(cfg.EndPoint, cfg.AppKey, cfg.AppSecret)
+	if err != nil {
+		return err
+	}
+
+	bucket, err := client.Bucket(cfg.VideosBucket)
+	if err != nil {
+		return err
+	}
+
+	err = bucket.PutObject(filename, file)
+	return err
+}
+
+//上传封面

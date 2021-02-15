@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type Userinfo struct {
+type Video struct {
 	Av          int64
 	Title       string
 	Channel     string

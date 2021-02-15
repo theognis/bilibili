@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `video_label`;
 CREATE TABLE `video_label`
 (
     `id`          INT AUTO_INCREMENT PRIMARY KEY,
-    `av`  INT NOT NULL,
+    `av`          INT         NOT NULL,
     `video_label` VARCHAR(10) NOT NULL
 ) charset="utf8mb4";
 
