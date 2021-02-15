@@ -463,6 +463,8 @@ let data = {
 
 * `multipart/form-data` 
 * 视频投稿；
+* 视频格式支持`flv`，`mp4`
+* 封面格式支持`png`，`jpg`
 
 | 请求参数       | 类型 | 说明                        |
 | ------------ | ---- | --------------------------- |
@@ -481,10 +483,12 @@ let data = {
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"视频不可为空"` | `video`为空 |
 | `false` | `"视频体积不可大于 2GB"` | `video`体积大于 2GB |
-| `false` | `"视频上传失败"` | 视频上传失败 |
+| `false` | `"视频上传失败"` | `video`上传失败 |
+| `false` | `视频格式无效` | `video`格式无效 |
 | `false` | `"封面不可为空"` | `cover`为空 |
 | `false` | `"封面体积不可大于 2MB"` | `cover`体积大于 2MB |
-| `false` | `"封面上传失败"` | 封面上传失败 |
+| `false` | `"封面上传失败"` | `cover`上传失败 |
+| `false` | `"封面格式无效"` | `cover`格式无效 |
 | `false` | `"标题不可为空"` | `title`为空 |
 | `false` | `"标题过长"` | `title`长度大于 80 |
 | `false` | `"分区无效"` | `channel`为空或无效 |
