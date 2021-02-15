@@ -31,7 +31,9 @@ func (u *UserService) ChangeUsername(uid int64, newUsername string) error {
 	d := dao.UserDao{tool.GetDb()}
 
 	err := d.UpdateUsername(uid, newUsername)
-	return err
+	if err != nil {
+		return err
+	}
 
 	err = d.UpdateCoins(uid, -6)
 	return err
