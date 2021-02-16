@@ -9,6 +9,27 @@ import (
 type VideoService struct {
 }
 
+func (v *VideoService) InsertDanmaku(danmakuModel model.Danmaku) error {
+	vd := dao.VideoDao{tool.GetDb()}
+	err := vd.InsertDanmaku(danmakuModel)
+	return err
+}
+
+//判断av号对应的视频是否存在，存在则返回true
+func (v *VideoService) JudgeAv(av int64) (bool, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	_, err := vd.QueryByAv(av)
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return false, nil
+		}
+		return false, err
+	}
+
+	return true, nil
+}
+
 func (v *VideoService) SetUrl(av int64, videoUrl string, coverUrl string) error {
 	vd := dao.VideoDao{tool.GetDb()}
 

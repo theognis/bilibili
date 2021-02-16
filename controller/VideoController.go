@@ -2,6 +2,7 @@ package controller
 
 import (
 	"bilibili/model"
+	"bilibili/param"
 	"bilibili/service"
 	"bilibili/tool"
 	"encoding/json"
@@ -17,6 +18,101 @@ type VideoController struct {
 
 func (v *VideoController) Router(engine *gin.Engine) {
 	engine.POST("/api/video/video", v.postVideo)
+	engine.POST("/api/video/danmaku", v.postDanmaku)
+}
+
+func (v *VideoController) postDanmaku(ctx *gin.Context) {
+	var danmakuParam param.PostDanmakuParam
+	err := ctx.BindJSON(&danmakuParam)
+	if err != nil {
+		fmt.Println("BindJsonErr: ", err)
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	if danmakuParam.Token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(danmakuParam.Token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	if danmakuParam.Value == "" {
+		tool.Failed(ctx, "弹幕不可为空")
+		return
+	}
+
+	if len(danmakuParam.Value) > 100 {
+		tool.Failed(ctx, "弹幕过长")
+		return
+	}
+
+	if len(danmakuParam.Color) != 6 {
+		fmt.Println("parseColorErr: ", err)
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	_, err = strconv.ParseInt(danmakuParam.Color, 16, 64)
+	if err != nil {
+		fmt.Println("parseColorErr: ", err)
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	//type判断
+	if danmakuParam.Type != "scroll" && danmakuParam.Type != "top" && danmakuParam.Type != "bottom" {
+		fmt.Println("TypeErr")
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	//location判断
+	if danmakuParam.Location < 0 || danmakuParam.Location >= 9999 {
+		fmt.Println("LocationErr")
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	//av号判断
+	vs := service.VideoService{}
+	flag, err = vs.JudgeAv(danmakuParam.Av)
+	if err != nil {
+		fmt.Println("JudgeAvErr:", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "参数无效")
+		fmt.Println("AvNumNil")
+		return
+	}
+
+	var danmakuModel model.Danmaku
+	danmakuModel.Av = danmakuParam.Av
+	danmakuModel.Location = danmakuParam.Location
+	danmakuModel.Type = danmakuParam.Type
+	danmakuModel.Color = danmakuParam.Color
+	danmakuModel.Value = danmakuParam.Value
+	danmakuModel.Uid = userinfo.Uid
+	danmakuModel.Time = time.Now()
+
+	err = vs.InsertDanmaku(danmakuModel)
+	if err != nil {
+		fmt.Println("InsertDanmakuErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 func (v *VideoController) postVideo(ctx *gin.Context) {

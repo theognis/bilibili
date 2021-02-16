@@ -15,5 +15,5 @@ type Video struct {
 	Likes       int64
 	Coins       int64
 	Saves       int64
-	shares      int64
+	Shares      int64
 }
