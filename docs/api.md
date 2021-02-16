@@ -98,23 +98,48 @@
 
 ```js
 let data = {
+    Avatar: String // String
     Uid: Number, // int64
     Username: String, // string
     Password: String, // string
     Email: String, // string
     Phone: String, // string
     Salt: String, // string
-    RegDate: Date, // time.Time
+    RegDate: Date, // Time
     Statement: String, // string
     Exp: Number, // int64
     Coins: Number, // float64
+    BCoins: Number, // int64
+    Birthday: String, // Time
+    Gender: String, // Char
+    LastCheckInDate: String, // Time
 }
 ```
 
 ### `/api/user/info/:uid` `GET`
 
 * 获取 UID 为 `:uid` 的用户的个人信息
-* 暂未开发
+
+| 请求参数 | 类型 | 说明    |
+| ------- | ---- | ------ |
+| uid     | 必选 | 用户 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"UID 无效"` | `uid`为空或无效 |
+| `true` | 参见下述代码 | 参数合法 |
+
+```js
+let data = {
+    Avatar: String // String
+    Uid: Number, // int64
+    Username: String, // string
+    Statement: String, // string
+    Exp: Number, // int64
+    Birthday: String, // Time
+    Gender: String, // Char
+}
+```
 
 ### `/api/user/avatar` `PUT`
 
