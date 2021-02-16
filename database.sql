@@ -51,3 +51,17 @@ CREATE TABLE `video_info`
     `saves`       INT          NOT NULL DEFAULT 0,
     `shares`      INT          NOT NULL DEFAULT 0
 ) charset="utf8mb4";
+
+DROP TABLE IF EXISTS `video_danmaku`;
+
+CREATE TABLE `video_danmaku`
+(
+    `did`      INT AUTO_INCREMENT PRIMARY KEY,
+    `av`       INT          NOT NULL,
+    `uid`      INT          NOT NULL,
+    `value`    VARCHAR(120) NOT NULL,
+    `color`    VARCHAR(6)   NOT NULL,
+    `type`     VARCHAR(10)  NOT NULL,
+    `time`     TIMESTAMP    NOT NULL,
+    `location` INT          NOT NULL
+) charset="utf8mb4";
