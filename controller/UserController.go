@@ -430,6 +430,7 @@ func (u *UserController) sendSmsLogin(ctx *gin.Context) {
 
 	if phone == "" {
 		tool.Failed(ctx, "手机号不可为空")
+		return
 	}
 
 	us := service.UserService{}
