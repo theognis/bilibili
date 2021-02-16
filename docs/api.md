@@ -98,23 +98,48 @@
 
 ```js
 let data = {
+    Avatar: String // String
     Uid: Number, // int64
     Username: String, // string
     Password: String, // string
     Email: String, // string
     Phone: String, // string
     Salt: String, // string
-    RegDate: Date, // time.Time
+    RegDate: Date, // Time
     Statement: String, // string
     Exp: Number, // int64
     Coins: Number, // float64
+    BCoins: Number, // int64
+    Birthday: String, // Time
+    Gender: String, // Char
+    LastCheckInDate: String, // Time
 }
 ```
 
 ### `/api/user/info/:uid` `GET`
 
 * 获取 UID 为 `:uid` 的用户的个人信息
-* 暂未开发
+
+| 请求参数 | 类型 | 说明    |
+| ------- | ---- | ------ |
+| uid     | 必选 | 用户 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"UID 无效"` | `uid`为空或无效 |
+| `true` | 参见下述代码 | 参数合法 |
+
+```js
+let data = {
+    Avatar: String // String
+    Uid: Number, // int64
+    Username: String, // string
+    Statement: String, // string
+    Exp: Number, // int64
+    Birthday: String, // Time
+    Gender: String, // Char
+}
+```
 
 ### `/api/user/avatar` `PUT`
 
@@ -454,8 +479,7 @@ let data = {
     coins: Number, // int64, 投币数量
     saves: Number, // int64, 收藏数量
     shares: Number, // int64, 分享数量
-    danmakus: Object, // []Danmaku, 弹幕，弹幕切片
-    comments: Object, // []Comment, 评论，评论切片
+    danmakus: Array, // []Danmaku, 弹幕，弹幕切片
 }
 ```
 
@@ -556,6 +580,43 @@ let data = {
 | `false` | `"弹幕过长"` | `value`大于 100 字符 |
 | `false` | `"参数无效"` | `video_id`、`color`、`type`、`location`为空或无效 |
 | `true` | `""` | 发布成功 |
+
+### `/api/video/like` `GET`
+
+* 获取点赞状态；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 已点赞 |
+| `true` | `false` | 未点赞 |
+
+### `/api/video/like` `POST`
+
+* `application/json` 
+* 点赞/取消点赞；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 点赞成功 |
+| `true` | `false` | 取消点赞成功 |
 
 # 一般规定
 
