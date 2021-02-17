@@ -537,21 +537,21 @@ let data = {
 ```js
 [{
     // Integer; 弹幕 ID;
-    "id": 1,
+    "Id": 1,
     // Integer; 视频 ID;
-    "video_id": 1, 
+    "VideoId": 1, 
     // Integer; 发送弹幕的用户 ID;
-    "user_id": 1,
+    "UserId": 1,
     // String; 弹幕内容;
-    "value": "2333",
+    "Value": "2333",
     // String[6]; 弹幕颜色; 
-    "color": "FFFFFF",
+    "Color": "FFFFFF",
     // String; 弹幕类型;
-    "type": "scroll" || "top" || "bottom",
+    "Type": "scroll" || "top" || "bottom",
     // Time; 弹幕发送时间;
-    "time": "1970/1/1 00:00:00", 
+    "Time": "1970/1/1 00:00:00", 
     // Integer; 弹幕弹出位置，单位为秒; 例如此处弹幕发送于 1min 54s 处
-    "location": 114,
+    "Location": 114,
 }, {
     // 如上...
 }]
