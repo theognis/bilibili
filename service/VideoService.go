@@ -10,6 +10,25 @@ import (
 type VideoService struct {
 }
 
+//获取用户点赞状态，在err为nil的情况下，已经点赞返回true，反正返回false
+//考虑到单个视频可能存在大量赞，这里在dao层查询用户点赞的视频，而不是查询点赞过视频的用户，优化性能
+func (v *VideoService) GetLike(av, uid int64) (bool, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	avSlice, err := vd.QueryLikesByUid(uid)
+	if err != nil {
+		return false, err
+	}
+
+	for _, likedAv := range avSlice {
+		if av == likedAv {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
 func (v *VideoService) GetVideo(av int64) (model.Video, error) {
 	vd := dao.VideoDao{tool.GetDb()}
 
