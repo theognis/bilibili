@@ -92,6 +92,7 @@ func (u *UserService) ChangeStatement(uid int64, newStatement string) error {
 }
 
 func (u *UserService) SendCodeByEmail(email string) (string, error) {
+	email = strings.ToLower(email)
 	emailCfg := tool.GetCfg().Email
 
 	auth := smtp.PlainAuth("", emailCfg.ServiceEmail, emailCfg.ServicePwd, emailCfg.SmtpHost)
@@ -134,6 +135,7 @@ func (u *UserService) ChangeAvatar(uid int64, url string) error {
 
 func (u *UserService) ChangePhone(uid int64, newEmail string) error {
 	d := dao.UserDao{tool.GetDb()}
+	newEmail = strings.ToLower(newEmail)
 
 	err := d.UpdatePhone(uid, newEmail)
 	return err
@@ -141,6 +143,7 @@ func (u *UserService) ChangePhone(uid int64, newEmail string) error {
 
 func (u *UserService) ChangeEmail(uid int64, newEmail string) error {
 	d := dao.UserDao{tool.GetDb()}
+	newEmail = strings.ToLower(newEmail)
 
 	err := d.UpdateEmail(uid, newEmail)
 	return err
@@ -162,6 +165,7 @@ func (u *UserService) Login(loginName, password string) (model.Userinfo, bool, e
 	flag := strings.Index(loginName, "@")
 	if flag != -1 {
 		//邮箱登录
+		loginName = strings.ToLower(loginName)
 		userinfo, err := d.QueryByEmail(loginName)
 		if err != nil {
 			if err.Error() == "sql: no rows in result set" {
@@ -238,6 +242,7 @@ func (u *UserService) JudgePhone(phone string) (bool, error) {
 //检验邮箱是否存在, false不存在 反之存在
 func (u *UserService) JudgeEmail(email string) (bool, error) {
 	d := dao.UserDao{tool.GetDb()}
+	email = strings.ToLower(email)
 	_, err := d.QueryByEmail(email)
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
