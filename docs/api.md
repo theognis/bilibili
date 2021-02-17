@@ -461,7 +461,8 @@ let data = {
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `ID 不存在` | `id` 不存在 |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
 | `true` | 参见下述代码 | 参数合法 |
 
 ```js
