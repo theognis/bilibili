@@ -466,6 +466,7 @@ let data = {
 
 ```js
 let data = {
+    id: Number, //int64, 视频 ID
     video: String, // string, 视频地址
     cover: String, // string, 封面地址
     title: String, // string, 视频标题
@@ -518,7 +519,7 @@ let data = {
 | `false` | `"分区无效"` | `channel`为空或无效 |
 | `false` | `"标签无效"` | `label`为空、无效、重复或过多 |
 | `false` | `"简介过长"` | `description`长度大于 250 |
-| `true` | `""` | 上传成功 |
+| `true` | 视频 ID | 上传成功 |
 
 ### `/api/video/danmaku` `GET`
 
