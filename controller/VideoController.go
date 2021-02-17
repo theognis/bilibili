@@ -19,6 +19,68 @@ type VideoController struct {
 func (v *VideoController) Router(engine *gin.Engine) {
 	engine.POST("/api/video/video", v.postVideo)
 	engine.POST("/api/video/danmaku", v.postDanmaku)
+	engine.GET("/api/video/danmaku", v.getDanmaku)
+}
+
+func (v *VideoController) getDanmaku(ctx *gin.Context) {
+	avStr := ctx.Query("video_id")
+	if avStr == "" {
+		tool.Failed(ctx, "视频ID不可为空")
+		return
+	}
+	avInt, err := strconv.ParseInt(avStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseAvStrErr: ", err)
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	vs := service.VideoService{}
+	flag, err := vs.JudgeAv(avInt)
+	if err != nil {
+		fmt.Println("JudgeAvErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "视频ID无效")
+	}
+
+	danmakuSlice, err := vs.GetDanmaku(avInt)
+	if err != nil {
+		fmt.Println("GetDanmakuErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	type ParamDanmaku struct {
+		Id       int64
+		VideoId  int64
+		UserId   int64
+		Value    string
+		Color    string
+		Type     string
+		Time     string
+		Location int64
+	}
+	var ParamSlice []ParamDanmaku
+
+	for _, daoDanmaku := range danmakuSlice {
+		var paramDanmaku ParamDanmaku
+		paramDanmaku.Id = daoDanmaku.Did
+		paramDanmaku.VideoId = daoDanmaku.Av
+		paramDanmaku.UserId = daoDanmaku.Uid
+		paramDanmaku.Value = daoDanmaku.Value
+		paramDanmaku.Color = daoDanmaku.Color
+		paramDanmaku.Type = daoDanmaku.Type
+		paramDanmaku.Time = daoDanmaku.Time.Format("2006/1/2 15:04:05")
+		paramDanmaku.Location = daoDanmaku.Location
+		ParamSlice = append(ParamSlice, paramDanmaku)
+
+	}
+
+	tool.Success(ctx, ParamSlice)
 }
 
 func (v *VideoController) postDanmaku(ctx *gin.Context) {

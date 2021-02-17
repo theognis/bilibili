@@ -9,6 +9,34 @@ type VideoDao struct {
 	*sql.DB
 }
 
+func (dao *VideoDao) QueryDanmaku(av int64) ([]model.Danmaku, error) {
+	var danmakuSlice []model.Danmaku
+
+	stmt, err := dao.DB.Prepare(`SELECT did, av, uid, value, color, type, time, location FROM video_danmaku WHERE av = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(av)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var danmaku model.Danmaku
+		err = rows.Scan(&danmaku.Did, &danmaku.Av, &danmaku.Uid, &danmaku.Value, &danmaku.Color, &danmaku.Type, &danmaku.Time, &danmaku.Location)
+		if err != nil {
+			return nil, err
+		}
+
+		danmakuSlice = append(danmakuSlice, danmaku)
+	}
+
+	return danmakuSlice, nil
+}
+
 func (dao *VideoDao) QueryByAv(av int64) (model.Video, error) {
 	videoModel := model.Video{}
 

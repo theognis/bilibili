@@ -9,6 +9,14 @@ import (
 type VideoService struct {
 }
 
+func (v *VideoService) GetDanmaku(av int64) ([]model.Danmaku, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	danmakuSlice, err := vd.QueryDanmaku(av)
+	return danmakuSlice, err
+
+}
+
 func (v *VideoService) InsertDanmaku(danmakuModel model.Danmaku) error {
 	vd := dao.VideoDao{tool.GetDb()}
 	err := vd.InsertDanmaku(danmakuModel)
