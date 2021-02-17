@@ -260,10 +260,10 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 	//视频格式判断
 	videoExtension := tool.GetExtension(videoHeader.Filename)
 	videoExtension = strings.ToLower(videoExtension)
-	if videoExtension != "flv" && videoExtension != "mp4" {
-		tool.Failed(ctx, "视频格式无效")
-		return
-	}
+	//if videoExtension != "flv" && videoExtension != "mp4" {
+	//	tool.Failed(ctx, "视频格式无效")
+	//	return
+	//}
 
 	//封面文件判断相关
 	coverFile, coverHeader, err := ctx.Request.FormFile("cover")
@@ -283,13 +283,13 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 		return
 	}
 
-	//视频格式判断
+	//封面格式判断
 	coverExtension := tool.GetExtension(coverHeader.Filename)
 	coverExtension = strings.ToLower(coverExtension)
-	if coverExtension != "png" && videoExtension != "jpg" {
-		tool.Failed(ctx, "封面格式无效")
-		return
-	}
+	//if coverExtension != "png" && videoExtension != "jpg" {
+	//	tool.Failed(ctx, "封面格式无效")
+	//	return
+	//}
 
 	//标题相关
 	title := ctx.PostForm("title")
