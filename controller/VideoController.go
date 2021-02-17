@@ -422,5 +422,5 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, "")
+	tool.Success(ctx, av)
 }
