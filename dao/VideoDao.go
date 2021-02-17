@@ -2,15 +2,45 @@ package dao
 
 import (
 	"bilibili/model"
+	"bilibili/param"
 	"database/sql"
+	"time"
 )
 
 type VideoDao struct {
 	*sql.DB
 }
 
-func (dao *VideoDao) QueryDanmaku(av int64) ([]model.Danmaku, error) {
-	var danmakuSlice []model.Danmaku
+func (dao *VideoDao) QueryLabel(av int64) ([]string, error) {
+	var labelSlice []string
+
+	stmt, err := dao.DB.Prepare(`SELECT video_label FROM video_label WHERE av = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(av)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var label string
+		err = rows.Scan(&label)
+		if err != nil {
+			return nil, err
+		}
+
+		labelSlice = append(labelSlice, label)
+	}
+
+	return labelSlice, nil
+}
+
+func (dao *VideoDao) QueryDanmaku(av int64) ([]param.ParamDanmaku, error) {
+	var danmakuSlice []param.ParamDanmaku
 
 	stmt, err := dao.DB.Prepare(`SELECT did, av, uid, value, color, type, time, location FROM video_danmaku WHERE av = ?`)
 	if err != nil {
@@ -25,11 +55,14 @@ func (dao *VideoDao) QueryDanmaku(av int64) ([]model.Danmaku, error) {
 
 	defer rows.Close()
 	for rows.Next() {
-		var danmaku model.Danmaku
-		err = rows.Scan(&danmaku.Did, &danmaku.Av, &danmaku.Uid, &danmaku.Value, &danmaku.Color, &danmaku.Type, &danmaku.Time, &danmaku.Location)
+		var danmaku param.ParamDanmaku
+		var Time time.Time
+		err = rows.Scan(&danmaku.Id, &danmaku.VideoId, &danmaku.UserId, &danmaku.Value, &danmaku.Color, &danmaku.Type, &Time, &danmaku.Location)
 		if err != nil {
 			return nil, err
 		}
+
+		danmaku.Time = Time.Format("2006/1/2 15:04:05")
 
 		danmakuSlice = append(danmakuSlice, danmaku)
 	}

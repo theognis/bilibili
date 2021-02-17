@@ -20,6 +20,76 @@ func (v *VideoController) Router(engine *gin.Engine) {
 	engine.POST("/api/video/video", v.postVideo)
 	engine.POST("/api/video/danmaku", v.postDanmaku)
 	engine.GET("/api/video/danmaku", v.getDanmaku)
+	engine.GET("/api/video/video", v.getVideo)
+}
+
+func (v *VideoController) getVideo(ctx *gin.Context) {
+	avStr := ctx.Query("video_id")
+	if avStr == "" {
+		tool.Failed(ctx, "视频ID不可为空")
+		return
+	}
+	avInt, err := strconv.ParseInt(avStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseAvStrErr: ", err)
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	vs := service.VideoService{}
+	flag, err := vs.JudgeAv(avInt)
+	if err != nil {
+		fmt.Println("JudgeAvErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	//获取弹幕切片
+	danmakuSlice, err := vs.GetDanmaku(avInt)
+	if err != nil {
+		fmt.Println("GetDanmakuErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	//获取视频信息
+	videoInfo, err := vs.GetVideo(avInt)
+	if err != nil {
+		fmt.Println("GetVideoErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	//获取标签切片
+	labelSlice, err := vs.GetLabel(avInt)
+	if err != nil {
+		fmt.Println("GetLableErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, gin.H{
+		"id":          videoInfo.Av,
+		"video":       videoInfo.VideoUrl,
+		"cover":       videoInfo.CoverUrl,
+		"title":       videoInfo.Title,
+		"channel":     videoInfo.Channel,
+		"label":       labelSlice,
+		"description": videoInfo.Description,
+		"author":      videoInfo.AuthorUid,
+		"time":        videoInfo.Time.Format("2006/1/2 15:04:05"),
+		"views":       videoInfo.Views,
+		"likes":       videoInfo.Likes,
+		"coins":       videoInfo.Coins,
+		"saves":       videoInfo.Saves,
+		"shares":      videoInfo.Shares,
+		"danmakus":    danmakuSlice,
+	})
 }
 
 func (v *VideoController) getDanmaku(ctx *gin.Context) {
@@ -45,6 +115,7 @@ func (v *VideoController) getDanmaku(ctx *gin.Context) {
 
 	if flag == false {
 		tool.Failed(ctx, "视频ID无效")
+		return
 	}
 
 	danmakuSlice, err := vs.GetDanmaku(avInt)
@@ -54,33 +125,7 @@ func (v *VideoController) getDanmaku(ctx *gin.Context) {
 		return
 	}
 
-	type ParamDanmaku struct {
-		Id       int64
-		VideoId  int64
-		UserId   int64
-		Value    string
-		Color    string
-		Type     string
-		Time     string
-		Location int64
-	}
-	var ParamSlice []ParamDanmaku
-
-	for _, daoDanmaku := range danmakuSlice {
-		var paramDanmaku ParamDanmaku
-		paramDanmaku.Id = daoDanmaku.Did
-		paramDanmaku.VideoId = daoDanmaku.Av
-		paramDanmaku.UserId = daoDanmaku.Uid
-		paramDanmaku.Value = daoDanmaku.Value
-		paramDanmaku.Color = daoDanmaku.Color
-		paramDanmaku.Type = daoDanmaku.Type
-		paramDanmaku.Time = daoDanmaku.Time.Format("2006/1/2 15:04:05")
-		paramDanmaku.Location = daoDanmaku.Location
-		ParamSlice = append(ParamSlice, paramDanmaku)
-
-	}
-
-	tool.Success(ctx, ParamSlice)
+	tool.Success(ctx, danmakuSlice)
 }
 
 func (v *VideoController) postDanmaku(ctx *gin.Context) {

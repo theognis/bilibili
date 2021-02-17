@@ -3,13 +3,28 @@ package service
 import (
 	"bilibili/dao"
 	"bilibili/model"
+	"bilibili/param"
 	"bilibili/tool"
 )
 
 type VideoService struct {
 }
 
-func (v *VideoService) GetDanmaku(av int64) ([]model.Danmaku, error) {
+func (v *VideoService) GetVideo(av int64) (model.Video, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	videoInfo, err := vd.QueryByAv(av)
+	return videoInfo, err
+}
+
+func (v *VideoService) GetLabel(av int64) ([]string, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	labelSlice, err := vd.QueryLabel(av)
+	return labelSlice, err
+}
+
+func (v *VideoService) GetDanmaku(av int64) ([]param.ParamDanmaku, error) {
 	vd := dao.VideoDao{tool.GetDb()}
 
 	danmakuSlice, err := vd.QueryDanmaku(av)
