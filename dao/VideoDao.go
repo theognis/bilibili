@@ -164,6 +164,18 @@ func (dao *VideoDao) UpdateUrl(av int64, videoUrl string, coverUrl string) error
 	return nil
 }
 
+func (dao *VideoDao) InsertLike(av, uid int64) error {
+	stmt, err := dao.DB.Prepare(`INSERT INTO video_like (av, uid) VALUES (?, ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(av, uid)
+	return err
+}
+
 func (dao *VideoDao) InsertDanmaku(danmakuModel model.Danmaku) error {
 	stmt, err := dao.DB.Prepare(`INSERT INTO video_danmaku (av, uid, value, color, type, time, location) VALUES (?, ?, ?, ?, ?, ?, ?)`)
 
@@ -205,4 +217,32 @@ func (dao *VideoDao) InsertLabel(label string, av int64) error {
 	stmt.Close()
 
 	return err
+}
+
+func (dao *VideoDao) DeleteLike(av, uid int64) error {
+	stmt, err := dao.DB.Prepare(`DELETE FROM video_like WHERE (av = ? and uid = ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(av, uid)
+	return err
+}
+
+func (dao *VideoDao) UpdateLike(av, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE video_info SET likes = likes + ? WHERE av = ?`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(num, av)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

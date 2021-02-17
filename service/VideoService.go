@@ -10,6 +10,36 @@ import (
 type VideoService struct {
 }
 
+func (v *VideoService) SolveLike(flag bool, uid int64, av int64) error {
+	vd := dao.VideoDao{tool.GetDb()}
+	var err error
+
+	if flag == false {
+		//此前未点赞
+		err = vd.InsertLike(av, uid)
+		if err != nil {
+			return err
+		}
+
+		err = vd.UpdateLike(av, 1)
+		if err != nil {
+			return err
+		}
+	} else {
+		//此前已点赞
+		err = vd.DeleteLike(av, uid)
+		if err != nil {
+			return err
+		}
+
+		err = vd.UpdateLike(av, -1)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 //获取用户点赞状态，在err为nil的情况下，已经点赞返回true，反正返回false
 //考虑到单个视频可能存在大量赞，这里在dao层查询用户点赞的视频，而不是查询点赞过视频的用户，优化性能
 func (v *VideoService) GetLike(av, uid int64) (bool, error) {
