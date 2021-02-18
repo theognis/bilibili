@@ -358,7 +358,7 @@ let data = {
 
 ### `/api/verify/sms/general` `POST`
 
-* `application/x-www-form-urlencoded`
+* `application/json`
 * 向 `phone` 发送短信验证码
 
 | 请求参数 | 类型 | 说明   |
@@ -405,7 +405,7 @@ let data = {
 
 ### `/api/verify/email` `POST`
 
-* `application/x-www-form-urlencoded`
+* `application/json`
 * 发送邮箱验证码
 
 | 请求参数 | 类型 | 说明  |
