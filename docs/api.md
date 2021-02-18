@@ -579,7 +579,7 @@ let data = {
 | `false` | `"弹幕不可为空"` | `value`为空 |
 | `false` | `"弹幕过长"` | `value`大于 100 字符 |
 | `false` | `"参数无效"` | `video_id`、`color`、`type`、`location`为空或无效 |
-| `true` | `""` | 发布成功 |
+| `true` | 弹幕 ID | 发布成功 |
 
 ### `/api/video/like` `GET`
 
