@@ -163,7 +163,7 @@ let data = {
 
 ### `/api/user/password` `PUT`
 
-* `application/x-www-form-urlencoded` 
+* `application/json` 
 * 修改密码；
 
 | 请求参数         | 类型 | 说明                         |
@@ -189,7 +189,7 @@ let data = {
 
 ### `/api/user/email` `PUT`
 
-* `application/x-www-form-urlencoded` 
+* `application/json` 
 * 修改/添加email；先调用 `/user/info/self` 接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
 
 | 请求参数    | 类型 | 说明                         |
@@ -219,7 +219,7 @@ let data = {
 
 ### `/api/user/phone` `PUT`
 
-* `application/x-www-form-urlencoded`
+* `application/json`
 * 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
 
 | 请求参数    | 类型 | 说明                         |
