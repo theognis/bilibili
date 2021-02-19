@@ -608,6 +608,7 @@ let data = {
 
 ### `/api/video/view` `POST`
 
+* `application/x-www-form-urlencoded` 
 * 观看数 +1
 
 | 请求参数 | 类型 | 说明       |
