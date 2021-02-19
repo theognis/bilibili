@@ -278,7 +278,7 @@ func (v *VideoController) getVideo(ctx *gin.Context) {
 		"label":       labelSlice,
 		"description": videoInfo.Description,
 		"author":      videoInfo.AuthorUid,
-		"time":        videoInfo.Time.Format("2006/1/2 15:04:05"),
+		"time":        videoInfo.Time.Format("2006-01-02 15:04:05"),
 		"views":       videoInfo.Views,
 		"likes":       videoInfo.Likes,
 		"coins":       videoInfo.Coins,

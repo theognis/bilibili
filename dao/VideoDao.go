@@ -148,7 +148,7 @@ func (dao *VideoDao) QueryDanmaku(av int64) ([]param.ParamDanmaku, error) {
 			return nil, err
 		}
 
-		danmaku.Time = Time.Format("2006/1/2 15:04:05")
+		danmaku.Time = Time.Format("2006-01-02 15:04:05")
 
 		danmakuSlice = append(danmakuSlice, danmaku)
 	}
