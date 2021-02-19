@@ -408,14 +408,14 @@ func (v *VideoController) postDanmaku(ctx *gin.Context) {
 	danmakuModel.Uid = userinfo.Uid
 	danmakuModel.Time = time.Now()
 
-	err = vs.InsertDanmaku(danmakuModel)
+	did, err := vs.InsertDanmaku(danmakuModel)
 	if err != nil {
 		fmt.Println("InsertDanmakuErr: ", err)
 		tool.Failed(ctx, "服务器错误")
 		return
 	}
 
-	tool.Success(ctx, "")
+	tool.Success(ctx, did)
 }
 
 func (v *VideoController) postVideo(ctx *gin.Context) {

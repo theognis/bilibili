@@ -204,18 +204,23 @@ func (dao *VideoDao) InsertLike(av, uid int64) error {
 	return err
 }
 
-func (dao *VideoDao) InsertDanmaku(danmakuModel model.Danmaku) error {
+func (dao *VideoDao) InsertDanmaku(danmakuModel model.Danmaku) (int64, error) {
 	stmt, err := dao.DB.Prepare(`INSERT INTO video_danmaku (av, uid, value, color, type, time, location) VALUES (?, ?, ?, ?, ?, ?, ?)`)
 
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	_, err = stmt.Exec(danmakuModel.Av, danmakuModel.Uid, danmakuModel.Value, danmakuModel.Color, danmakuModel.Type, danmakuModel.Time, danmakuModel.Location)
+	result, err := stmt.Exec(danmakuModel.Av, danmakuModel.Uid, danmakuModel.Value, danmakuModel.Color, danmakuModel.Type, danmakuModel.Time, danmakuModel.Location)
 
 	stmt.Close()
 
-	return err
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }
 
 func (dao *VideoDao) InsertVideo(video model.Video) (int64, error) {

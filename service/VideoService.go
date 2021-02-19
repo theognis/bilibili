@@ -88,10 +88,10 @@ func (v *VideoService) GetDanmaku(av int64) ([]param.ParamDanmaku, error) {
 
 }
 
-func (v *VideoService) InsertDanmaku(danmakuModel model.Danmaku) error {
+func (v *VideoService) InsertDanmaku(danmakuModel model.Danmaku) (int64, error) {
 	vd := dao.VideoDao{tool.GetDb()}
-	err := vd.InsertDanmaku(danmakuModel)
-	return err
+	did, err := vd.InsertDanmaku(danmakuModel)
+	return did, err
 }
 
 //判断av号对应的视频是否存在，存在则返回true
