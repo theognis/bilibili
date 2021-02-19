@@ -726,7 +726,7 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 func (u *UserController) changeEmail(ctx *gin.Context) {
 	//获取并解析表单
 	var emailChangeParam param.ChangeEmailInfo
-	err := ctx.ShouldBind(&emailChangeParam)
+	err := ctx.BindJSON(&emailChangeParam)
 	if err != nil {
 		tool.Failed(ctx, "参数解析失败")
 		return
