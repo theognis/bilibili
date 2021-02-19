@@ -53,7 +53,7 @@ CREATE TABLE `video_info`
     `video_url`   VARCHAR(120) NOT NULL,
     `cover_url`   VARCHAR(120) NOT NULL,
     `author_uid`  INT          NOT NULL,
-    `time`        DATE         NOT NULL,
+    `time`        TIMESTAMP    NOT NULL,
     `views`       INT          NOT NULl DEFAULT 0,
     `likes`       INT          NOT NULL DEFAULT 0,
     `coins`       INT          NOT NULL DEFAULT 0,
