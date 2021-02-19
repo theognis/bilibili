@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 type VideoController struct {
@@ -389,7 +390,7 @@ func (v *VideoController) postDanmaku(ctx *gin.Context) {
 		return
 	}
 
-	if len(danmakuParam.Value) > 100 {
+	if utf8.RuneCountInString(danmakuParam.Value) > 100 {
 		tool.Failed(ctx, "弹幕过长")
 		return
 	}
@@ -531,7 +532,7 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 		return
 	}
 
-	if len(title) > 80 {
+	if utf8.RuneCountInString(title) > 80 {
 		tool.Failed(ctx, "标题过长")
 		return
 	}
@@ -560,7 +561,7 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 		description = "19260817"
 	}
 
-	if len(description) > 250 {
+	if utf8.RuneCountInString(description) > 250 {
 		tool.Failed(ctx, "简介过长")
 		return
 	}
@@ -589,7 +590,7 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 	labelNum := 0
 	for _, singleLabel := range result {
 		labelNum++
-		if len(singleLabel) > 10 {
+		if utf8.RuneCountInString(singleLabel) > 10 {
 			tool.Failed(ctx, "标签过长")
 			return
 		}
