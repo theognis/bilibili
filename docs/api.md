@@ -567,7 +567,28 @@ let data = {
 | `false` | `"弹幕不可为空"` | `value`为空 |
 | `false` | `"弹幕过长"` | `value`大于 100 字符 |
 | `false` | `"参数无效"` | `video_id`、`color`、`type`、`location`为空或无效 |
-| `true` | 弹幕 ID | 发布成功 |
+| `true` | 参见以下代码 | 发布成功 |
+
+```js
+{
+    // Integer; 弹幕 ID;
+    "Id": 1,
+    // Integer; 视频 ID;
+    "VideoId": 1, 
+    // Integer; 发送弹幕的用户 ID;
+    "UserId": 1,
+    // String; 弹幕内容;
+    "Value": "2333",
+    // String[6]; 弹幕颜色; 
+    "Color": "FFFFFF",
+    // String; 弹幕类型;
+    "Type": "scroll" || "top" || "bottom",
+    // Time; 弹幕发送时间;
+    "Time": "1970/1/1 00:00:00", 
+    // Integer; 弹幕弹出位置，单位为秒; 例如此处弹幕发送于 1min 54s 处
+    "Location": 114,
+}
+```
 
 ### `/api/video/like` `GET`
 
@@ -605,6 +626,43 @@ let data = {
 | `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
 | `true` | `true` | 点赞成功 |
 | `true` | `false` | 取消点赞成功 |
+
+### `/api/video/coin` `GET`
+
+* 获取投币状态；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 已投币 |
+| `true` | `false` | 未投币 |
+
+### `/api/video/coin` `POST`
+
+* `application/x-www-form-urlencoded` 
+* 投币；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 投币成功 |
+| `true` | `false` | 投币失败（已投币） |
 
 ### `/api/video/view` `POST`
 
