@@ -41,7 +41,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 
 func (u *UserController) changePassword(ctx *gin.Context) {
 	var ChangePasswordParam param.ChangePasswordParam
-	err := ctx.ShouldBind(&ChangePasswordParam)
+	err := ctx.BindJSON(&ChangePasswordParam)
 	if err != nil {
 		tool.Failed(ctx, "参数解析失败")
 		return
