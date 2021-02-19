@@ -23,6 +23,87 @@ func (v *VideoController) Router(engine *gin.Engine) {
 	engine.GET("/api/video/danmaku", v.getDanmaku)
 	engine.GET("/api/video/video", v.getVideo)
 	engine.GET("/api/video/like", v.getLike)
+	engine.GET("/api/video/recommend", v.getVideoRecommend)
+}
+
+func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
+	av := ctx.Query("id")
+	avInt64, err := strconv.ParseInt(av, 10, 64)
+	if err != nil {
+		fmt.Println("ParseIntErr: ", err)
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	vs := service.VideoService{}
+	var videoList [1001][2]int64
+	var i, j int64
+	for i = 1; i <= 1000; i++ {
+		videoList[i][1] = i
+	}
+
+	flag, err := vs.JudgeAv(avInt64)
+	if err != nil {
+		fmt.Println("JudgeAvErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, " 视频ID无效")
+		return
+	}
+
+	//获取视频label
+	labelSlice, err := vs.GetLabel(avInt64)
+	if err != nil {
+		fmt.Println("GetLabelErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	//遍历所有标签
+	for _, label := range labelSlice {
+		//获取单个标签的所属av
+		avSlice, err := vs.GetAvByLabel(label)
+		if err != nil {
+			tool.Failed(ctx, "服务器错误")
+			fmt.Println("GetAvByLabelErr: ", err)
+			return
+		}
+		//fmt.Println(avSlice)
+
+		for _, id := range avSlice {
+			videoList[id][0]++
+		}
+	}
+
+	//统计相关性
+	for i = 0; i <= 999; i++ {
+		for j = 0; j <= 999-i; j++ {
+			if videoList[j][0] < videoList[j+1][0] {
+				videoList[j][0], videoList[j+1][0] = videoList[j+1][0], videoList[j][0]
+				videoList[j][1], videoList[j+1][1] = videoList[j+1][1], videoList[j][1]
+			}
+		}
+	}
+
+	var recommendSlice []model.Video
+	//获取视频详细信息
+	for i = 1; i < 20; i++ {
+		if videoList[i][0] != 0 {
+			videoModel, err := vs.GetVideo(videoList[i][1])
+			if err != nil {
+				fmt.Println("GetVideoInfoErr: ", err, " Num: ", videoList[i][1])
+				tool.Failed(ctx, "服务器错误")
+				return
+			}
+
+			recommendSlice = append(recommendSlice, videoModel)
+		}
+	}
+
+	tool.Success(ctx, recommendSlice)
 }
 
 func (v *VideoController) postLike(ctx *gin.Context) {

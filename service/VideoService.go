@@ -66,6 +66,13 @@ func (v *VideoService) GetVideo(av int64) (model.Video, error) {
 	return videoInfo, err
 }
 
+func (v *VideoService) GetAvByLabel(label string) ([]int64, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	avSlice, err := vd.QueryAvByLabel(label)
+	return avSlice, err
+}
+
 func (v *VideoService) GetLabel(av int64) ([]string, error) {
 	vd := dao.VideoDao{tool.GetDb()}
 

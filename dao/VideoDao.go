@@ -69,6 +69,34 @@ func (dao *VideoDao) QueryLikesByAv(av int64) ([]int64, error) {
 	return uidSlice, nil
 }
 
+func (dao *VideoDao) QueryAvByLabel(label string) ([]int64, error) {
+	var avSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_label WHERE video_label = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(label)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		avSlice = append(avSlice, av)
+	}
+
+	return avSlice, nil
+}
+
 func (dao *VideoDao) QueryLabel(av int64) ([]string, error) {
 	var labelSlice []string
 
