@@ -627,6 +627,43 @@ let data = {
 | `true` | `true` | 点赞成功 |
 | `true` | `false` | 取消点赞成功 |
 
+### `/api/video/coin` `GET`
+
+* 获取投币状态；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 已投币 |
+| `true` | `false` | 未投币 |
+
+### `/api/video/coin` `POST`
+
+* `application/x-www-form-urlencoded` 
+* 投币；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 投币成功 |
+| `true` | `false` | 投币失败（已投币） |
+
 ### `/api/video/view` `POST`
 
 * `application/x-www-form-urlencoded` 
