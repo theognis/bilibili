@@ -612,12 +612,12 @@ let data = {
 
 | 请求参数 | 类型 | 说明       |
 | ------- | ---- | --------- |
-| id    | 必选 | 视频ID       |
+| video_id | 必选 | 视频ID       |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"视频 ID 不可为空"` | `id`为空 |
-| `false` | `"视频 ID 无效"` | `id` 无效 |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
 | `true` | `""` | 提交成功 |
 
 ### `/api/video/recommend` `GET`
@@ -627,11 +627,11 @@ let data = {
 
 | 请求参数    | 类型 | 说明    |
 | ---------- | ---- | ------ |
-| id   | 必选 | 视频 ID |
+| video_id | 必选 | 视频 ID |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
-| `false` | `"视频 ID 无效"` | `id`为空或无效 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
 | `true` | `[{Video},{...}]` | 获取成功 |
 
 ## Home

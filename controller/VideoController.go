@@ -29,7 +29,7 @@ func (v *VideoController) Router(engine *gin.Engine) {
 }
 
 func (v *VideoController) addView(ctx *gin.Context) {
-	av := ctx.PostForm("id")
+	av := ctx.PostForm("video_id")
 	if av == "" {
 		tool.Failed(ctx, "视频ID不可为空")
 		return
@@ -65,7 +65,7 @@ func (v *VideoController) addView(ctx *gin.Context) {
 }
 
 func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
-	av := ctx.Query("id")
+	av := ctx.Query("video_id")
 	avInt64, err := strconv.ParseInt(av, 10, 64)
 	if err != nil {
 		fmt.Println("ParseIntErr: ", err)
