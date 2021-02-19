@@ -542,7 +542,7 @@ func (u *UserController) judgePhone(ctx *gin.Context) {
 func (u *UserController) changePhone(ctx *gin.Context) {
 	//获取并解析表单
 	var phoneChangeParam param.ChangePhoneInfo
-	err := ctx.ShouldBind(&phoneChangeParam)
+	err := ctx.BindJSON(&phoneChangeParam)
 	if err != nil {
 		tool.Failed(ctx, "参数解析失败")
 		return
