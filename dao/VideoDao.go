@@ -176,6 +176,22 @@ func (dao *VideoDao) QueryByAv(av int64) (model.Video, error) {
 	return videoModel, nil
 }
 
+func (dao *VideoDao) UpdateViews(av int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE video_info SET views = views + 1 WHERE av = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(av)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *VideoDao) UpdateUrl(av int64, videoUrl string, coverUrl string) error {
 	stmt, err := dao.DB.Prepare(`UPDATE video_info SET video_url = ?, cover_Url = ? WHERE av = ?`)
 	defer stmt.Close()

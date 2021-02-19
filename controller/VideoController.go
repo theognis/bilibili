@@ -20,10 +20,47 @@ func (v *VideoController) Router(engine *gin.Engine) {
 	engine.POST("/api/video/video", v.postVideo)
 	engine.POST("/api/video/danmaku", v.postDanmaku)
 	engine.POST("/api/video/like", v.postLike)
+	engine.POST("/api/video/view", v.addView)
 	engine.GET("/api/video/danmaku", v.getDanmaku)
 	engine.GET("/api/video/video", v.getVideo)
 	engine.GET("/api/video/like", v.getLike)
 	engine.GET("/api/video/recommend", v.getVideoRecommend)
+}
+
+func (v *VideoController) addView(ctx *gin.Context) {
+	av := ctx.PostForm("id")
+	if av == "" {
+		tool.Failed(ctx, "视频ID不可为空")
+		return
+	}
+	avInt, err := strconv.ParseInt(av, 10, 64)
+	if err != nil {
+		fmt.Println("PraseIntErr: ", err)
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	vs := service.VideoService{}
+	flag, err := vs.JudgeAv(avInt)
+	if err != nil {
+		fmt.Println("JudgeAvErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	err = vs.AddView(avInt)
+	if err != nil {
+		fmt.Println("AddViewsErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 func (v *VideoController) getVideoRecommend(ctx *gin.Context) {

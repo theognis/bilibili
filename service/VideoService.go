@@ -88,6 +88,12 @@ func (v *VideoService) GetDanmaku(av int64) ([]param.ParamDanmaku, error) {
 
 }
 
+func (v *VideoService) AddView(av int64) error {
+	vd := dao.VideoDao{tool.GetDb()}
+	err := vd.UpdateViews(av)
+	return err
+}
+
 func (v *VideoService) InsertDanmaku(danmakuModel model.Danmaku) (int64, error) {
 	vd := dao.VideoDao{tool.GetDb()}
 	did, err := vd.InsertDanmaku(danmakuModel)
