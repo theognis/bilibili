@@ -113,6 +113,8 @@ let data = {
     Birthday: String, // Time
     Gender: String, // Char
     LastCheckInDate: String, // Time
+    Videos: Array, // []int64；投稿视频 ID 数组（切片）
+    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
 }
 ```
 
@@ -138,6 +140,7 @@ let data = {
     Exp: Number, // int64
     Birthday: String, // Time
     Gender: String, // Char
+    Videos: Array, // []int64；投稿视频 ID 数组（切片）
 }
 ```
 
