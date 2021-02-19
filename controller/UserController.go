@@ -41,7 +41,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 
 func (u *UserController) changePassword(ctx *gin.Context) {
 	var ChangePasswordParam param.ChangePasswordParam
-	err := ctx.BindJSON(&ChangePasswordParam)
+	err := ctx.ShouldBind(&ChangePasswordParam)
 	if err != nil {
 		tool.Failed(ctx, "参数解析失败")
 		return
@@ -542,7 +542,7 @@ func (u *UserController) judgePhone(ctx *gin.Context) {
 func (u *UserController) changePhone(ctx *gin.Context) {
 	//获取并解析表单
 	var phoneChangeParam param.ChangePhoneInfo
-	err := ctx.BindJSON(&phoneChangeParam)
+	err := ctx.ShouldBind(&phoneChangeParam)
 	if err != nil {
 		tool.Failed(ctx, "参数解析失败")
 		return
@@ -726,7 +726,7 @@ func (u *UserController) getSelfInfo(ctx *gin.Context) {
 func (u *UserController) changeEmail(ctx *gin.Context) {
 	//获取并解析表单
 	var emailChangeParam param.ChangeEmailInfo
-	err := ctx.BindJSON(&emailChangeParam)
+	err := ctx.ShouldBind(&emailChangeParam)
 	if err != nil {
 		tool.Failed(ctx, "参数解析失败")
 		return
