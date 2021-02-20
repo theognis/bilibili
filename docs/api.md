@@ -197,6 +197,7 @@ let data = {
 | old_code    | 必选 | 原有设备验证码               |
 | new_email   | 必选 | 新email                      |
 | new_code    | 必选 | 新email验证码                |
+| token       | 必选 | token                |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -210,6 +211,9 @@ let data = {
 | `false` | `"新邮箱无效"` | `new_email`不合法 |
 | `false` | `"新邮箱验证码为空"` | `new_code`为空 |
 | `false` | `"新邮箱验证码错误"` | `new_code`错误 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
 ### `/api/user/phone` `PUT`
@@ -223,6 +227,7 @@ let data = {
 | old_code    | 必选 | 原有设备验证码               |
 | new_phone   | 必选 | 新手机号                     |
 | new_code    | 必选 | 新手机验证码                 |
+| token       | 必选 | token                |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -236,6 +241,9 @@ let data = {
 | `false` | `"新手机号无效"` | `new_phone`不合法 |
 | `false` | `"新手机号验证码为空"` | `new_code`为空 |
 | `false` | `"新手机号验证码错误"` | `new_code`错误 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
 ### `/api/user/username` `PUT`
