@@ -51,6 +51,7 @@
 | `false` | `"手机号不能为空哦"` | `phone` 为空 |
 | `false` | `"短信验证码不能为空"` | `verify_code` 为空 |
 | `false` | `"验证码错误"` | `phone` 与 `verify_code` 不匹配 |
+| `false` | `"未发送验证码"` | `verify_code` 无对应验证码 |
 | `true` | `""` | `phone` 与 `verify_code` 匹配 |
 
 ### `/api/user/register` `POST`
@@ -171,11 +172,13 @@
 | `false` | `"原账号无效"` | `old_account`不合法 |
 | `false` | `"原账号验证码为空"` | `old_code`为空 |
 | `false` | `"原账号验证码错误"` | `old_code`错误 |
+| `false` | `"未发送验证码"` | `old_code` 无对应验证码 |
 | `false` | `"新邮箱为空"` | `new_email`为空 |
 | `false` | `"新邮箱已存在"` | `new_email`已注册 |
 | `false` | `"新邮箱无效"` | `new_email`不合法 |
 | `false` | `"新邮箱验证码为空"` | `new_code`为空 |
 | `false` | `"新邮箱验证码错误"` | `new_code`错误 |
+| `false` | `"未发送验证码"` | `new_code` 无对应验证码 |
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
@@ -201,11 +204,13 @@
 | `false` | `"原账号无效"` | `old_account`不合法 |
 | `false` | `"原账号验证码为空"` | `old_code`为空 |
 | `false` | `"原账号验证码错误"` | `old_code`错误 |
+| `false` | `"未发送验证码"` | `old_code` 无对应验证码 |
 | `false` | `"新手机号为空"` | `new_phone`为空 |
 | `false` | `"新手机号已存在"` | `new_phone`已注册 |
 | `false` | `"新手机号无效"` | `new_phone`不合法 |
 | `false` | `"新手机号验证码为空"` | `new_code`为空 |
 | `false` | `"新手机号验证码错误"` | `new_code`错误 |
+| `false` | `"未发送验证码"` | `new_code` 无对应验证码 |
 | `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
