@@ -311,8 +311,12 @@ func (u *UserController) loginBySms(ctx *gin.Context) {
 	us := service.UserService{}
 	flag, err := us.JudgeVerifyCode(ctx, phone, verifyCode)
 	if err != nil {
-		fmt.Println("JudgePhoneErr: ", err)
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "未发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
+		fmt.Println("JudgeCodeErr: ", err)
 		return
 	}
 
@@ -621,8 +625,12 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	//验证原设备
 	flag, err = us.JudgeVerifyCode(ctx, phoneChangeParam.OldAccount, phoneChangeParam.OldCode)
 	if err != nil {
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "未发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
-		fmt.Println("JudgeVerifyCode: ", err)
+		fmt.Println("JudgeCodeErr: ", err)
 		return
 	}
 
@@ -646,8 +654,12 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 
 	flag, err = us.JudgeVerifyCode(ctx, phoneChangeParam.NewPhone, phoneChangeParam.NewCode)
 	if err != nil {
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "未发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
-		fmt.Println("JudgeVerifyCode: ", err)
+		fmt.Println("JudgeCodeErr: ", err)
 		return
 	}
 
@@ -779,8 +791,12 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	//验证原设备
 	flag, err = us.JudgeVerifyCode(ctx, emailChangeParam.OldAccount, emailChangeParam.OldCode)
 	if err != nil {
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "未发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
-		fmt.Println("JudgeVerifyCode: ", err)
+		fmt.Println("JudgeCodeErr: ", err)
 		return
 	}
 
@@ -804,8 +820,12 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 
 	flag, err = us.JudgeVerifyCode(ctx, emailChangeParam.NewEmail, emailChangeParam.NewCode)
 	if err != nil {
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "未发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
-		fmt.Println("JudgeVerifyCode: ", err)
+		fmt.Println("JudgeCodeErr: ", err)
 		return
 	}
 
