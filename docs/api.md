@@ -76,48 +76,6 @@
 | `false` | `"验证码错误"` | `verify_code` 与对应验证码不符 |
 | `true` | `"注册成功！"` | 参数合法 |
 
-### `/api/user/info/self` `GET`
-
-* 获取自己的详细信息
-
-| 请求参数 | 类型 | 说明  |
-| -------- | ---- | ----- |
-| token    | 必选 | token |
-
-| 返回参数     | 说明         |
-| ------------ | ------------ |
-| status       | 状态码       |
-| data         | 返回消息     |
-
-| status | data | 说明   |
-| -------- | ---- | ------ |
-| `false` | `"NO_TOKEN_PROVIDED"` | `token` 为空 |
-| `false` | `TOKEN_EXPIRED` | `token`过期 |
-| `false` | `"PRASE_TOKEN_ERROR"` | `token` 解析错误 |
-| `true` | 参见下述代码 | 参数合法 |
-
-```js
-let data = {
-    Avatar: String // String
-    Uid: Number, // int64
-    Username: String, // string
-    Password: String, // string
-    Email: String, // string
-    Phone: String, // string
-    Salt: String, // string
-    RegDate: Date, // Time
-    Statement: String, // string
-    Exp: Number, // int64
-    Coins: Number, // float64
-    BCoins: Number, // int64
-    Birthday: String, // Time
-    Gender: String, // Char
-    LastCheckInDate: String, // Time
-    Videos: Array, // []int64；投稿视频 ID 数组（切片）
-    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
-}
-```
-
 ### `/api/user/info/:uid` `GET`
 
 * 获取 UID 为 `:uid` 的用户的个人信息
@@ -132,15 +90,19 @@ let data = {
 | `true` | 参见下述代码 | 参数合法 |
 
 ```js
-let data = {
+{
     Avatar: String // String
     Uid: Number, // int64
     Username: String, // string
+    RegDate: String, // Time
     Statement: String, // string
     Exp: Number, // int64
+    Coins: Number, // float64
+    BCoins: Number, // int64
     Birthday: String, // Time
     Gender: String, // Char
     Videos: Array, // []int64；投稿视频 ID 数组（切片）
+    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
 }
 ```
 
@@ -189,7 +151,7 @@ let data = {
 ### `/api/user/email` `PUT`
 
 * `application/x-www-form-urlencoded` 
-* 修改/添加email；先调用 `/user/info/self` 接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
+* 修改/添加email
 
 | 请求参数    | 类型 | 说明                         |
 | ----------- | ---- | ---------------------------- |
@@ -219,7 +181,7 @@ let data = {
 ### `/api/user/phone` `PUT`
 
 * `application/x-www-form-urlencoded`
-* 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
+* 修改phone
 
 | 请求参数    | 类型 | 说明                         |
 | ----------- | ---- | ---------------------------- |
