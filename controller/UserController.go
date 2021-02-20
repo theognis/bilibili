@@ -348,7 +348,7 @@ func (u *UserController) loginBySms(ctx *gin.Context) {
 
 	ctx.JSON(200, gin.H{
 		"status":       true,
-		"data":         "",
+		"data":         userinfo.Uid,
 		"token":        tokenString,
 		"refreshToken": refreshToken,
 	})
