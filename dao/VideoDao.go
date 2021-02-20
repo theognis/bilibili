@@ -237,6 +237,20 @@ func (dao *VideoDao) UpdateUrl(av int64, videoUrl string, coverUrl string) error
 	return nil
 }
 
+//coin表插入一条记录
+func (dao *VideoDao) InsertCoin(av, uid int64) error {
+	stmt, err := dao.DB.Prepare(`INSERT INTO video_coin (av, uid) VALUES (?, ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(av, uid)
+	return err
+}
+
+//like表插入一条记录
 func (dao *VideoDao) InsertLike(av, uid int64) error {
 	stmt, err := dao.DB.Prepare(`INSERT INTO video_like (av, uid) VALUES (?, ?)`)
 

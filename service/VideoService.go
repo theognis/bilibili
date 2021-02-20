@@ -10,6 +10,41 @@ import (
 type VideoService struct {
 }
 
+func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+	ud := dao.UserDao{tool.GetDb()}
+
+	//获取up uid
+	videoInfo, err := vd.QueryByAv(av)
+	if err != nil {
+		return false, err
+	}
+	upUid := videoInfo.AuthorUid
+
+	if upUid == uid {
+		return false, nil
+	}
+
+	//转账
+	err = ud.UpdateCoins(uid, -1)
+	if err != nil {
+		return false, err
+	}
+
+	err = ud.UpdateCoins(upUid, 1)
+	if err != nil {
+		return false, err
+	}
+
+	//添加记录
+	err = vd.InsertCoin(av, uid)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
 func (v *VideoService) SolveLike(flag bool, uid int64, av int64) error {
 	vd := dao.VideoDao{tool.GetDb()}
 	var err error
