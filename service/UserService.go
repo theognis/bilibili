@@ -169,7 +169,7 @@ func (u *UserService) SendCodeByEmail(email string) (string, error) {
 	fmt.Println("EMAIL", email)
 
 	rand.Seed(time.Now().Unix())
-	code := rand.Intn(10000000)
+	code := rand.Intn(1000000)
 	str := fmt.Sprintf("From:%v\r\nTo:%v\r\nSubject:bilibili验证码\r\n\r\n您的验证码为：%d\r\n请在10分钟内完成验证", emailCfg.ServiceEmail, email, code)
 	msg := []byte(str)
 	err := smtp.SendMail(emailCfg.SmtpHost+":"+emailCfg.SmtpPort, auth, emailCfg.ServiceEmail, to, msg)
