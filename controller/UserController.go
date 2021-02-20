@@ -772,19 +772,19 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	if strings.Index(emailChangeParam.OldAccount, "@") == -1 {
 		//原设备为手机号
 		if emailChangeParam.OldAccount != userinfo.Phone {
-			tool.Failed(ctx, "请输入原先绑定的手机号")
+			tool.Failed(ctx, "原账号不存在")
 			return
 		}
 	} else {
 		//原设备为email
 		if emailChangeParam.OldAccount != userinfo.Email {
-			tool.Failed(ctx, "请输入原先绑定的email")
+			tool.Failed(ctx, "原账号不存在")
 			return
 		}
 	}
 
 	if emailChangeParam.OldCode == "" {
-		tool.Failed(ctx, "请输入验证码")
+		tool.Failed(ctx, "原账号验证码为空")
 		return
 	}
 
@@ -814,7 +814,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	}
 
 	if flag == true {
-		tool.Failed(ctx, "该邮箱已被使用")
+		tool.Failed(ctx, "新邮箱已存在")
 		return
 	}
 
