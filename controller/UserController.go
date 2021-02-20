@@ -47,31 +47,16 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 		return
 	}
 
-	token := ChangePasswordParam.Token
-	if token == "" {
-		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
-		return
-	}
-
-	us := service.UserService{}
-	gs := service.TokenService{}
-	//解析token
-	clams, err := gs.ParseToken(token)
-	flag := tool.CheckTokenErr(ctx, clams, err)
-	if flag == false {
-		return
-	}
-	userinfo := clams.Userinfo
-
 	//检测账号相关
 	if ChangePasswordParam.Account == "" {
 		tool.Failed(ctx, "账号为空")
 		return
 	}
-
+	var uid int64
+	us := service.UserService{}
 	if strings.Index(ChangePasswordParam.Account, "@") == -1 {
 		//手机号
-		flag, err = us.JudgePhone(ChangePasswordParam.Account)
+		flag, err := us.JudgePhone(ChangePasswordParam.Account)
 		if err != nil {
 			fmt.Println("JudgePhoneErr: ", err)
 			tool.Failed(ctx, "服务器错误")
@@ -82,9 +67,16 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 			tool.Failed(ctx, "账号不存在")
 			return
 		}
+
+		uid, err = us.GetUidByPhone(ChangePasswordParam.Account)
+		if err != nil {
+			fmt.Println("GetUidByPhoneErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
 	} else {
 		//邮箱
-		flag, err = us.JudgeEmail(ChangePasswordParam.Account)
+		flag, err := us.JudgeEmail(ChangePasswordParam.Account)
 		if err != nil {
 			fmt.Println("JudgeEmailErr: ", err)
 			tool.Failed(ctx, "服务器错误")
@@ -94,6 +86,13 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 		if flag == false {
 			tool.Failed(ctx, "账号不存在")
 		}
+
+		uid, err = us.GetUidByEmail(ChangePasswordParam.Account)
+		if err != nil {
+			fmt.Println("GetUidByEmailErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
 	}
 
 	//验证码相关
@@ -102,7 +101,7 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 		return
 	}
 
-	flag, err = us.JudgeVerifyCode(ctx, ChangePasswordParam.Account, ChangePasswordParam.Code)
+	flag, err := us.JudgeVerifyCode(ctx, ChangePasswordParam.Account, ChangePasswordParam.Code)
 	if err != nil {
 		fmt.Println("JudgeVerifyCodeErr: ", err)
 		tool.Failed(ctx, "服务器错误")
@@ -125,7 +124,6 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 		return
 	}
 
-	uid := userinfo.Uid
 	err = us.ChangePassword(uid, ChangePasswordParam.NewPassword)
 	if err != nil {
 		fmt.Println("ChangePasswordErr: ", err)

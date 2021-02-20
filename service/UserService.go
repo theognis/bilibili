@@ -20,6 +20,28 @@ import (
 type UserService struct {
 }
 
+func (u *UserService) GetUidByEmail(email string) (int64, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	userinfo, err := d.QueryByEmail(email)
+	if err != nil {
+		return 0, err
+	}
+
+	return userinfo.Uid, nil
+}
+
+func (u *UserService) GetUidByPhone(phone string) (int64, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	userinfo, err := d.QueryByPhone(phone)
+	if err != nil {
+		return 0, err
+	}
+
+	return userinfo.Uid, nil
+}
+
 func (u *UserService) ChangePassword(uid int64, newPassword string) error {
 	d := dao.UserDao{tool.GetDb()}
 
