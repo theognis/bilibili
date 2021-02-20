@@ -97,7 +97,7 @@
     RegDate: String, // Time
     Statement: String, // string
     Exp: Number, // int64
-    Coins: Number, // float64
+    Coins: Number, // int64
     BCoins: Number, // int64
     Birthday: String, // Time
     Gender: String, // Char
