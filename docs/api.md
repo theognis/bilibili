@@ -621,7 +621,7 @@ let data = {
 ### `/api/video/coin` `POST`
 
 * `application/x-www-form-urlencoded` 
-* 投币；
+* 投币；投币成功后投币者硬币数 -1，UP主硬币数 +1
 
 | 请求参数    | 类型 | 说明    |
 | ---------- | ---- | ------ |
@@ -634,6 +634,7 @@ let data = {
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `false` | `"硬币不足"` | 硬币不足 |
 | `true` | `true` | 投币成功 |
 | `true` | `false` | 投币失败（已投币） |
 
