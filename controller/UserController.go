@@ -118,6 +118,7 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 
 		if flag == false {
 			tool.Failed(ctx, "账号不存在")
+			return
 		}
 
 		uid, err = us.GetUidByEmail(ChangePasswordParam.Account)
