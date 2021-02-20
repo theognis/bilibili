@@ -11,6 +11,35 @@ type VideoDao struct {
 	*sql.DB
 }
 
+//查询用户投币过的视频av号
+func (dao *VideoDao) QueryCoinsByUid(uid int64) ([]int64, error) {
+	var avSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_coin WHERE uid = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		avSlice = append(avSlice, av)
+	}
+
+	return avSlice, nil
+}
+
 //查询用户点赞过的视频av号
 func (dao *VideoDao) QueryLikesByUid(uid int64) ([]int64, error) {
 	var avSlice []int64

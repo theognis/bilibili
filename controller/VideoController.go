@@ -22,6 +22,7 @@ func (v *VideoController) Router(engine *gin.Engine) {
 	engine.POST("/api/video/danmaku", v.postDanmaku)
 	engine.POST("/api/video/like", v.postLike)
 	engine.POST("/api/video/view", v.addView)
+	engine.GET("/api/video/coin", v.checkCoin)
 	engine.GET("/api/video/danmaku", v.getDanmaku)
 	engine.GET("/api/video/video", v.getVideo)
 	engine.GET("/api/video/like", v.getLike)
@@ -202,6 +203,59 @@ func (v *VideoController) postLike(ctx *gin.Context) {
 	}
 
 	tool.Success(ctx, !flag)
+}
+
+//获取投币状态
+func (v *VideoController) checkCoin(ctx *gin.Context) {
+	avStr := ctx.Query("video_id")
+	if avStr == "" {
+		tool.Failed(ctx, "视频ID不可为空")
+		return
+	}
+	avInt, err := strconv.ParseInt(avStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseAvStrErr: ", err)
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	vs := service.VideoService{}
+	flag, err := vs.JudgeAv(avInt)
+	if err != nil {
+		fmt.Println("JudgeAvErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	token := ctx.Query("token")
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag = tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	flag, err = vs.GetCoin(avInt, userinfo.Uid)
+	if err != nil {
+		fmt.Println("GetCoinErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, flag)
 }
 
 //获取点赞状态
