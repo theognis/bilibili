@@ -606,19 +606,19 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	if strings.Index(phoneChangeParam.OldAccount, "@") == -1 {
 		//原设备为手机号
 		if phoneChangeParam.OldAccount != userinfo.Phone {
-			tool.Failed(ctx, "请输入原先绑定的手机号")
+			tool.Failed(ctx, "原账号不存在")
 			return
 		}
 	} else {
 		//原设备为email
 		if phoneChangeParam.OldAccount != userinfo.Email {
-			tool.Failed(ctx, "请输入原先绑定的email")
+			tool.Failed(ctx, "原账号不存在")
 			return
 		}
 	}
 
 	if phoneChangeParam.OldCode == "" {
-		tool.Failed(ctx, "请输入验证码")
+		tool.Failed(ctx, "原验证码为空")
 		return
 	}
 
@@ -648,7 +648,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	}
 
 	if flag == true {
-		tool.Failed(ctx, "该手机号已被使用")
+		tool.Failed(ctx, "新手机号已存在")
 		return
 	}
 
