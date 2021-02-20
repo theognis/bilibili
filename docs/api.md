@@ -76,48 +76,6 @@
 | `false` | `"验证码错误"` | `verify_code` 与对应验证码不符 |
 | `true` | `"注册成功！"` | 参数合法 |
 
-### `/api/user/info/self` `GET`
-
-* 获取自己的详细信息
-
-| 请求参数 | 类型 | 说明  |
-| -------- | ---- | ----- |
-| token    | 必选 | token |
-
-| 返回参数     | 说明         |
-| ------------ | ------------ |
-| status       | 状态码       |
-| data         | 返回消息     |
-
-| status | data | 说明   |
-| -------- | ---- | ------ |
-| `false` | `"NO_TOKEN_PROVIDED"` | `token` 为空 |
-| `false` | `TOKEN_EXPIRED` | `token`过期 |
-| `false` | `"PRASE_TOKEN_ERROR"` | `token` 解析错误 |
-| `true` | 参见下述代码 | 参数合法 |
-
-```js
-let data = {
-    Avatar: String // String
-    Uid: Number, // int64
-    Username: String, // string
-    Password: String, // string
-    Email: String, // string
-    Phone: String, // string
-    Salt: String, // string
-    RegDate: Date, // Time
-    Statement: String, // string
-    Exp: Number, // int64
-    Coins: Number, // float64
-    BCoins: Number, // int64
-    Birthday: String, // Time
-    Gender: String, // Char
-    LastCheckInDate: String, // Time
-    Videos: Array, // []int64；投稿视频 ID 数组（切片）
-    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
-}
-```
-
 ### `/api/user/info/:uid` `GET`
 
 * 获取 UID 为 `:uid` 的用户的个人信息
@@ -132,15 +90,19 @@ let data = {
 | `true` | 参见下述代码 | 参数合法 |
 
 ```js
-let data = {
+{
     Avatar: String // String
     Uid: Number, // int64
     Username: String, // string
+    RegDate: String, // Time
     Statement: String, // string
     Exp: Number, // int64
+    Coins: Number, // float64
+    BCoins: Number, // int64
     Birthday: String, // Time
     Gender: String, // Char
     Videos: Array, // []int64；投稿视频 ID 数组（切片）
+    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
 }
 ```
 
@@ -189,7 +151,7 @@ let data = {
 ### `/api/user/email` `PUT`
 
 * `application/x-www-form-urlencoded` 
-* 修改/添加email；先调用 `/user/info/self` 接口获取用户原先手机/邮箱，然后调用 `/verify/email` 接口发送验证码。
+* 修改/添加email
 
 | 请求参数    | 类型 | 说明                         |
 | ----------- | ---- | ---------------------------- |
@@ -197,6 +159,7 @@ let data = {
 | old_code    | 必选 | 原有设备验证码               |
 | new_email   | 必选 | 新email                      |
 | new_code    | 必选 | 新email验证码                |
+| token       | 必选 | token                |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -210,12 +173,15 @@ let data = {
 | `false` | `"新邮箱无效"` | `new_email`不合法 |
 | `false` | `"新邮箱验证码为空"` | `new_code`为空 |
 | `false` | `"新邮箱验证码错误"` | `new_code`错误 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
 ### `/api/user/phone` `PUT`
 
 * `application/x-www-form-urlencoded`
-* 修改phone；先调用`/user/info`接口获取用户原先手机/邮箱，然后调用`/verify/phone` 接口发送验证码。
+* 修改phone
 
 | 请求参数    | 类型 | 说明                         |
 | ----------- | ---- | ---------------------------- |
@@ -223,6 +189,7 @@ let data = {
 | old_code    | 必选 | 原有设备验证码               |
 | new_phone   | 必选 | 新手机号                     |
 | new_code    | 必选 | 新手机验证码                 |
+| token       | 必选 | token                |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -236,6 +203,9 @@ let data = {
 | `false` | `"新手机号无效"` | `new_phone`不合法 |
 | `false` | `"新手机号验证码为空"` | `new_code`为空 |
 | `false` | `"新手机号验证码错误"` | `new_code`错误 |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `true` | `""` | 修改成功 |
 
 ### `/api/user/username` `PUT`
@@ -651,7 +621,7 @@ let data = {
 ### `/api/video/coin` `POST`
 
 * `application/x-www-form-urlencoded` 
-* 投币；
+* 投币；投币成功后投币者硬币数 -1，UP主硬币数 +1
 
 | 请求参数    | 类型 | 说明    |
 | ---------- | ---- | ------ |
@@ -664,6 +634,7 @@ let data = {
 | `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `false` | `"硬币不足"` | 硬币不足 |
 | `true` | `true` | 投币成功 |
 | `true` | `false` | 投币失败（已投币） |
 
