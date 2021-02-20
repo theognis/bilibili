@@ -102,7 +102,7 @@ func (v *VideoController) postCoin(ctx *gin.Context) {
 		return
 	}
 
-	tool.Success(ctx, !flag)
+	tool.Success(ctx, true)
 }
 
 func (v *VideoController) addView(ctx *gin.Context) {
