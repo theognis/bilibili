@@ -367,3 +367,19 @@ func (dao *VideoDao) UpdateLike(av, num int64) error {
 
 	return nil
 }
+
+func (dao *VideoDao) UpdateCoin(av int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE video_info SET coins = coins + 1 WHERE av = ?`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(av)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

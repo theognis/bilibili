@@ -42,6 +42,12 @@ func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
 		return false, err
 	}
 
+	//视频信息更新
+	err = vd.UpdateCoin(av)
+	if err != nil {
+		return false, err
+	}
+
 	return true, nil
 }
 
