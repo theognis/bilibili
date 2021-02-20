@@ -18,7 +18,7 @@ type UserController struct {
 }
 
 func (u *UserController) Router(engine *gin.Engine) {
-	engine.GET("/api/user/info/self", u.getSelfInfo)
+	engine.GET("/api/user/info/:uid", u.getUserinfo)
 	engine.GET("/api/check/username", u.judgeUsername)
 	engine.GET("/api/check/phone", u.judgePhone)
 	engine.POST("/api/user/register", u.register)
@@ -37,6 +37,39 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
 	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+func (u *UserController) getUserinfo(ctx *gin.Context) {
+	uid := ctx.Param("uid")
+	uidInt, err := strconv.ParseInt(uid, 10, 64)
+	if err != nil {
+		fmt.Println("ParseIntErr: ", err)
+		tool.Failed(ctx, "UID无效")
+		return
+	}
+
+	us := service.UserService{}
+	flag, err := us.JudgeUid(uidInt)
+	if err != nil {
+		fmt.Println("JudgeUidErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "UID无效")
+		return
+	}
+
+	spaceUserinfo, err := us.GetSpaceUserinfo(uidInt)
+	if err != nil {
+		fmt.Println("GetSpaceUserinfoErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	outPutMap := tool.ObjToMap(spaceUserinfo)
+	tool.Success(ctx, outPutMap)
 }
 
 func (u *UserController) changePassword(ctx *gin.Context) {
@@ -691,34 +724,6 @@ func (u *UserController) sendEmailCode(ctx *gin.Context) {
 
 	tool.Success(ctx, "")
 
-}
-
-func (u *UserController) getSelfInfo(ctx *gin.Context) {
-	token := ctx.Query("token")
-	if token == "" {
-		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
-		return
-	}
-
-	gs := service.TokenService{}
-	us := service.UserService{}
-
-	clams, err := gs.ParseToken(token)
-	flag := tool.CheckTokenErr(ctx, clams, err)
-	if flag == false {
-		return
-	}
-	uid := clams.Userinfo.Uid
-
-	userinfo, err := us.GetUserinfo(uid)
-	if err != nil {
-		fmt.Println("GetUserinfoErr: ", err)
-		tool.Failed(ctx, "服务器错误")
-		return
-	}
-
-	userMap := tool.ObjToMap(userinfo)
-	tool.Success(ctx, userMap)
 }
 
 func (u *UserController) changeEmail(ctx *gin.Context) {

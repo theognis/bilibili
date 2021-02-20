@@ -20,6 +20,21 @@ import (
 type UserService struct {
 }
 
+//检查uid是否存在，存在返回true，反之返回false
+func (u *UserService) JudgeUid(uid int64) (bool, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	_, err := d.QueryByUid(uid)
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			return false, nil
+		}
+		return false, err
+	}
+
+	return true, nil
+}
+
 func (u *UserService) GetUidByEmail(email string) (int64, error) {
 	d := dao.UserDao{tool.GetDb()}
 
@@ -59,6 +74,29 @@ func (u *UserService) ChangeUsername(uid int64, newUsername string) error {
 
 	err = d.UpdateCoins(uid, -6)
 	return err
+}
+
+func (u *UserService) GetSpaceUserinfo(uid int64) (model.SpaceUserinfo, error) {
+	d := dao.UserDao{tool.GetDb()}
+	vd := dao.VideoDao{tool.GetDb()}
+
+	//获取基本信息
+	spaceUserinfo, err := d.QuerySpaceUserinfoByUid(uid)
+	if err != nil {
+		return spaceUserinfo, err
+	}
+
+	//获取收藏夹信息
+
+	//获取投稿信息
+	postedVideoSlice, err := vd.QueryVideoModelByAuthorUid(uid)
+	if err != nil {
+		return spaceUserinfo, err
+	}
+
+	spaceUserinfo.Videos = postedVideoSlice
+
+	return spaceUserinfo, nil
 }
 
 func (u *UserService) GetUserinfo(uid int64) (model.Userinfo, error) {

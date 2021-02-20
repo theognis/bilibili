@@ -189,6 +189,31 @@ func (dao *UserDao) UpdateEmail(uid int64, newEmail string) error {
 	return nil
 }
 
+//根据uid查询可以在个人空间显示的用户信息
+func (dao *UserDao) QuerySpaceUserinfoByUid(uid int64) (model.SpaceUserinfo, error) {
+	spaceUserinfo := model.SpaceUserinfo{}
+
+	stmt, err := dao.DB.Prepare(`SELECT avatar, uid, username, reg_date, statement, exp, coins, b_coins, birthday, gender FROM userinfo WHERE uid = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return spaceUserinfo, err
+	}
+
+	row := stmt.QueryRow(uid)
+	var regDate, birthDate time.Time
+
+	err = row.Scan(&spaceUserinfo.Avatar, &spaceUserinfo.Uid, &spaceUserinfo.Username, &regDate, &spaceUserinfo.Statement, &spaceUserinfo.Exp, &spaceUserinfo.Coins, &spaceUserinfo.BCoins, &birthDate, &spaceUserinfo.Gender)
+	if err != nil {
+		return spaceUserinfo, err
+	}
+
+	spaceUserinfo.Birthday = birthDate.Format("2006-01-02")
+	spaceUserinfo.RegDate = regDate.Format("2006-01-02")
+
+	return spaceUserinfo, nil
+}
+
 //根据uid查询
 func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}

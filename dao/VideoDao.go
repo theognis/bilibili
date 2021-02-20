@@ -11,6 +11,35 @@ type VideoDao struct {
 	*sql.DB
 }
 
+//通过up主uid找up投稿视频的model
+func (dao *VideoDao) QueryVideoModelByAuthorUid(uid int64) ([]model.Video, error) {
+	var videoSlice []model.Video
+
+	stmt, err := dao.DB.Prepare(`SELECT av, title, channel, description, video_url, cover_url, author_uid, time, views, likes, coins, saves, shares FROM video_info WHERE author_uid = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var videoModel model.Video
+		err = rows.Scan(&videoModel.Av, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.VideoUrl, &videoModel.CoverUrl, &videoModel.AuthorUid, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
+		if err != nil {
+			return nil, err
+		}
+
+		videoSlice = append(videoSlice, videoModel)
+	}
+
+	return videoSlice, nil
+}
+
 //查询用户投币过的视频av号
 func (dao *VideoDao) QueryCoinsByUid(uid int64) ([]int64, error) {
 	var avSlice []int64
