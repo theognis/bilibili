@@ -60,7 +60,15 @@ func (u *UserService) GetUidByPhone(phone string) (int64, error) {
 func (u *UserService) ChangePassword(uid int64, newPassword string) error {
 	d := dao.UserDao{tool.GetDb()}
 
-	err := d.UpdatePassword(uid, newPassword)
+	//加盐
+	salt := strconv.FormatInt(time.Now().Unix(), 10)
+	m5 := md5.New()
+	m5.Write([]byte(newPassword))
+	m5.Write([]byte(salt))
+	st := m5.Sum(nil)
+	saltedPassword := hex.EncodeToString(st)
+
+	err := d.UpdatePassword(uid, saltedPassword, salt)
 	return err
 }
 
