@@ -113,6 +113,8 @@ let data = {
     Birthday: String, // Time
     Gender: String, // Char
     LastCheckInDate: String, // Time
+    Videos: Array, // []int64；投稿视频 ID 数组（切片）
+    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
 }
 ```
 
@@ -138,6 +140,7 @@ let data = {
     Exp: Number, // int64
     Birthday: String, // Time
     Gender: String, // Char
+    Videos: Array, // []int64；投稿视频 ID 数组（切片）
 }
 ```
 
@@ -663,6 +666,25 @@ let data = {
 | `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
 | `true` | `true` | 投币成功 |
 | `true` | `false` | 投币失败（已投币） |
+
+### `/api/video/save` `POST`
+
+* `application/x-www-form-urlencoded` 
+* 收藏；
+
+| 请求参数    | 类型 | 说明    |
+| ---------- | ---- | ------ |
+| token      | 必选 | token   |
+| video_id   | 必选 | 视频 ID |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
+| `true` | `true` | 收藏成功 |
+| `true` | `false` | 取消收藏成功 |
 
 ### `/api/video/view` `POST`
 
