@@ -18,6 +18,7 @@
 | data         | 返回消息     |
 | token        | 用户token    |
 | refreshToken | refreshToken |
+| uid        | 用户 ID    |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -43,6 +44,7 @@
 | data         | 返回消息     |
 | token        | 用户token    |
 | refreshToken | refreshToken |
+| uid        | 用户 ID    |
 
 | status | data | 说明   |
 | -------- | ---- | ------ |
@@ -144,6 +146,7 @@
 | `false` | `"账号无效"` | `account`不合法 |
 | `false` | `"验证码为空"` | `code`为空 |
 | `false` | `"验证码错误"` | `code`错误 |
+| `false` | `"未发送验证码"` | `code`无对应验证码 |
 | `false` | `"密码不能小于6个字符"` | `new_password` 长度少于 6 个字节 |
 | `false` | `"密码不能大于16个字符"` | `new_password` 长度超过 16 个字节 |
 | `true` | `""` | 修改成功 |
