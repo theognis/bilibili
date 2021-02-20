@@ -136,8 +136,12 @@ func (u *UserController) changePassword(ctx *gin.Context) {
 
 	flag, err := us.JudgeVerifyCode(ctx, ChangePasswordParam.Account, ChangePasswordParam.Code)
 	if err != nil {
-		fmt.Println("JudgeVerifyCodeErr: ", err)
+		if err.Error() == "redis: nil" {
+			tool.Failed(ctx, "未发送验证码")
+			return
+		}
 		tool.Failed(ctx, "服务器错误")
+		fmt.Println("JudgeCodeErr: ", err)
 		return
 	}
 
