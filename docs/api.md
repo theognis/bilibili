@@ -635,6 +635,7 @@ let data = {
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"视频 ID 无效"` | `video_id`为空或无效 |
 | `false` | `"硬币不足"` | 硬币不足 |
+| `false` | `"不能给自己投币哦"` | 不能给自己的视频投币 |
 | `true` | `true` | 投币成功 |
 | `true` | `false` | 投币失败（已投币） |
 
