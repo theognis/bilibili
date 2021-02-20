@@ -101,8 +101,8 @@
     BCoins: Number, // int64
     Birthday: String, // Time
     Gender: String, // Char
-    Videos: Array, // []int64；投稿视频 ID 数组（切片）
-    Saves: Array, // []int64；收藏夹视频 ID 数组（切片）
+    Videos: Array, // []Video；投稿视频数组（切片）
+    Saves: Array, // []Video；收藏夹视频数组（切片）
 }
 ```
 
