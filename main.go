@@ -32,6 +32,7 @@ func routerRegister(engine *gin.Engine) {
 	new(controller.UserController).Router(engine)
 	new(controller.TokenController).Router(engine)
 	new(controller.VideoController).Router(engine)
+	new(controller.HomeController).Router(engine)
 }
 
 func Cors() gin.HandlerFunc {

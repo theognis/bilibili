@@ -214,6 +214,122 @@ func (dao *VideoDao) QueryDanmaku(av int64) ([]param.ParamDanmaku, error) {
 	return danmakuSlice, nil
 }
 
+//按收视率排行的特定分区视频10个，返回AV号
+func (dao *VideoDao) QueryRankChannel(channel string) ([]int64, error) {
+	var randAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_info WHERE channel LIKE ? ORDER BY views DESC LIMIT 10`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(channel)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		randAvSlice = append(randAvSlice, av)
+	}
+
+	return randAvSlice, nil
+}
+
+//按收视率排行的”资讯“8个,返回AV号
+func (dao *VideoDao) QueryRankInfo() ([]int64, error) {
+	var rankAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`select av from video_info where av in (select av from video_label where video_label = ?) order by views desc limit 10;`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query("资讯")
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		rankAvSlice = append(rankAvSlice, av)
+	}
+
+	return rankAvSlice, nil
+}
+
+//随机特定分区视频8个，返回AV号
+func (dao *VideoDao) QueryRandomChannel(channel string) ([]int64, error) {
+	var randAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_info WHERE channel LIKE ? ORDER BY rand() LIMIT 8`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(channel)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		randAvSlice = append(randAvSlice, av)
+	}
+
+	return randAvSlice, nil
+}
+
+//随机”资讯“8个,返回AV号
+func (dao *VideoDao) QueryRandomInfo() ([]int64, error) {
+	var randAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_label WHERE video_label = ? ORDER BY rand() LIMIT 8`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query("资讯")
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		randAvSlice = append(randAvSlice, av)
+	}
+
+	return randAvSlice, nil
+}
+
 func (dao *VideoDao) QueryByAv(av int64) (model.Video, error) {
 	videoModel := model.Video{}
 
