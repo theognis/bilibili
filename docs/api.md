@@ -308,6 +308,29 @@
 | `false` | `"ALREADY_DONE"` | 已签到 |
 | `true` | `"SUCCESS"` | 签到成功 |
 
+### `/api/user/daily` `GET`
+
+* 获取日常任务情况
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| token         | 必选 | token      |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token`失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `true` | 参见以下代码 | 获取成功 |
+
+```js
+{
+	"check-in": true | false,
+	"view": true | false,
+	"coin": Number >= 0 && Number <= 50
+}
+```
+
 ## Verify
 
 ###  `/api/verify/token` `GET`
