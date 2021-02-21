@@ -463,6 +463,7 @@ let data = {
     video: String, // string, 视频地址
     cover: String, // string, 封面地址
     title: String, // string, 视频标题
+    length: String, // string, 视频时长
     channel: String, // string, 分区，字符串编号，参见`channel.md`
     label: Array, // []string, 标签，字符串切片
     description: String, // string, 简介
@@ -487,6 +488,7 @@ let data = {
 | video        | 必选 | 视频（视频格式，二进制文件）      |
 | cover        | 必选 | 封面（图片格式，二进制文件）       |
 | title        | 必选 | 标题，至多 80 字              |
+| length       | 必选 | 视频时长，格式：`"114:51"`     |
 | channel      | 必选 | 分区，字符串编号，参见`channel.md` |
 | label        | 必选 | 标签，至多 10 个，数组转 json 字符串 |
 | description  | 可选 | 简介，至多 250 字             |
@@ -507,6 +509,7 @@ let data = {
 | `false` | `"封面格式无效"` | `cover`格式无效 |
 | `false` | `"标题不可为空"` | `title`为空 |
 | `false` | `"标题过长"` | `title`长度大于 80 |
+| `false` | `"时长无效"` | `length`为空或无效 |
 | `false` | `"分区无效"` | `channel`为空或无效 |
 | `false` | `"标签无效"` | `label`为空、无效、重复或过多 |
 | `false` | `"简介过长"` | `description`长度大于 250 |
