@@ -174,7 +174,7 @@
 | `false` | `"原账号验证码错误"` | `old_code`错误 |
 | `false` | `"未发送验证码"` | `old_code` 无对应验证码 |
 | `false` | `"新邮箱为空"` | `new_email`为空 |
-| `false` | `"新邮箱已存在"` | `new_email`已注册 |
+| `false` | `"新邮箱已被使用"` | `new_email`已注册 |
 | `false` | `"新邮箱无效"` | `new_email`不合法 |
 | `false` | `"新邮箱验证码为空"` | `new_code`为空 |
 | `false` | `"新邮箱验证码错误"` | `new_code`错误 |
@@ -206,7 +206,7 @@
 | `false` | `"原账号验证码错误"` | `old_code`错误 |
 | `false` | `"未发送验证码"` | `old_code` 无对应验证码 |
 | `false` | `"新手机号为空"` | `new_phone`为空 |
-| `false` | `"新手机号已存在"` | `new_phone`已注册 |
+| `false` | `"新手机号已被使用"` | `new_phone`已注册 |
 | `false` | `"新手机号无效"` | `new_phone`不合法 |
 | `false` | `"新手机号验证码为空"` | `new_code`为空 |
 | `false` | `"新手机号验证码错误"` | `new_code`错误 |

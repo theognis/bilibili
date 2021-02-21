@@ -648,7 +648,7 @@ func (u *UserController) changePhone(ctx *gin.Context) {
 	}
 
 	if flag == true {
-		tool.Failed(ctx, "新手机号已存在")
+		tool.Failed(ctx, "新手机号已被使用")
 		return
 	}
 
@@ -814,7 +814,7 @@ func (u *UserController) changeEmail(ctx *gin.Context) {
 	}
 
 	if flag == true {
-		tool.Failed(ctx, "新邮箱已存在")
+		tool.Failed(ctx, "新邮箱已被使用")
 		return
 	}
 
