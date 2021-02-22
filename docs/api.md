@@ -734,6 +734,21 @@ let data = {
 | `true` | `"ALREADY_DONE"` | 提供`token`且用户今日已浏览 |
 | `true` | `"SUCCESS"` | 提供`token`且为用户今日首次浏览 |
 
+### `/api/video/share` `POST`
+
+* `application/x-www-form-urlencoded` 
+* 视频分享数 +1
+
+| 请求参数 | 类型 | 说明       |
+| ------- | ---- | --------- |
+| video_id | 必选 | 视频ID       |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
+| `true` | `""` | 提交成功 |
+
 ### `/api/video/comments` `GET`
 
 * 获取评论
