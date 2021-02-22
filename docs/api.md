@@ -94,18 +94,20 @@
 
 ```js
 {
-    Avatar: String // String
-    Uid: Number, // int64
-    Username: String, // string
-    RegDate: String, // Time
-    Statement: String, // string
-    Exp: Number, // int64
-    Coins: Number, // int64
-    BCoins: Number, // int64
-    Birthday: String, // Time
-    Gender: String, // Char
+    Avatar: String
+    Uid: Number,
+    Username: String,
+    RegDate: String,
+    Statement: String,
+    Exp: Number,
+    Coins: Number,
+    BCoins: Number,
+    Birthday: String,
+    Gender: String,
     Videos: Array, // []Video；投稿视频数组（切片）
     Saves: Array, // []Video；收藏夹视频数组（切片）
+    Followers: Number, // 关注数
+    Followings: Number, // 粉丝数
 }
 ```
 
