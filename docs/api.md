@@ -331,6 +331,25 @@
 }
 ```
 
+### `/api/user/follow` `POST`
+
+* `application/x-www-form-urlencoded`
+* 关注或取消关注某用户
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| uid         | 必选 | 被关注者 UID      |
+| token         | 必选 | 关注者 token      |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token`失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"UID 无效"` | `uid`为空或无效 |
+| `true` | `true` | 关注成功 |
+| `true` | `false` | 取消关注成功 |
+
 ## Verify
 
 ###  `/api/verify/token` `GET`
