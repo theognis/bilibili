@@ -2,6 +2,7 @@ package controller
 
 import (
 	"bilibili/model"
+	"bilibili/param"
 	"bilibili/service"
 	"bilibili/tool"
 	"fmt"
@@ -127,9 +128,16 @@ func (c *CommentController) postComment(ctx *gin.Context) {
 		return
 	}
 
-	commentModel.Time = time.Now().Format("2006-01-02 15:04:05")
-	commentModel.Likes = 0
-	commentModel.Id = id
+	us := service.UserService{}
+	var commentParam param.Comment
+	user, err := us.GetSpaceUserinfo(commentModel.UserId)
 
-	tool.Success(ctx, commentModel)
+	commentParam.Time = time.Now().Format("2006-01-02 15:04:05")
+	commentParam.Id = id
+	commentParam.Value = commentModel.Value
+	commentParam.User = user
+	commentParam.Likes = 0
+	commentParam.VideoId = commentModel.VideoId
+
+	tool.Success(ctx, commentParam)
 }
