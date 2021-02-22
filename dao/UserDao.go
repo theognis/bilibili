@@ -251,7 +251,7 @@ func (dao *UserDao) QuerySpaceUserinfoByUid(uid int64) (model.SpaceUserinfo, err
 func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin FROM userinfo WHERE uid = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, daily_view FROM userinfo WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -260,7 +260,7 @@ func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(uid)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.DailyView)
 	if err != nil {
 		return userinfo, err
 	}
@@ -272,7 +272,7 @@ func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin FROM userinfo WHERE email = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, daily_view FROM userinfo WHERE email = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -281,7 +281,7 @@ func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(email)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.DailyView)
 	if err != nil {
 		return userinfo, err
 	}
@@ -293,7 +293,7 @@ func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin FROM userinfo WHERE phone = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, daily_view FROM userinfo WHERE phone = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -302,7 +302,7 @@ func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(phone)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.DailyView)
 	if err != nil {
 		return userinfo, err
 	}
@@ -314,7 +314,7 @@ func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin FROM userinfo WHERE username = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, daily_view FROM userinfo WHERE username = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -323,7 +323,7 @@ func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(username)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.DailyView)
 	if err != nil {
 		return userinfo, err
 	}

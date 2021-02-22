@@ -14,6 +14,8 @@ type Userinfo struct {
 	Birthday        time.Time
 	LastCheckInDate string
 	LastCoinDate    string
+	LastViewDate    string
+	DailyView       int64
 	DailyCoin       int64
 	Statement       string
 	Coins           int64

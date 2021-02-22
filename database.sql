@@ -17,8 +17,10 @@ CREATE TABLE `userinfo`
     `reg_date`           DATE         NOT NULL,
     `birthday`           DATE         NOT NULL DEFAULT '9999-12-12',
     `last_check_in_date` DATE         NOT NULL DEFAULT '1926-08-17',
---    `last_coin_date`     DATE         NOT NULL DEFAULT '1926-08-17'
+--    `last_coin_date`     DATE         NOT NULL DEFAULT '1926-08-17',
 --    `daily_coin`         INT          NOT NULL DEFAULT 0,
+--    `last_view_date`     DATE         NOT NULL DEFAULT '1926-08-17',
+--    `daily_view`         INT          NOT NULL DEFAULT 0,
     `exp`                INT          NOT NULL DEFAULT 0,
     `coins`              INT          NOT NULL DEFAULT 0,
     `b_coins`            INT          NOT NULL DEFAULT 0,
@@ -28,6 +30,8 @@ CREATE TABLE `userinfo`
 
 alter table userinfo add daily_coin int not null default 0;
 alter table userinfo add last_coin_date date not null default '1926-08-17';
+alter table userinfo add daily_view int not null default 0;
+alter table userinfo add last_view_date date not null default '1926-08-17';
 
 DROP TABLE IF EXISTS `video_label`;
 
