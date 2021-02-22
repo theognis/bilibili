@@ -86,10 +86,10 @@ CREATE TABLE `video_info`
     `coins`       INT          NOT NULL DEFAULT 0,
     `saves`       INT          NOT NULL DEFAULT 0,
     `shares`      INT          NOT NULL DEFAULT 0,
---    `length`      VARCHAR(10)  NOT NULL DEFAULT '0:00'
+--    `length`      VARCHAR(10)  NOT NULL DEFAULT '00:00'
 ) charset="utf8mb4";
 
-alter table video_info add `length` VARCHAR(10) NOT NULL DEFAULT '0:00';
+alter table video_info add `length` VARCHAR(10) NOT NULL DEFAULT '00:00';
 
 DROP TABLE IF EXISTS `video_danmaku`;
 
