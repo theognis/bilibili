@@ -475,6 +475,7 @@ let data = {
     Saves: Number, // int64, 收藏数量
     Shares: Number, // int64, 分享数量
     Danmakus: Array, // []Danmaku, 弹幕，弹幕切片
+    SaveList: Array, // []Video, 收藏视频切片
 }
 ```
 
