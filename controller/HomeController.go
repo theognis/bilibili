@@ -34,6 +34,14 @@ func (h *HomeController) getSections(ctx *gin.Context) {
 			section.List = randSlice
 			section.Rank = rankSlice
 
+			if section.List == nil {
+				section.List = []model.Video{}
+			}
+
+			if section.Rank == nil {
+				section.Rank = []model.Video{}
+			}
+
 			Date = append(Date, section)
 			continue
 		}
