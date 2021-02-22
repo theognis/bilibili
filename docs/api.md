@@ -800,7 +800,18 @@ let data = {
 | `false` | `"视频 ID 无效"` | `video_id` 无效 |
 | `false` | `"评论内容不可为空"` | `comment` 为空 |
 | `false` | `"评论内容过长"` | `comment` 长度大于 1024 |
-| `true` | `""` | 提交成功 |
+| `true` | 参见以下代码 | 提交成功 |
+
+```js
+{
+	Id: Number, // 评论 ID
+	VideoId: Number, // 视频 ID
+	UserId: Number, // 评论者 ID
+	Value: String, // 评论内容
+	Time: String, // 评论时间，格式：2021-02-06 19:20
+	Likes: Number //赞数
+}
+```
 
 
 
