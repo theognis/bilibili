@@ -921,7 +921,7 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 	labelNum := 0
 	for _, singleLabel := range result {
 		labelNum++
-		if utf8.RuneCountInString(singleLabel) > 10 {
+		if utf8.RuneCountInString(singleLabel) > 19 {
 			tool.Failed(ctx, "标签过长")
 			return
 		}
