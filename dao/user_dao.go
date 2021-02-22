@@ -175,15 +175,21 @@ func (dao *UserDao) UpdateLastCoinDate(uid int64) error {
 	return nil
 }
 
-func (dao *UserDao) UpdateDailyCoin(uid int64, str string) error {
-	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET daily_coin = ? WHERE uid = ?`)
+func (dao *UserDao) UpdateDailyCoin(uid int64, stm int64) error {
+	var query string
+	if stm == 1 {
+		query = "UPDATE userinfo SET daily_coin = 1 WHERE uid = ?"
+	} else {
+		query = "UPDATE userinfo SET daily_coin = daily_coin + 1 WHERE uid = ?"
+	}
+	stmt, err := dao.DB.Prepare(query)
 	defer stmt.Close()
 
 	if err != nil {
 		return err
 	}
 
-	_, err = stmt.Exec(str, uid)
+	_, err = stmt.Exec(uid)
 	if err != nil {
 		return err
 	}

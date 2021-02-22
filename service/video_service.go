@@ -153,13 +153,13 @@ func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
 
 		if lastCoinDate != timeNow {
 			//上一次投币时间不是今天， 把当日投币次数改为1
-			err = ud.UpdateDailyCoin(uid, "1")
+			err = ud.UpdateDailyCoin(uid, 1)
 			if err != nil {
 				return false, err
 			}
 		} else {
 			//上一次投币时间是今天，把当日投币次数加一
-			err = ud.UpdateDailyCoin(uid, "daily_coin + 1")
+			err = ud.UpdateDailyCoin(uid, -1)
 			if err != nil {
 				return false, err
 			}
