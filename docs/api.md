@@ -787,7 +787,7 @@ let data = {
 
 | 请求参数 | 类型 | 说明       |
 | ------- | ---- | --------- |
-| token | 可选 | token      |
+| token | 必选 | token      |
 | video_id | 必选 | 视频ID   |
 | comment | 必选 | 视频ID    |
 
