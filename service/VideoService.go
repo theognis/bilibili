@@ -69,7 +69,7 @@ func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	upUid := videoInfo.AuthorUid
+	upUid := videoInfo.Author
 
 	if upUid == uid {
 		return false, nil

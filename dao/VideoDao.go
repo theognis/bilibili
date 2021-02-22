@@ -29,7 +29,7 @@ func (dao *VideoDao) QueryVideoModelByAuthorUid(uid int64) ([]model.Video, error
 	defer rows.Close()
 	for rows.Next() {
 		var videoModel model.Video
-		err = rows.Scan(&videoModel.Av, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.VideoUrl, &videoModel.CoverUrl, &videoModel.AuthorUid, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
+		err = rows.Scan(&videoModel.Id, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.Video, &videoModel.Cover, &videoModel.Author, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
 		if err != nil {
 			return nil, err
 		}
@@ -371,7 +371,7 @@ func (dao *VideoDao) QueryByAv(av int64) (model.Video, error) {
 
 	row := stmt.QueryRow(av)
 
-	err = row.Scan(&videoModel.Av, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.VideoUrl, &videoModel.CoverUrl, &videoModel.AuthorUid, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
+	err = row.Scan(&videoModel.Id, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.Video, &videoModel.Cover, &videoModel.Author, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
 	if err != nil {
 		return videoModel, err
 	}
@@ -476,7 +476,7 @@ func (dao *VideoDao) InsertVideo(video model.Video) (int64, error) {
 		return 0, err
 	}
 
-	result, err := stmt.Exec(video.Title, video.Channel, video.Description, video.VideoUrl, video.CoverUrl, video.AuthorUid, video.Time)
+	result, err := stmt.Exec(video.Title, video.Channel, video.Description, video.Video, video.Cover, video.Author, video.Time)
 
 	stmt.Close()
 	av, _ := result.LastInsertId()

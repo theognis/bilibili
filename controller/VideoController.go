@@ -527,14 +527,14 @@ func (v *VideoController) getVideo(ctx *gin.Context) {
 	}
 
 	tool.Success(ctx, gin.H{
-		"id":          videoInfo.Av,
-		"video":       videoInfo.VideoUrl,
-		"cover":       videoInfo.CoverUrl,
+		"id":          videoInfo.Id,
+		"video":       videoInfo.Video,
+		"cover":       videoInfo.Cover,
 		"title":       videoInfo.Title,
 		"channel":     videoInfo.Channel,
 		"label":       labelSlice,
 		"description": videoInfo.Description,
-		"author":      videoInfo.AuthorUid,
+		"author":      videoInfo.Author,
 		"time":        videoInfo.Time.Format("2006-01-02 15:04:05"),
 		"views":       videoInfo.Views,
 		"likes":       videoInfo.Likes,
@@ -825,11 +825,11 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 	//视频入数据库
 	var videoInfoModel model.Video
 	videoInfoModel.Time = time.Now()
-	videoInfoModel.AuthorUid = clams.Userinfo.Uid
+	videoInfoModel.Author = clams.Userinfo.Uid
 	videoInfoModel.Channel = channel
 	cfg := tool.GetCfg().Oss
-	videoInfoModel.CoverUrl = "nil"
-	videoInfoModel.VideoUrl = "nil"
+	videoInfoModel.Cover = "nil"
+	videoInfoModel.Video = "nil"
 	videoInfoModel.Description = description
 	videoInfoModel.Title = title
 
