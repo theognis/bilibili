@@ -5,6 +5,7 @@ import (
 	"bilibili/model"
 	"bilibili/param"
 	"bilibili/tool"
+	"time"
 )
 
 type VideoService struct {
@@ -24,8 +25,48 @@ func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
 	if upUid == uid {
 		return false, nil
 	}
+	//up加经验
+	err = ud.UpdateExp(upUid, 1)
+	if err != nil {
+		return false, err
+	}
 
-	//转账
+	//获取当日投币所得经验状态
+	userinfo, err := ud.QueryByUid(uid)
+	if err != nil {
+		return false, err
+	}
+
+	lastCoinDate := userinfo.LastCoinDate[:10]
+	timeNow := time.Now().Format("2006-01-02")
+
+	if (lastCoinDate != timeNow) || ((lastCoinDate == timeNow) && (userinfo.DailyCoin < 5)) {
+		//处理经验
+		ud.UpdateExp(uid, 10)
+
+		//处理记录
+		err = ud.UpdateLastCoinDate(uid)
+		if err != nil {
+			return false, err
+		}
+
+		if lastCoinDate != timeNow {
+			//上一次投币时间不是今天， 把当日投币次数改为1
+			err = ud.UpdateDailyCoin(uid, "1")
+			if err != nil {
+				return false, err
+			}
+		} else {
+			//上一次投币时间是今天，把当日投币次数加一
+			err = ud.UpdateDailyCoin(uid, "daily_coin + 1")
+			if err != nil {
+				return false, err
+			}
+		}
+
+	}
+
+	//硬币转账
 	err = ud.UpdateCoins(uid, -1)
 	if err != nil {
 		return false, err
