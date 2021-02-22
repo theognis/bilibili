@@ -60,6 +60,15 @@ CREATE TABLE `video_coin`
     `uid` INT NOT NULL
 ) charset="utf8mb4";
 
+DROP TABLE IF EXISTS `video_save`;
+
+CREATE TABLE `video_save`
+(
+    `id`  INT AUTO_INCREMENT PRIMARY KEY,
+    `av`  INT NOT NULL,
+    `uid` INT NOT NULL
+) charset="utf8mb4";
+
 DROP TABLE IF EXISTS `video_info`;
 
 CREATE TABLE `video_info`
