@@ -108,6 +108,8 @@
     Saves: Array, // []Video；收藏夹视频数组（切片）
     Followers: Number, // 关注数
     Followings: Number, // 粉丝数
+    TotalViews: Number, //总浏览数
+    TotalLikes: Number, //总喜欢数
 }
 ```
 
