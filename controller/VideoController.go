@@ -282,6 +282,12 @@ func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
 		}
 	}
 
+	//获取avMap
+	var avMap [1001]int64
+	for i = 0; i <= 999; i++ {
+		avMap[i] = videoList[i][0]
+	}
+
 	//统计相关性
 	for i = 0; i <= 999; i++ {
 		for j = 0; j <= 999-i; j++ {
@@ -304,6 +310,102 @@ func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
 			}
 
 			recommendSlice = append(recommendSlice, videoModel)
+		}
+	}
+
+	//长度不够，从同一分区取
+	if len(recommendSlice) < 20 {
+		//获取同一分区的avSlice
+		sameChannelAvSlice, err := vs.GetSameChannelAvSlice(avInt64)
+		if err != nil {
+			fmt.Println("getSameChannelAvSliceErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+
+		for _, av := range sameChannelAvSlice {
+			if avMap[av] != 0 {
+				//已经在推荐单中，排除它
+				continue
+			}
+
+			videoModel, err := vs.GetVideo(av)
+			if err != nil {
+				fmt.Println("GetVideoErr: ", err)
+				tool.Failed(ctx, "服务器错误")
+				return
+			}
+
+			recommendSlice = append(recommendSlice, videoModel)
+			avMap[av] = 1 //标记
+			//如果够20个，退出for循环
+			if len(recommendSlice) == 20 {
+				break
+			}
+		}
+	}
+
+	//长度还不够，从同一up主视频中取
+	if len(recommendSlice) < 20 {
+		//获取同一up主的avSlice
+		sameUpAvSlice, err := vs.GetSameUpAvSlice(avInt64)
+		if err != nil {
+			fmt.Println("getSameUpAvSliceErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+
+		for _, av := range sameUpAvSlice {
+			if avMap[av] != 0 {
+				//已经在推荐单中，排除它
+				continue
+			}
+
+			videoModel, err := vs.GetVideo(av)
+			if err != nil {
+				fmt.Println("GetVideoErr: ", err)
+				tool.Failed(ctx, "服务器错误")
+				return
+			}
+
+			recommendSlice = append(recommendSlice, videoModel)
+			avMap[av] = 1
+			//如果够20个，退出for循环
+			if len(recommendSlice) == 20 {
+				break
+			}
+		}
+	}
+
+	//如果还不够，从所有视频中随机添加
+	if len(recommendSlice) < 20 {
+		//获取所有avSlice
+		avSlice, err := vs.GetAvSlice()
+		if err != nil {
+			fmt.Println("getAvSliceErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+
+		for _, av := range avSlice {
+			if avMap[av] != 0 {
+				//已经在推荐单中，排除它
+				continue
+			}
+
+			videoModel, err := vs.GetVideo(av)
+			if err != nil {
+				fmt.Println("GetVideoErr: ", err)
+				tool.Failed(ctx, "服务器错误")
+				return
+			}
+
+			recommendSlice = append(recommendSlice, videoModel)
+			avMap[av] = 1
+			//如果够20个，退出for循环
+			if len(recommendSlice) == 20 {
+				break
+			}
 		}
 	}
 

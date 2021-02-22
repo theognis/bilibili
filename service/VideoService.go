@@ -11,6 +11,51 @@ import (
 type VideoService struct {
 }
 
+func (v *VideoService) GetAvSlice() ([]int64, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	avSlice, err := vd.QueryAvSlice()
+	if err != nil {
+		return nil, err
+	}
+
+	return avSlice, nil
+}
+
+func (v *VideoService) GetSameUpAvSlice(av int64) ([]int64, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	userinfo, err := vd.QueryByAv(av)
+	if err != nil {
+		return nil, err
+	}
+	uid := userinfo.Author
+
+	avSlice, err := vd.QueryAvSliceByAuthor(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	return avSlice, nil
+}
+
+func (v *VideoService) GetSameChannelAvSlice(av int64) ([]int64, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	userinfo, err := vd.QueryByAv(av)
+	if err != nil {
+		return nil, err
+	}
+
+	channel := userinfo.Channel[:2] + "%"
+	avSlice, err := vd.QuerySameChannelAvSlice(channel)
+	if err != nil {
+		return nil, err
+	}
+
+	return avSlice, nil
+}
+
 //获取一个视频是否被收藏，已被收藏返回true
 func (v *VideoService) JudgeSave(uid int64, av int64) (bool, error) {
 	vd := dao.VideoDao{tool.GetDb()}

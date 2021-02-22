@@ -243,6 +243,90 @@ func (dao *VideoDao) QueryDanmaku(av int64) ([]param.ParamDanmaku, error) {
 	return danmakuSlice, nil
 }
 
+func (dao *VideoDao) QueryAvSlice() ([]int64, error) {
+	var randAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_info ORDER BY rand()`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query()
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		randAvSlice = append(randAvSlice, av)
+	}
+
+	return randAvSlice, nil
+}
+
+func (dao *VideoDao) QueryAvSliceByAuthor(uid int64) ([]int64, error) {
+	var randAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_info WHERE author_uid = ? ORDER BY rand()`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		randAvSlice = append(randAvSlice, av)
+	}
+
+	return randAvSlice, nil
+}
+
+func (dao *VideoDao) QuerySameChannelAvSlice(channel string) ([]int64, error) {
+	var randAvSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_info WHERE channel LIKE ? ORDER BY rand()`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(channel)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		randAvSlice = append(randAvSlice, av)
+	}
+
+	return randAvSlice, nil
+}
+
 //按收视率排行的特定分区视频10个，返回AV号
 func (dao *VideoDao) QueryRankChannel(channel string) ([]int64, error) {
 	var randAvSlice []int64
