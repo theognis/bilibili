@@ -21,6 +21,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.GET("/api/user/info/:uid", u.getUserinfo)
 	engine.GET("/api/check/username", u.judgeUsername)
 	engine.GET("/api/check/phone", u.judgePhone)
+	engine.GET("/api/user/daily", u.getDaily)
 	engine.POST("/api/user/register", u.register)
 	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
 	engine.POST("/api/verify/sms/general", u.sendSms)
@@ -37,6 +38,38 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
 	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+func (u *UserController) getDaily(ctx *gin.Context) {
+	token := ctx.Query("token")
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	checkInFlag, viewFlag, coinNum, err := us.GetDailyFlag(userinfo.Uid)
+	if err != nil {
+		fmt.Println("GetDailyFlagErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, gin.H{
+		"check-in": checkInFlag,
+		"view":     viewFlag,
+		"coin":     coinNum,
+	})
 }
 
 func (u *UserController) getUserinfo(ctx *gin.Context) {

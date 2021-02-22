@@ -20,6 +20,46 @@ import (
 type UserService struct {
 }
 
+//获取每日任务的完成状态，依次返回签到状态，观看视频状态，投币获得的经验数量
+func (u *UserService) GetDailyFlag(uid int64) (bool, bool, int64, error) {
+	d := dao.UserDao{tool.GetDb()}
+	timeNow := time.Now().Format("2006-01-02")
+	var lastViewFlag, lastCheckInFlag, lastCoinFlag bool
+	var dailyCoinNum int64
+
+	userinfo, err := d.QueryByUid(uid)
+	if err != nil {
+		return false, false, 0, err
+	}
+
+	if userinfo.LastViewDate[:10] == timeNow {
+		lastViewFlag = true
+	} else {
+		lastViewFlag = false
+	}
+
+	if userinfo.LastCheckInDate[:10] == timeNow {
+		lastCheckInFlag = true
+	} else {
+		lastCheckInFlag = false
+	}
+
+	if userinfo.LastCoinDate[:10] == timeNow {
+		lastCoinFlag = true
+	} else {
+		lastCoinFlag = false
+	}
+
+	if lastCoinFlag == true {
+		//今日已经投币
+		dailyCoinNum = userinfo.DailyCoin * 10
+	} else {
+		dailyCoinNum = 0
+	}
+
+	return lastCheckInFlag, lastViewFlag, dailyCoinNum, nil
+}
+
 //检查uid是否存在，存在返回true，反之返回false
 func (u *UserService) JudgeUid(uid int64) (bool, error) {
 	d := dao.UserDao{tool.GetDb()}

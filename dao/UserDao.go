@@ -269,11 +269,10 @@ func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
 	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, daily_view FROM userinfo WHERE uid = ?`)
-	defer stmt.Close()
-
 	if err != nil {
 		return userinfo, err
 	}
+	defer stmt.Close()
 
 	row := stmt.QueryRow(uid)
 
