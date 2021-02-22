@@ -527,21 +527,22 @@ func (v *VideoController) getVideo(ctx *gin.Context) {
 	}
 
 	tool.Success(ctx, gin.H{
-		"id":          videoInfo.Id,
-		"video":       videoInfo.Video,
-		"cover":       videoInfo.Cover,
-		"title":       videoInfo.Title,
-		"channel":     videoInfo.Channel,
-		"label":       labelSlice,
-		"description": videoInfo.Description,
-		"author":      videoInfo.Author,
-		"time":        videoInfo.Time.Format("2006-01-02 15:04:05"),
-		"views":       videoInfo.Views,
-		"likes":       videoInfo.Likes,
-		"coins":       videoInfo.Coins,
-		"saves":       videoInfo.Saves,
-		"shares":      videoInfo.Shares,
-		"danmakus":    danmakuSlice,
+		"Id":          videoInfo.Id,
+		"Video":       videoInfo.Video,
+		"Cover":       videoInfo.Cover,
+		"Title":       videoInfo.Title,
+		"Channel":     videoInfo.Channel,
+		"Label":       labelSlice,
+		"Description": videoInfo.Description,
+		"Author":      videoInfo.Author,
+		"Time":        videoInfo.Time.Format("2006-01-02 15:04:05"),
+		"Views":       videoInfo.Views,
+		"Likes":       videoInfo.Likes,
+		"Coins":       videoInfo.Coins,
+		"Saves":       videoInfo.Saves,
+		"Shares":      videoInfo.Shares,
+		"Danmakus":    danmakuSlice,
+		"Length":      videoInfo.Length,
 	})
 }
 
