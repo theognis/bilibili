@@ -16,14 +16,14 @@ func (hs *HomeService) GetChannelVideo(channel string) ([]model.Video, []model.V
 
 	randAvSlice, err := vd.QueryRandomChannel(channel)
 	if err != nil {
-		return nil, nil, err
+		return randSlice, rankSlice, err
 	}
 
 	for _, randAv := range randAvSlice {
 		var videoModel model.Video
 		videoModel, err = vd.QueryByAv(randAv)
 		if err != nil {
-			return nil, nil, err
+			return randSlice, rankSlice, err
 		}
 
 		randSlice = append(randSlice, videoModel)
@@ -31,14 +31,14 @@ func (hs *HomeService) GetChannelVideo(channel string) ([]model.Video, []model.V
 
 	rankAvSlice, err := vd.QueryRankChannel(channel)
 	if err != nil {
-		return nil, nil, err
+		return randSlice, rankSlice, err
 	}
 
 	for _, rankAv := range rankAvSlice {
 		var videoModel model.Video
 		videoModel, err = vd.QueryByAv(rankAv)
 		if err != nil {
-			return nil, nil, err
+			return randSlice, rankSlice, err
 		}
 
 		rankSlice = append(rankSlice, videoModel)
@@ -54,14 +54,14 @@ func (hs *HomeService) GetInformation() ([]model.Video, []model.Video, error) {
 
 	randAvSlice, err := vd.QueryRandomInfo()
 	if err != nil {
-		return nil, nil, err
+		return randSlice, rankSlice, err
 	}
 
 	for _, randAv := range randAvSlice {
 		var videoModel model.Video
 		videoModel, err = vd.QueryByAv(randAv)
 		if err != nil {
-			return nil, nil, err
+			return randSlice, rankSlice, err
 		}
 
 		randSlice = append(randSlice, videoModel)
@@ -69,14 +69,14 @@ func (hs *HomeService) GetInformation() ([]model.Video, []model.Video, error) {
 
 	rankAvSlice, err := vd.QueryRankInfo()
 	if err != nil {
-		return nil, nil, err
+		return randSlice, rankSlice, err
 	}
 
 	for _, rankAv := range rankAvSlice {
 		var videoModel model.Video
 		videoModel, err = vd.QueryByAv(rankAv)
 		if err != nil {
-			return nil, nil, err
+			return randSlice, rankSlice, err
 		}
 
 		rankSlice = append(rankSlice, videoModel)
