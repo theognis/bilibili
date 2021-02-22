@@ -11,6 +11,55 @@ import (
 type VideoService struct {
 }
 
+//获取一个视频是否被收藏，已被收藏返回true
+func (v *VideoService) JudgeSave(uid int64, av int64) (bool, error) {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	avSlice, err := vd.QuerySaveByUid(uid)
+	if err != nil {
+		return false, err
+	}
+
+	for _, savedAv := range avSlice {
+		if av == savedAv {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+//收藏/取消收藏
+func (v *VideoService) PostSave(uid int64, av int64, flag bool) error {
+	vd := dao.VideoDao{tool.GetDb()}
+	var err error
+
+	if flag == false {
+		//此前未收藏
+		err = vd.InsertSave(av, uid)
+		if err != nil {
+			return err
+		}
+
+		err = vd.UpdateSave(av, 1)
+		if err != nil {
+			return err
+		}
+	} else {
+		//此前已收藏
+		err = vd.DeleteSave(av, uid)
+		if err != nil {
+			return err
+		}
+
+		err = vd.UpdateSave(av, -1)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+
+}
 func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
 	vd := dao.VideoDao{tool.GetDb()}
 	ud := dao.UserDao{tool.GetDb()}

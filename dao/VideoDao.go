@@ -69,6 +69,35 @@ func (dao *VideoDao) QueryCoinsByUid(uid int64) ([]int64, error) {
 	return avSlice, nil
 }
 
+//查询用户收藏过的视频av号
+func (dao *VideoDao) QuerySaveByUid(uid int64) ([]int64, error) {
+	var avSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_save WHERE uid = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(uid)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		avSlice = append(avSlice, av)
+	}
+
+	return avSlice, nil
+}
+
 //查询用户点赞过的视频av号
 func (dao *VideoDao) QueryLikesByUid(uid int64) ([]int64, error) {
 	var avSlice []int64
@@ -395,6 +424,19 @@ func (dao *VideoDao) InsertCoin(av, uid int64) error {
 	return err
 }
 
+//save表插入一条记录
+func (dao *VideoDao) InsertSave(av, uid int64) error {
+	stmt, err := dao.DB.Prepare(`INSERT INTO video_save (av, uid) VALUES (?, ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(av, uid)
+	return err
+}
+
 //like表插入一条记录
 func (dao *VideoDao) InsertLike(av, uid int64) error {
 	stmt, err := dao.DB.Prepare(`INSERT INTO video_like (av, uid) VALUES (?, ?)`)
@@ -456,6 +498,18 @@ func (dao *VideoDao) InsertLabel(label string, av int64) error {
 	return err
 }
 
+func (dao *VideoDao) DeleteSave(av, uid int64) error {
+	stmt, err := dao.DB.Prepare(`DELETE FROM video_save WHERE (av = ? and uid = ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(av, uid)
+	return err
+}
+
 func (dao *VideoDao) DeleteLike(av, uid int64) error {
 	stmt, err := dao.DB.Prepare(`DELETE FROM video_like WHERE (av = ? and uid = ?)`)
 
@@ -466,6 +520,22 @@ func (dao *VideoDao) DeleteLike(av, uid int64) error {
 
 	_, err = stmt.Exec(av, uid)
 	return err
+}
+
+func (dao *VideoDao) UpdateSave(av, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE video_info SET saves = saves + ? WHERE av = ?`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(num, av)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (dao *VideoDao) UpdateLike(av, num int64) error {
