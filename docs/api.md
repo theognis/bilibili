@@ -715,6 +715,56 @@ let data = {
 | `true` | `"ALREADY_DONE"` | 提供`token`且用户今日已浏览 |
 | `true` | `"SUCCESS"` | 提供`token`且为用户今日首次浏览 |
 
+### `/api/video/comments` `GET`
+
+* 获取评论
+
+| 请求参数 | 类型 | 说明       |
+| ------- | ---- | --------- |
+| video_id | 必选 | 视频ID    |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
+| `true` | 参见以下代码 | 提交成功 |
+
+```js
+[{
+	Id: Number, // 评论 ID
+	VideoId: Number, // 视频 ID
+	UserId: Number, // 评论者 ID
+	Value: String, // 评论内容
+	Time: String, // 评论时间，格式：2021-02-06 19:20
+	Likes: Number //赞数
+},{
+	// 同上
+}]
+```
+
+### `/api/video/comment` `POST`
+
+* `application/x-www-form-urlencoded` 
+* 提交评论
+
+| 请求参数 | 类型 | 说明       |
+| ------- | ---- | --------- |
+| token | 可选 | token      |
+| video_id | 必选 | 视频ID   |
+| comment | 必选 | 视频ID    |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token` 失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
+| `false` | `"评论内容不可为空"` | `comment` 为空 |
+| `false` | `"评论内容过长"` | `comment` 长度大于 1024 |
+| `true` | `""` | 提交成功 |
+
+
 
 ### `/api/video/recommend` `GET`
 
