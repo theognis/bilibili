@@ -114,6 +114,37 @@ func (u *UserService) GetUserinfo(uid int64) (model.Userinfo, error) {
 	return userinfo, err
 }
 
+func (u *UserService) SolveViewExp(uid int64) (bool, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	userinfo, err := d.QueryByUid(uid)
+	if err != nil {
+		return false, err
+	}
+
+	lastViewDate := userinfo.LastViewDate[:10]
+	timeNow := time.Now().Format("2006-01-02")
+
+	if timeNow == lastViewDate {
+		//已获得过经验
+		return false, nil
+	} else {
+		//更新经验
+		err = d.UpdateExp(uid, 5)
+		if err != nil {
+			return false, err
+		}
+
+		//更新记录
+		err = d.UpdateLastViewDate(uid)
+		if err != nil {
+			return false, err
+		}
+
+		return true, nil
+	}
+}
+
 //签到服务
 func (u *UserService) CheckIn(uid int64) error {
 	d := dao.UserDao{tool.GetDb()}

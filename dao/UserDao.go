@@ -141,6 +141,23 @@ func (dao *UserDao) UpdateGender(uid int64, newGender string) error {
 	return nil
 }
 
+func (dao *UserDao) UpdateLastViewDate(uid int64) error {
+	timeNow := time.Now()
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET last_view_date = ? WHERE uid = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(timeNow, uid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateLastCoinDate(uid int64) error {
 	timeNow := time.Now()
 	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET last_coin_date = ? WHERE uid = ?`)

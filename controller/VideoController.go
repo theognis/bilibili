@@ -138,6 +138,35 @@ func (v *VideoController) addView(ctx *gin.Context) {
 		return
 	}
 
+	token := ctx.PostForm("token")
+	if token != "" {
+		//提供了token
+		gs := service.TokenService{}
+		us := service.UserService{}
+		//解析token
+		clams, err := gs.ParseToken(token)
+		flag = tool.CheckTokenErr(ctx, clams, err)
+		if flag == false {
+			return
+		}
+		userinfo := clams.Userinfo
+
+		flag, err := us.SolveViewExp(userinfo.Uid)
+		if err != nil {
+			fmt.Println("solveViewExpErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+
+		if flag == false {
+			tool.Success(ctx, "ALREADY_DONE")
+			return
+		}
+
+		tool.Success(ctx, "SUCCESS")
+		return
+	}
+
 	tool.Success(ctx, "")
 }
 
