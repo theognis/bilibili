@@ -41,16 +41,18 @@ func (dao *CommentDao) QueryByAv(av int64) ([]model.Comment, error) {
 	return commentSlice, nil
 }
 
-func (dao *CommentDao) InsertComment(comment model.Comment) error {
+func (dao *CommentDao) InsertComment(comment model.Comment) (int64, error) {
 	timeNow := time.Now()
 	stmt, err := dao.DB.Prepare(`INSERT INTO comment (av, uid, value, comment_time) VALUES (?, ?, ?, ?)`)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	_, err = stmt.Exec(comment.VideoId, comment.UserId, comment.Value, timeNow)
-
+	result, err := stmt.Exec(comment.VideoId, comment.UserId, comment.Value, timeNow)
+	if err != nil {
+		return 0, err
+	}
 	stmt.Close()
-
-	return err
+	id, err := result.LastInsertId()
+	return id, err
 }

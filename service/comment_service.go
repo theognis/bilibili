@@ -16,9 +16,9 @@ func (c *CommentService) GetCommentSlice(av int64) ([]model.Comment, error) {
 	return commentSlice, err
 }
 
-func (c *CommentService) PostComment(comment model.Comment) error {
+func (c *CommentService) PostComment(comment model.Comment) (int64, error) {
 	cd := dao.CommentDao{tool.GetDb()}
 
-	err := cd.InsertComment(comment)
-	return err
+	id, err := cd.InsertComment(comment)
+	return id, err
 }

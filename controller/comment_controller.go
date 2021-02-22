@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"
+	"time"
 	"unicode/utf8"
 )
 
@@ -119,12 +120,16 @@ func (c *CommentController) postComment(ctx *gin.Context) {
 
 	cs := service.CommentService{}
 
-	err = cs.PostComment(commentModel)
+	id, err := cs.PostComment(commentModel)
 	if err != nil {
 		fmt.Println("postCommentErr: ", err)
 		tool.Failed(ctx, "服务器错误")
 		return
 	}
 
-	tool.Success(ctx, "")
+	commentModel.Time = time.Now().Format("2006-01-02 15:04:05")
+	commentModel.Likes = 0
+	commentModel.Id = id
+
+	tool.Success(ctx, commentModel)
 }
