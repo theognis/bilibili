@@ -85,8 +85,11 @@ CREATE TABLE `video_info`
     `likes`       INT          NOT NULL DEFAULT 0,
     `coins`       INT          NOT NULL DEFAULT 0,
     `saves`       INT          NOT NULL DEFAULT 0,
-    `shares`      INT          NOT NULL DEFAULT 0
+    `shares`      INT          NOT NULL DEFAULT 0,
+--    `length`      VARCHAR(10)  NOT NULL DEFAULT '0:00'
 ) charset="utf8mb4";
+
+alter table video_info add `length` VARCHAR(10) NOT NULL DEFAULT '0:00';
 
 DROP TABLE IF EXISTS `video_danmaku`;
 

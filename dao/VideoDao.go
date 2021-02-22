@@ -15,7 +15,7 @@ type VideoDao struct {
 func (dao *VideoDao) QueryVideoModelByAuthorUid(uid int64) ([]model.Video, error) {
 	var videoSlice []model.Video
 
-	stmt, err := dao.DB.Prepare(`SELECT av, title, channel, description, video_url, cover_url, author_uid, time, views, likes, coins, saves, shares FROM video_info WHERE author_uid = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT av, title, channel, description, video_url, cover_url, author_uid, time, views, likes, coins, saves, shares, length FROM video_info WHERE author_uid = ?`)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,7 @@ func (dao *VideoDao) QueryVideoModelByAuthorUid(uid int64) ([]model.Video, error
 	defer rows.Close()
 	for rows.Next() {
 		var videoModel model.Video
-		err = rows.Scan(&videoModel.Id, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.Video, &videoModel.Cover, &videoModel.Author, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
+		err = rows.Scan(&videoModel.Id, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.Video, &videoModel.Cover, &videoModel.Author, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares, &videoModel.Length)
 		if err != nil {
 			return nil, err
 		}
@@ -362,7 +362,7 @@ func (dao *VideoDao) QueryRandomInfo() ([]int64, error) {
 func (dao *VideoDao) QueryByAv(av int64) (model.Video, error) {
 	videoModel := model.Video{}
 
-	stmt, err := dao.DB.Prepare(`SELECT av, title, channel, description, video_url, cover_url, author_uid, time, views, likes, coins, saves, shares FROM video_info WHERE av = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT av, title, channel, description, video_url, cover_url, author_uid, time, views, likes, coins, saves, shares, length FROM video_info WHERE av = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -371,7 +371,7 @@ func (dao *VideoDao) QueryByAv(av int64) (model.Video, error) {
 
 	row := stmt.QueryRow(av)
 
-	err = row.Scan(&videoModel.Id, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.Video, &videoModel.Cover, &videoModel.Author, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares)
+	err = row.Scan(&videoModel.Id, &videoModel.Title, &videoModel.Channel, &videoModel.Description, &videoModel.Video, &videoModel.Cover, &videoModel.Author, &videoModel.Time, &videoModel.Views, &videoModel.Likes, &videoModel.Coins, &videoModel.Saves, &videoModel.Shares, &videoModel.Length)
 	if err != nil {
 		return videoModel, err
 	}
@@ -470,13 +470,13 @@ func (dao *VideoDao) InsertDanmaku(danmakuModel model.Danmaku) (int64, error) {
 }
 
 func (dao *VideoDao) InsertVideo(video model.Video) (int64, error) {
-	stmt, err := dao.DB.Prepare(`INSERT INTO video_info (title, channel, description, video_url, cover_url, author_uid, time) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+	stmt, err := dao.DB.Prepare(`INSERT INTO video_info (title, channel, description, video_url, cover_url, author_uid, time, length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
 
 	if err != nil {
 		return 0, err
 	}
 
-	result, err := stmt.Exec(video.Title, video.Channel, video.Description, video.Video, video.Cover, video.Author, video.Time)
+	result, err := stmt.Exec(video.Title, video.Channel, video.Description, video.Video, video.Cover, video.Author, video.Time, video.Length)
 
 	stmt.Close()
 	av, _ := result.LastInsertId()

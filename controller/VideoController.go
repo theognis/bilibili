@@ -756,6 +756,15 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 		return
 	}
 
+	//时长相关
+	length := ctx.PostForm("length")
+
+	dotPos := strings.Index(length, ":")
+	if dotPos == -1 {
+		tool.Failed(ctx, "时长无效")
+		return
+	}
+
 	//频道相关
 	channel := ctx.PostForm("channel")
 
@@ -830,6 +839,7 @@ func (v *VideoController) postVideo(ctx *gin.Context) {
 	cfg := tool.GetCfg().Oss
 	videoInfoModel.Cover = "nil"
 	videoInfoModel.Video = "nil"
+	videoInfoModel.Length = length
 	videoInfoModel.Description = description
 	videoInfoModel.Title = title
 
