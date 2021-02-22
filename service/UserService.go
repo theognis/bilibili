@@ -135,9 +135,24 @@ func (u *UserService) GetSpaceUserinfo(uid int64) (model.SpaceUserinfo, error) {
 	}
 
 	//获取收藏夹信息
+	var savesVideoSlice []model.Video
+	savesAvSlice, err := vd.QuerySaveByUid(uid)
+	if err != nil {
+		return spaceUserinfo, err
+	}
 
+	for _, av := range savesAvSlice {
+		videoModel, err := vd.QueryByAv(av)
+		if err != nil {
+			return spaceUserinfo, err
+		}
+
+		savesVideoSlice = append(savesVideoSlice, videoModel)
+	}
+
+	spaceUserinfo.Saves = savesVideoSlice
 	//获取投稿信息
-	postedVideoSlice, err := vd.QueryVideoModelByAuthorUid(uid)
+	postedVideoSlice, err := vd.QueryPostedVideoModelByAuthorUid(uid)
 	if err != nil {
 		return spaceUserinfo, err
 	}

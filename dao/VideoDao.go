@@ -12,7 +12,7 @@ type VideoDao struct {
 }
 
 //通过up主uid找up投稿视频的model
-func (dao *VideoDao) QueryVideoModelByAuthorUid(uid int64) ([]model.Video, error) {
+func (dao *VideoDao) QueryPostedVideoModelByAuthorUid(uid int64) ([]model.Video, error) {
 	var videoSlice []model.Video
 
 	stmt, err := dao.DB.Prepare(`SELECT av, title, channel, description, video_url, cover_url, author_uid, time, views, likes, coins, saves, shares, length FROM video_info WHERE author_uid = ?`)
