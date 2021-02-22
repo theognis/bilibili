@@ -83,7 +83,7 @@ CREATE TABLE `video_info`
     `likes`       INT          NOT NULL DEFAULT 0,
     `coins`       INT          NOT NULL DEFAULT 0,
     `saves`       INT          NOT NULL DEFAULT 0,
-    `shares`      INT          NOT NULL DEFAULT 0,
+    `shares`      INT          NOT NULL DEFAULT 0
 --    `length`      VARCHAR(10)  NOT NULL DEFAULT '00:00'
 ) charset="utf8mb4";
 
