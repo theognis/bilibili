@@ -23,12 +23,49 @@ func (v *VideoController) Router(engine *gin.Engine) {
 	engine.POST("/api/video/like", v.postLike)
 	engine.POST("/api/video/view", v.addView)
 	engine.POST("/api/video/coin", v.postCoin)
+	engine.POST("/api/video/share", v.postShare)
 	engine.GET("/api/video/coin", v.checkCoin)
 	engine.GET("/api/video/danmaku", v.getDanmaku)
 	engine.GET("/api/video/video", v.getVideo)
 	engine.GET("/api/video/like", v.getLike)
 	engine.POST("/api/video/save", v.postSave)
 	engine.GET("/api/video/recommend", v.getVideoRecommend)
+}
+
+func (v *VideoController) postShare(ctx *gin.Context) {
+	avStr := ctx.PostForm("video_id")
+	if avStr == "" {
+		tool.Failed(ctx, "视频ID不可为空")
+		return
+	}
+	avInt, err := strconv.ParseInt(avStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseAvStrErr: ", err)
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	vs := service.VideoService{}
+	flag, err := vs.JudgeAv(avInt)
+	if err != nil {
+		fmt.Println("JudgeAvErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "视频ID无效")
+		return
+	}
+
+	err = vs.AddShare(avInt)
+	if err != nil {
+		fmt.Println("AddShareErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, "")
 }
 
 func (v *VideoController) postSave(ctx *gin.Context) {

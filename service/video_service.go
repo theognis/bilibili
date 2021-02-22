@@ -11,6 +11,13 @@ import (
 type VideoService struct {
 }
 
+func (v *VideoService) AddShare(av int64) error {
+	vd := dao.VideoDao{tool.GetDb()}
+
+	err := vd.UpdateShare(av)
+	return err
+}
+
 func (v *VideoService) GetAvSlice() ([]int64, error) {
 	vd := dao.VideoDao{tool.GetDb()}
 
