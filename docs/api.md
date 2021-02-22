@@ -94,18 +94,20 @@
 
 ```js
 {
-    Avatar: String // String
-    Uid: Number, // int64
-    Username: String, // string
-    RegDate: String, // Time
-    Statement: String, // string
-    Exp: Number, // int64
-    Coins: Number, // int64
-    BCoins: Number, // int64
-    Birthday: String, // Time
-    Gender: String, // Char
+    Avatar: String
+    Uid: Number,
+    Username: String,
+    RegDate: String,
+    Statement: String,
+    Exp: Number,
+    Coins: Number,
+    BCoins: Number,
+    Birthday: String,
+    Gender: String,
     Videos: Array, // []Video；投稿视频数组（切片）
     Saves: Array, // []Video；收藏夹视频数组（切片）
+    Followers: Number, // 关注数
+    Followings: Number, // 粉丝数
 }
 ```
 
@@ -330,6 +332,25 @@
 	"coin": Number >= 0 && Number <= 50
 }
 ```
+
+### `/api/user/follow` `POST`
+
+* `application/x-www-form-urlencoded`
+* 关注或取消关注某用户
+
+| 请求参数      | 类型 | 说明       |
+| ------------- | ---- | ---------- |
+| uid         | 必选 | 被关注者 UID      |
+| token         | 必选 | 关注者 token      |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"NO_TOKEN_PROVIDED"` | `token`为空 |
+| `false` | `"TOKEN_EXPIRED"` | `token`失效 |
+| `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
+| `false` | `"UID 无效"` | `uid`为空或无效 |
+| `true` | `true` | 关注成功 |
+| `true` | `false` | 取消关注成功 |
 
 ## Verify
 
@@ -714,6 +735,21 @@ let data = {
 | `true` | `""` | 提交成功 |
 | `true` | `"ALREADY_DONE"` | 提供`token`且用户今日已浏览 |
 | `true` | `"SUCCESS"` | 提供`token`且为用户今日首次浏览 |
+
+### `/api/video/share` `POST`
+
+* `application/x-www-form-urlencoded` 
+* 视频分享数 +1
+
+| 请求参数 | 类型 | 说明       |
+| ------- | ---- | --------- |
+| video_id | 必选 | 视频ID       |
+
+| status | data | 说明   |
+| -------- | ---- | ------ |
+| `false` | `"视频 ID 不可为空"` | `video_id`为空 |
+| `false` | `"视频 ID 无效"` | `video_id` 无效 |
+| `true` | `""` | 提交成功 |
 
 ### `/api/video/comments` `GET`
 
