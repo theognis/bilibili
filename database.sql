@@ -102,3 +102,15 @@ CREATE TABLE `video_danmaku`
     `time`     TIMESTAMP    NOT NULL,
     `location` INT          NOT NULL
 ) charset="utf8mb4";
+
+DROP TABLE IF EXISTS `comment`;
+
+CREATE TABLE `comment`
+(
+    `id`           INT AUTO_INCREMENT PRIMARY KEY,
+    `av`           INT           NOT NULL,
+    `uid`          INT           NOT NULL,
+    `value`        VARCHAR(1024) NOT NULL,
+    `comment_time` TIMESTAMP     NOT NULL,
+    `likes`        INT           NOT NULL DEFAULT 0
+) charset="utf8mb4";
