@@ -459,22 +459,22 @@
 
 ```js
 let data = {
-    id: Number, //int64, 视频 ID
-    video: String, // string, 视频地址
-    cover: String, // string, 封面地址
-    title: String, // string, 视频标题
-    length: String, // string, 视频时长
-    channel: String, // string, 分区，字符串编号，参见`channel.md`
-    label: Array, // []string, 标签，字符串切片
-    description: String, // string, 简介
-    author: Number, // int64, 作者 UID
-    time: String, // Time, 上传时间
-    views: Number, // int64, 播放次数
-    likes: Number, // int64, 点赞数量
-    coins: Number, // int64, 投币数量
-    saves: Number, // int64, 收藏数量
-    shares: Number, // int64, 分享数量
-    danmakus: Array, // []Danmaku, 弹幕，弹幕切片
+    Id: Number, //int64, 视频 ID
+    Video: String, // string, 视频地址
+    Cover: String, // string, 封面地址
+    Title: String, // string, 视频标题
+    Length: String, // string, 视频时长
+    Channel: String, // string, 分区，字符串编号，参见`channel.md`
+    Label: Array, // []string, 标签，字符串切片
+    Description: String, // string, 简介
+    Author: Number, // int64, 作者 UID
+    Time: String, // Time, 上传时间
+    Views: Number, // int64, 播放次数
+    Likes: Number, // int64, 点赞数量
+    Coins: Number, // int64, 投币数量
+    Saves: Number, // int64, 收藏数量
+    Shares: Number, // int64, 分享数量
+    Danmakus: Array, // []Danmaku, 弹幕，弹幕切片
 }
 ```
 
