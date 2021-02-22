@@ -9,9 +9,9 @@ var RedisConn *redis.Client
 func init() {
 	redisCfg := GetCfg().Redis
 	RedisConn = redis.NewClient(&redis.Options{
-		Addr: redisCfg.Addr + ":" + redisCfg.Port,
+		Addr:     redisCfg.Addr + ":" + redisCfg.Port,
 		Password: redisCfg.Password,
-		DB: redisCfg.Db,
+		DB:       redisCfg.Db,
 	})
 }
 
