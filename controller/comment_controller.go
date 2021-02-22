@@ -58,7 +58,24 @@ func (c *CommentController) getComments(ctx *gin.Context) {
 		commentSlice = []model.Comment{}
 	}
 
-	tool.Success(ctx, commentSlice)
+	us := service.UserService{}
+	var newCommentSlice []param.Comment
+
+	for _, commentModel := range commentSlice {
+		var commentParam param.Comment
+		user, _ := us.GetSpaceUserinfo(commentModel.UserId)
+
+		commentParam.Time = time.Now().Format("2006-01-02 15:04:05")
+		commentParam.Id = commentModel.Id
+		commentParam.Value = commentModel.Value
+		commentParam.User = user
+		commentParam.Likes = 0
+		commentParam.VideoId = commentModel.VideoId
+
+		newCommentSlice = append(newCommentSlice, commentParam)
+	}
+
+	tool.Success(ctx, newCommentSlice)
 }
 
 func (c *CommentController) postComment(ctx *gin.Context) {
@@ -128,16 +145,9 @@ func (c *CommentController) postComment(ctx *gin.Context) {
 		return
 	}
 
-	us := service.UserService{}
-	var commentParam param.Comment
-	user, err := us.GetSpaceUserinfo(commentModel.UserId)
+	commentModel.Time = time.Now().Format("2006-01-02 15:04:05")
+	commentModel.Likes = 0
+	commentModel.Id = id
 
-	commentParam.Time = time.Now().Format("2006-01-02 15:04:05")
-	commentParam.Id = id
-	commentParam.Value = commentModel.Value
-	commentParam.User = user
-	commentParam.Likes = 0
-	commentParam.VideoId = commentModel.VideoId
-
-	tool.Success(ctx, commentParam)
+	tool.Success(ctx, commentModel)
 }
