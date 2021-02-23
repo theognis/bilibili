@@ -59,11 +59,11 @@ func (h *HomeController) getSections(ctx *gin.Context) {
 			section.Rank = rankSlice
 
 			if section.List == nil {
-				section.List = []model.Video{}
+				section.List = []model.VideoWithUserModel{}
 			}
 
 			if section.Rank == nil {
-				section.Rank = []model.Video{}
+				section.Rank = []model.VideoWithUserModel{}
 			}
 
 			Date = append(Date, section)
@@ -79,11 +79,11 @@ func (h *HomeController) getSections(ctx *gin.Context) {
 		section.Rank = rankSlice
 
 		if section.List == nil {
-			section.List = []model.Video{}
+			section.List = []model.VideoWithUserModel{}
 		}
 
 		if section.Rank == nil {
-			section.Rank = []model.Video{}
+			section.Rank = []model.VideoWithUserModel{}
 		}
 
 		Date = append(Date, section)

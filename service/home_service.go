@@ -54,9 +54,10 @@ func (hs *HomeService) Search(keywords string) ([]model.VideoWithUserModel, erro
 }
 
 //获取显示在首页的各个分区视频信息
-func (hs *HomeService) GetChannelVideo(channel string) ([]model.Video, []model.Video, error) {
+func (hs *HomeService) GetChannelVideo(channel string) ([]model.VideoWithUserModel, []model.VideoWithUserModel, error) {
 	vd := dao.VideoDao{tool.GetDb()}
-	var randSlice, rankSlice []model.Video
+	ud := dao.UserDao{tool.GetDb()}
+	var randSlice, rankSlice []model.VideoWithUserModel
 
 	randAvSlice, err := vd.QueryRandomChannel(channel)
 	if err != nil {
@@ -64,13 +65,35 @@ func (hs *HomeService) GetChannelVideo(channel string) ([]model.Video, []model.V
 	}
 
 	for _, randAv := range randAvSlice {
-		var videoModel model.Video
-		videoModel, err = vd.QueryByAv(randAv)
+		var video model.Video
+		var videoWithUser model.VideoWithUserModel
+		video, err = vd.QueryByAv(randAv)
 		if err != nil {
 			return randSlice, rankSlice, err
 		}
 
-		randSlice = append(randSlice, videoModel)
+		userModel, err := ud.QuerySpaceUserinfoByUid(video.Author)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		videoWithUser.User = userModel
+		videoWithUser.Id = video.Id
+		videoWithUser.Likes = video.Likes
+		videoWithUser.Time = video.Time
+		videoWithUser.Author = video.Author
+		videoWithUser.Channel = video.Channel
+		videoWithUser.Video = video.Video
+		videoWithUser.Saves = video.Saves
+		videoWithUser.Length = video.Length
+		videoWithUser.Coins = video.Coins
+		videoWithUser.Shares = video.Shares
+		videoWithUser.Views = video.Views
+		videoWithUser.Description = video.Description
+		videoWithUser.Title = video.Title
+		videoWithUser.Cover = video.Cover
+
+		randSlice = append(randSlice, videoWithUser)
 	}
 
 	rankAvSlice, err := vd.QueryRankChannel(channel)
@@ -79,22 +102,45 @@ func (hs *HomeService) GetChannelVideo(channel string) ([]model.Video, []model.V
 	}
 
 	for _, rankAv := range rankAvSlice {
-		var videoModel model.Video
-		videoModel, err = vd.QueryByAv(rankAv)
+		var video model.Video
+		var videoWithUser model.VideoWithUserModel
+		video, err = vd.QueryByAv(rankAv)
 		if err != nil {
 			return randSlice, rankSlice, err
 		}
 
-		rankSlice = append(rankSlice, videoModel)
+		userModel, err := ud.QuerySpaceUserinfoByUid(video.Author)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		videoWithUser.User = userModel
+		videoWithUser.Id = video.Id
+		videoWithUser.Likes = video.Likes
+		videoWithUser.Time = video.Time
+		videoWithUser.Author = video.Author
+		videoWithUser.Channel = video.Channel
+		videoWithUser.Video = video.Video
+		videoWithUser.Saves = video.Saves
+		videoWithUser.Length = video.Length
+		videoWithUser.Coins = video.Coins
+		videoWithUser.Shares = video.Shares
+		videoWithUser.Views = video.Views
+		videoWithUser.Description = video.Description
+		videoWithUser.Title = video.Title
+		videoWithUser.Cover = video.Cover
+
+		rankSlice = append(rankSlice, videoWithUser)
 	}
 
 	return randSlice, rankSlice, nil
 }
 
 //获取显示在首页的”资讯“视频信息
-func (hs *HomeService) GetInformation() ([]model.Video, []model.Video, error) {
+func (hs *HomeService) GetInformation() ([]model.VideoWithUserModel, []model.VideoWithUserModel, error) {
 	vd := dao.VideoDao{tool.GetDb()}
-	var randSlice, rankSlice []model.Video
+	ud := dao.UserDao{tool.GetDb()}
+	var randSlice, rankSlice []model.VideoWithUserModel
 
 	randAvSlice, err := vd.QueryRandomInfo()
 	if err != nil {
@@ -102,13 +148,35 @@ func (hs *HomeService) GetInformation() ([]model.Video, []model.Video, error) {
 	}
 
 	for _, randAv := range randAvSlice {
-		var videoModel model.Video
-		videoModel, err = vd.QueryByAv(randAv)
+		var video model.Video
+		var videoWithUser model.VideoWithUserModel
+		video, err = vd.QueryByAv(randAv)
 		if err != nil {
 			return randSlice, rankSlice, err
 		}
 
-		randSlice = append(randSlice, videoModel)
+		userModel, err := ud.QuerySpaceUserinfoByUid(video.Author)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		videoWithUser.User = userModel
+		videoWithUser.Id = video.Id
+		videoWithUser.Likes = video.Likes
+		videoWithUser.Time = video.Time
+		videoWithUser.Author = video.Author
+		videoWithUser.Channel = video.Channel
+		videoWithUser.Video = video.Video
+		videoWithUser.Saves = video.Saves
+		videoWithUser.Length = video.Length
+		videoWithUser.Coins = video.Coins
+		videoWithUser.Shares = video.Shares
+		videoWithUser.Views = video.Views
+		videoWithUser.Description = video.Description
+		videoWithUser.Title = video.Title
+		videoWithUser.Cover = video.Cover
+
+		randSlice = append(randSlice, videoWithUser)
 	}
 
 	rankAvSlice, err := vd.QueryRankInfo()
@@ -117,13 +185,35 @@ func (hs *HomeService) GetInformation() ([]model.Video, []model.Video, error) {
 	}
 
 	for _, rankAv := range rankAvSlice {
-		var videoModel model.Video
-		videoModel, err = vd.QueryByAv(rankAv)
+		var video model.Video
+		var videoWithUser model.VideoWithUserModel
+		video, err = vd.QueryByAv(rankAv)
 		if err != nil {
 			return randSlice, rankSlice, err
 		}
 
-		rankSlice = append(rankSlice, videoModel)
+		userModel, err := ud.QuerySpaceUserinfoByUid(video.Author)
+		if err != nil {
+			return nil, nil, err
+		}
+
+		videoWithUser.User = userModel
+		videoWithUser.Id = video.Id
+		videoWithUser.Likes = video.Likes
+		videoWithUser.Time = video.Time
+		videoWithUser.Author = video.Author
+		videoWithUser.Channel = video.Channel
+		videoWithUser.Video = video.Video
+		videoWithUser.Saves = video.Saves
+		videoWithUser.Length = video.Length
+		videoWithUser.Coins = video.Coins
+		videoWithUser.Shares = video.Shares
+		videoWithUser.Views = video.Views
+		videoWithUser.Description = video.Description
+		videoWithUser.Title = video.Title
+		videoWithUser.Cover = video.Cover
+
+		rankSlice = append(rankSlice, videoWithUser)
 	}
 
 	return randSlice, rankSlice, nil

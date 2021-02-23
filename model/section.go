@@ -1,6 +1,6 @@
 package model
 
 type Section struct {
-	List []Video
-	Rank []Video
+	List []VideoWithUserModel
+	Rank []VideoWithUserModel
 }
