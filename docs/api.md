@@ -351,6 +351,7 @@
 | `false` | `"TOKEN_EXPIRED"` | `token`失效 |
 | `false` | `"PRASE_TOKEN_ERROR"` | `token`解析失败 |
 | `false` | `"UID 无效"` | `uid`为空或无效 |
+| `false` | `"你时刻都在关注自己"` | 自己关注自己 |
 | `true` | `true` | 关注成功 |
 | `true` | `false` | 取消关注成功 |
 
