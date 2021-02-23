@@ -390,7 +390,7 @@ func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 func (dao *UserDao) QueryFollowedUid(followingUid int64) ([]int64, error) {
 	var uidSlice []int64
 
-	stmt, err := dao.DB.Prepare(`SELECT followed_uid FROM user_follow WHERE following = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT following_uid FROM user_follow WHERE following = ?`)
 	if err != nil {
 		return nil, err
 	}
