@@ -21,6 +21,7 @@ type Video struct {
 
 type VideoWithUserModel struct {
 	User        SpaceUserinfo
+	Id          int64
 	Title       string
 	Channel     string
 	Description string

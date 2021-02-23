@@ -457,6 +457,7 @@ func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
 			return
 		}
 		videoWithUser.User = userModel
+		videoWithUser.Id = video.Id
 		videoWithUser.Likes = video.Likes
 		videoWithUser.Time = video.Time
 		videoWithUser.Author = video.Author
