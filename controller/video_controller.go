@@ -445,8 +445,37 @@ func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
 			}
 		}
 	}
+	var recommendSliceWithUser []model.VideoWithUserModel
+	var videoWithUser model.VideoWithUserModel
+	us := service.UserService{}
 
-	tool.Success(ctx, recommendSlice)
+	for _, video := range recommendSlice {
+		userModel, err := us.GetSpaceUserinfo(video.Id)
+		if err != nil {
+			fmt.Println("GetSpaceUserinfoErr: ", err)
+			tool.Failed(ctx, "服务器错误")
+			return
+		}
+		videoWithUser.User = userModel
+		videoWithUser.Likes = video.Likes
+		videoWithUser.Time = video.Time
+		videoWithUser.Author = video.Author
+		videoWithUser.Channel = video.Channel
+		videoWithUser.Video = video.Video
+		videoWithUser.Saves = video.Saves
+		videoWithUser.Length = video.Length
+		videoWithUser.Coins = video.Coins
+		videoWithUser.Shares = video.Shares
+		videoWithUser.Views = video.Views
+		videoWithUser.Description = video.Description
+		videoWithUser.Title = video.Title
+		videoWithUser.Cover = video.Cover
+
+		recommendSliceWithUser = append(recommendSliceWithUser, videoWithUser)
+
+	}
+
+	tool.Success(ctx, recommendSliceWithUser)
 }
 
 func (v *VideoController) postLike(ctx *gin.Context) {
