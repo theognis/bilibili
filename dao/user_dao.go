@@ -11,6 +11,40 @@ type UserDao struct {
 	*sql.DB
 }
 
+//更新关注中数量
+func (dao *UserDao) UpdateFollowing(uid, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET followings = followings + ? WHERE uid = ?`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(num, uid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+//更新关注者数量
+func (dao *UserDao) UpdateFollower(uid, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET followers = followers + ? WHERE uid = ?`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(num, uid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateLastCheckInDate(uid int64) error {
 	timeNow := time.Now()
 
@@ -249,7 +283,7 @@ func (dao *UserDao) UpdateEmail(uid int64, newEmail string) error {
 func (dao *UserDao) QuerySpaceUserinfoByUid(uid int64) (model.SpaceUserinfo, error) {
 	spaceUserinfo := model.SpaceUserinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT avatar, uid, username, reg_date, statement, exp, coins, b_coins, birthday, gender FROM userinfo WHERE uid = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT avatar, uid, username, reg_date, statement, exp, coins, b_coins, birthday, gender, followers, followings, total_views, total_likes FROM userinfo WHERE uid = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -259,7 +293,7 @@ func (dao *UserDao) QuerySpaceUserinfoByUid(uid int64) (model.SpaceUserinfo, err
 	row := stmt.QueryRow(uid)
 	var regDate, birthDate time.Time
 
-	err = row.Scan(&spaceUserinfo.Avatar, &spaceUserinfo.Uid, &spaceUserinfo.Username, &regDate, &spaceUserinfo.Statement, &spaceUserinfo.Exp, &spaceUserinfo.Coins, &spaceUserinfo.BCoins, &birthDate, &spaceUserinfo.Gender)
+	err = row.Scan(&spaceUserinfo.Avatar, &spaceUserinfo.Uid, &spaceUserinfo.Username, &regDate, &spaceUserinfo.Statement, &spaceUserinfo.Exp, &spaceUserinfo.Coins, &spaceUserinfo.BCoins, &birthDate, &spaceUserinfo.Gender, &spaceUserinfo.Followers, &spaceUserinfo.Followings, &spaceUserinfo.TotalViews, &spaceUserinfo.TotalLikes)
 	if err != nil {
 		return spaceUserinfo, err
 	}
@@ -274,7 +308,7 @@ func (dao *UserDao) QuerySpaceUserinfoByUid(uid int64) (model.SpaceUserinfo, err
 func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date FROM userinfo WHERE uid = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, followers, followings, total_views, total_likes FROM userinfo WHERE uid = ?`)
 	if err != nil {
 		return userinfo, err
 	}
@@ -282,7 +316,7 @@ func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(uid)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.Followers, &userinfo.Followings, &userinfo.TotalViews, &userinfo.TotalLikes)
 	if err != nil {
 		return userinfo, err
 	}
@@ -294,7 +328,7 @@ func (dao *UserDao) QueryByUid(uid int64) (model.Userinfo, error) {
 func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date FROM userinfo WHERE email = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, followers, followings, total_views, total_likes FROM userinfo WHERE email = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -303,7 +337,7 @@ func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(email)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.Followers, &userinfo.Followings, &userinfo.TotalViews, &userinfo.TotalLikes)
 	if err != nil {
 		return userinfo, err
 	}
@@ -315,7 +349,7 @@ func (dao *UserDao) QueryByEmail(email string) (model.Userinfo, error) {
 func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date FROM userinfo WHERE phone = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, followers, followings, total_views, total_likes FROM userinfo WHERE phone = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -324,7 +358,7 @@ func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(phone)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.Followers, &userinfo.Followings, &userinfo.TotalViews, &userinfo.TotalLikes)
 	if err != nil {
 		return userinfo, err
 	}
@@ -336,7 +370,7 @@ func (dao *UserDao) QueryByPhone(phone string) (model.Userinfo, error) {
 func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 	userinfo := model.Userinfo{}
 
-	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date FROM userinfo WHERE username = ?`)
+	stmt, err := dao.DB.Prepare(`SELECT uid, username, phone, salt, password, reg_date, email, statement, coins, exp, last_check_in_date, b_coins, avatar, birthday, gender, last_coin_date, daily_coin, last_view_date, followers, followings, total_views, total_likes FROM userinfo WHERE username = ?`)
 	defer stmt.Close()
 
 	if err != nil {
@@ -345,12 +379,40 @@ func (dao *UserDao) QueryByUsername(username string) (model.Userinfo, error) {
 
 	row := stmt.QueryRow(username)
 
-	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate)
+	err = row.Scan(&userinfo.Uid, &userinfo.Username, &userinfo.Phone, &userinfo.Salt, &userinfo.Password, &userinfo.RegDate, &userinfo.Email, &userinfo.Statement, &userinfo.Coins, &userinfo.Exp, &userinfo.LastCheckInDate, &userinfo.BCoins, &userinfo.Avatar, &userinfo.Birthday, &userinfo.Gender, &userinfo.LastCoinDate, &userinfo.DailyCoin, &userinfo.LastViewDate, &userinfo.Followers, &userinfo.Followings, &userinfo.TotalViews, &userinfo.TotalLikes)
 	if err != nil {
 		return userinfo, err
 	}
 
 	return userinfo, nil
+}
+
+func (dao *UserDao) QueryFollowedUid(followingUid int64) ([]int64, error) {
+	var uidSlice []int64
+
+	stmt, err := dao.DB.Prepare(`SELECT followed_uid FROM user_follow WHERE following = ?`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(followingUid)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var uid int64
+		err = rows.Scan(&uid)
+		if err != nil {
+			return nil, err
+		}
+
+		uidSlice = append(uidSlice, uid)
+	}
+
+	return uidSlice, nil
 }
 
 //插入用户信息
@@ -365,5 +427,29 @@ func (dao *UserDao) InsertUser(userinfo model.Userinfo) error {
 
 	stmt.Close()
 
+	return err
+}
+
+func (dao *UserDao) InsertFollow(followerUId, followingUid int64) error {
+	stmt, err := dao.DB.Prepare(`INSERT INTO user_follow (follower_uid, following_uid) VALUES (?, ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(followerUId, followingUid)
+	return err
+}
+
+func (dao *UserDao) DeleteFollow(followerUid, followingUid int64) error {
+	stmt, err := dao.DB.Prepare(`DELETE FROM user_follow WHERE (follower_uid = ? and following_uid = ?)`)
+
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(followerUid, followingUid)
 	return err
 }

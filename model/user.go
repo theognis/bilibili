@@ -21,4 +21,8 @@ type Userinfo struct {
 	Exp             int64
 	BCoins          int64
 	Gender          string
+	Followers       int64
+	Followings      int64
+	TotalViews      int64
+	TotalLikes      int64
 }

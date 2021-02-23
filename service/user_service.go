@@ -20,6 +20,68 @@ import (
 type UserService struct {
 }
 
+func (u *UserService) SolveFollow(flag bool, followerUid int64, followingUid int64) error {
+	d := dao.UserDao{tool.GetDb()}
+	var err error
+
+	if flag == false {
+		//此前未关注
+		err = d.InsertFollow(followerUid, followingUid)
+		if err != nil {
+			return err
+		}
+
+		//被关注用户更新关注者数量
+		err = d.UpdateFollower(followingUid, 1)
+		if err != nil {
+			return err
+		}
+
+		//更新关注中数量
+		err = d.UpdateFollowing(followerUid, 1)
+		if err != nil {
+			return err
+		}
+
+	} else {
+		//此前已关注
+		err = d.DeleteFollow(followerUid, followingUid)
+		if err != nil {
+			return err
+		}
+
+		//被关注用户更新关注者数量
+		err = d.UpdateFollower(followingUid, -1)
+		if err != nil {
+			return err
+		}
+
+		//更新关注中数量
+		err = d.UpdateFollowing(followerUid, -1)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (u *UserService) GetFollowStatus(followingUid, followedUid int64) (bool, error) {
+	d := dao.UserDao{tool.GetDb()}
+
+	followedUidSlice, err := d.QueryFollowedUid(followingUid)
+	if err != nil {
+		return false, err
+	}
+
+	for _, uid := range followedUidSlice {
+		if followedUid == uid {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
 //获取每日任务的完成状态，依次返回签到状态，观看视频状态，投币获得的经验数量
 func (u *UserService) GetDailyFlag(uid int64) (bool, bool, int64, error) {
 	d := dao.UserDao{tool.GetDb()}

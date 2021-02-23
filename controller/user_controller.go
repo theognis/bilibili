@@ -29,6 +29,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.POST("/api/user/login/pw", u.login)
 	engine.POST("/api/user/login/sms", u.loginBySms)
 	engine.POST("/api/verify/email", u.sendEmailCode)
+	engine.POST("/api/user/follow", u.postFollow)
 	engine.PUT("/api/user/username", u.changeUsername)
 	engine.PUT("/api/user/password", u.changePassword)
 	engine.PUT("/api/user/phone", u.changePhone)
@@ -38,6 +39,67 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
 	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+func (u *UserController) postFollow(ctx *gin.Context) {
+	token := ctx.PostForm("token")
+
+	if token == "" {
+		tool.Failed(ctx, "NO_TOKEN_PROVIDED")
+		return
+	}
+
+	us := service.UserService{}
+	gs := service.TokenService{}
+	//解析token
+	clams, err := gs.ParseToken(token)
+	flag := tool.CheckTokenErr(ctx, clams, err)
+	if flag == false {
+		return
+	}
+	userinfo := clams.Userinfo
+
+	followerUid := userinfo.Uid
+	followedUidStr := ctx.PostForm("uid")
+	if followedUidStr == "" {
+		tool.Failed(ctx, "UID无效")
+		return
+	}
+
+	followingUid, err := strconv.ParseInt(followedUidStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseIntErr: ", err)
+		tool.Failed(ctx, "UID无效")
+		return
+	}
+
+	flag, err = us.JudgeUid(followingUid)
+	if err != nil {
+		fmt.Println("JudgeUidErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "UID无效")
+		return
+	}
+
+	flag, err = us.GetFollowStatus(followerUid, followingUid)
+	if err != nil {
+		fmt.Println("getFollowStatusErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	err = us.SolveFollow(flag, followerUid, followingUid)
+	if err != nil {
+		fmt.Println("SolveFollowErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	tool.Success(ctx, !flag)
 }
 
 func (u *UserController) getDaily(ctx *gin.Context) {
