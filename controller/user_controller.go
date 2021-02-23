@@ -176,6 +176,11 @@ func (u *UserController) postFollow(ctx *gin.Context) {
 		return
 	}
 
+	if followerUid == followingUid {
+		tool.Failed(ctx, "你时刻都在关注自己")
+		return
+	}
+
 	flag, err = us.GetFollowStatus(followerUid, followingUid)
 	if err != nil {
 		fmt.Println("getFollowStatusErr: ", err)
