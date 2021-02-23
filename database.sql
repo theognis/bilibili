@@ -23,6 +23,10 @@ CREATE TABLE `userinfo`
     `exp`                INT          NOT NULL DEFAULT 0,
     `coins`              INT          NOT NULL DEFAULT 0,
     `b_coins`            INT          NOT NULL DEFAULT 0,
+    `followers`          INT          NOT NULL DEFAULT 0,
+    `followings`         INT          NOT NULL DEFAULT 0,
+    `total_views`        INT          NOT NULL DEFAULT 0,
+    `total_likes`        INT          NOT NULL DEFAULT 0
     UNIQUE (`username`),
     UNIQUE (`phone`)
 ) charset="utf8mb4";
@@ -30,6 +34,11 @@ CREATE TABLE `userinfo`
 alter table userinfo add daily_coin int not null default 0;
 alter table userinfo add last_coin_date date not null default '1926-08-17';
 alter table userinfo add last_view_date date not null default '1926-08-17';
+
+alter table userinfo add followers int not null default 0;
+alter table userinfo add followings int not null default 0;
+alter table userinfo add total_views int not null default 0;
+alter table userinfo add total_likes int not null default 0;
 
 DROP TABLE IF EXISTS `video_label`;
 
@@ -72,8 +81,8 @@ DROP TABLE IF EXISTS `user_follow`;
 CREATE TABLE `user_follow`
 (
     `id`  INT AUTO_INCREMENT PRIMARY KEY,
-    `following_uid`  INT NOT NULL,
-    `followed_uid` INT NOT NULL
+    `follower_uid`  INT NOT NULL,
+    `following_uid` INT NOT NULL
 ) charset="utf8mb4";
 
 DROP TABLE IF EXISTS `video_info`;
