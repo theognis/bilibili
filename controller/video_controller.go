@@ -235,6 +235,21 @@ func (v *VideoController) addView(ctx *gin.Context) {
 		return
 	}
 
+	videoModle, err := vs.GetVideo(avInt)
+	if err != nil {
+		fmt.Println("GetVideoErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	us := service.UserService{}
+	err = us.AddTotalView(videoModle.Author)
+	if err != nil {
+		fmt.Println("AddTotalViewErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
 	token := ctx.PostForm("token")
 	if token != "" {
 		//提供了token

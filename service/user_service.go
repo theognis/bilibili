@@ -65,6 +65,13 @@ func (u *UserService) SolveFollow(flag bool, followerUid int64, followingUid int
 	return nil
 }
 
+func (u *UserService) AddTotalView(uid int64) error {
+	d := dao.UserDao{tool.GetDb()}
+
+	err := d.UpdateTotalView(uid)
+	return err
+}
+
 func (u *UserService) GetFollowStatus(followingUid, followedUid int64) (bool, error) {
 	d := dao.UserDao{tool.GetDb()}
 

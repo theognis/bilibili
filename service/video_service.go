@@ -195,7 +195,13 @@ func (v *VideoService) PostCoin(av, uid int64) (bool, error) {
 
 func (v *VideoService) SolveLike(flag bool, uid int64, av int64) error {
 	vd := dao.VideoDao{tool.GetDb()}
+	ud := dao.UserDao{tool.GetDb()}
 	var err error
+
+	videoModel, err := vd.QueryByAv(av)
+	if err != nil {
+		return err
+	}
 
 	if flag == false {
 		//此前未点赞
@@ -205,6 +211,11 @@ func (v *VideoService) SolveLike(flag bool, uid int64, av int64) error {
 		}
 
 		err = vd.UpdateLike(av, 1)
+		if err != nil {
+			return err
+		}
+
+		err = ud.UpdateTotalLike(videoModel.Author, 1)
 		if err != nil {
 			return err
 		}
@@ -219,6 +230,8 @@ func (v *VideoService) SolveLike(flag bool, uid int64, av int64) error {
 		if err != nil {
 			return err
 		}
+
+		err = ud.UpdateTotalLike(videoModel.Author, -1)
 	}
 	return nil
 }

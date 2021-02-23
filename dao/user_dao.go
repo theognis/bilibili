@@ -159,6 +159,38 @@ func (dao *UserDao) UpdateBirthday(uid int64, newBirthday time.Time) error {
 	return nil
 }
 
+func (dao *UserDao) UpdateTotalView(uid int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET total_views = total_views + 1 WHERE uid = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(uid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (dao *UserDao) UpdateTotalLike(uid, num int64) error {
+	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET total_likes = total_likes + num WHERE uid = ?`)
+	defer stmt.Close()
+
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(num, uid)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (dao *UserDao) UpdateGender(uid int64, newGender string) error {
 	stmt, err := dao.DB.Prepare(`UPDATE userinfo SET gender = ? WHERE uid = ?`)
 	defer stmt.Close()
