@@ -450,7 +450,7 @@ func (v *VideoController) getVideoRecommend(ctx *gin.Context) {
 	us := service.UserService{}
 
 	for _, video := range recommendSlice {
-		userModel, err := us.GetSpaceUserinfo(video.Id)
+		userModel, err := us.GetSpaceUserinfo(video.Author)
 		if err != nil {
 			fmt.Println("GetSpaceUserinfoErr: ", err)
 			tool.Failed(ctx, "服务器错误")
