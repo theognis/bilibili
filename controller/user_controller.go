@@ -22,6 +22,7 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.GET("/api/check/username", u.judgeUsername)
 	engine.GET("/api/check/phone", u.judgePhone)
 	engine.GET("/api/user/daily", u.getDaily)
+	engine.GET("/api/user/follow", u.getFollow)
 	engine.POST("/api/user/register", u.register)
 	engine.POST("/api/verify/sms/register", u.sendSmsRegister)
 	engine.POST("/api/verify/sms/general", u.sendSms)
@@ -39,6 +40,96 @@ func (u *UserController) Router(engine *gin.Engine) {
 	engine.PUT("/api/user/avatar", u.changeAvatar)
 	engine.PUT("/api/user/gender", u.changeGender)
 	engine.PUT("/api/user/birth", u.changeBirth)
+}
+
+func (u *UserController) getFollow(ctx *gin.Context) {
+
+	followerUidStr := ctx.PostForm("a")
+	followedUidStr := ctx.PostForm("b")
+	if followedUidStr == "" {
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	if followerUidStr == "" {
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	followingUid, err := strconv.ParseInt(followedUidStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseIntErr: ", err)
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	followerUid, err := strconv.ParseInt(followerUidStr, 10, 64)
+	if err != nil {
+		fmt.Println("ParseIntErr: ", err)
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+	us := service.UserService{}
+
+	flag, err := us.JudgeUid(followingUid)
+	if err != nil {
+		fmt.Println("JudgeUidErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "UID无效")
+		return
+	}
+
+	flag, err = us.JudgeUid(followerUid)
+	if err != nil {
+		fmt.Println("JudgeUidErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag == false {
+		tool.Failed(ctx, "参数无效")
+		return
+	}
+
+	//a关注b
+	flag1, err := us.GetFollowStatus(followerUid, followingUid)
+	if err != nil {
+		fmt.Println("getFollowStatusErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	//b关注a
+	flag2, err := us.GetFollowStatus(followingUid, followerUid)
+	if err != nil {
+		fmt.Println("getFollowStatusErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if flag1 && flag2 {
+		tool.Success(ctx, 2)
+		return
+	} else {
+		if !flag1 && !flag2 {
+			tool.Success(ctx, 0)
+			return
+		} else {
+			if flag1 && !flag2 {
+				tool.Success(ctx, 1)
+				return
+			} else {
+				if !flag1 && flag2 {
+					tool.Success(ctx, -1)
+				}
+			}
+		}
+	}
+
 }
 
 func (u *UserController) postFollow(ctx *gin.Context) {
