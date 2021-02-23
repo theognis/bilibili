@@ -669,3 +669,32 @@ func (dao *VideoDao) UpdateCoin(av int64) error {
 
 	return nil
 }
+
+func (dao *VideoDao) Search(keywords string) ([]int64, error) {
+	var avSlice []int64
+
+	keywords = "%" + keywords + "%"
+	stmt, err := dao.DB.Prepare(`SELECT av FROM video_info WHERE title LIKE ? ORDER BY views DESC`)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(keywords)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	for rows.Next() {
+		var av int64
+		err = rows.Scan(&av)
+		if err != nil {
+			return nil, err
+		}
+
+		avSlice = append(avSlice, av)
+	}
+
+	return avSlice, nil
+}

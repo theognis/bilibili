@@ -13,6 +13,30 @@ type HomeController struct {
 
 func (h *HomeController) Router(engine *gin.Engine) {
 	engine.GET("/api/home/sections", h.getSections)
+	engine.GET("/api/home/search", h.search)
+}
+
+func (h *HomeController) search(ctx *gin.Context) {
+	keywords := ctx.Query("keywords")
+
+	if keywords == "" {
+		tool.Failed(ctx, "搜索内容不可为空")
+		return
+	}
+
+	hs := service.HomeService{}
+	videoWithUserSlice, err := hs.Search(keywords)
+	if err != nil {
+		fmt.Println("SearchErr: ", err)
+		tool.Failed(ctx, "服务器错误")
+		return
+	}
+
+	if videoWithUserSlice == nil {
+		videoWithUserSlice = []model.VideoWithUserModel{}
+	}
+
+	tool.Success(ctx, videoWithUserSlice)
 }
 
 func (h *HomeController) getSections(ctx *gin.Context) {
