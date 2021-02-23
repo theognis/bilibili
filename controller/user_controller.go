@@ -44,8 +44,8 @@ func (u *UserController) Router(engine *gin.Engine) {
 
 func (u *UserController) getFollow(ctx *gin.Context) {
 
-	followerUidStr := ctx.PostForm("a")
-	followedUidStr := ctx.PostForm("b")
+	followerUidStr := ctx.Query("a")
+	followedUidStr := ctx.Query("b")
 	if followedUidStr == "" {
 		tool.Failed(ctx, "参数无效")
 		return
