@@ -67,6 +67,15 @@ CREATE TABLE `video_save`
     `uid` INT NOT NULL
 ) charset="utf8mb4";
 
+DROP TABLE IF EXISTS `user_follow`;
+
+CREATE TABLE `user_follow`
+(
+    `id`  INT AUTO_INCREMENT PRIMARY KEY,
+    `following_uid`  INT NOT NULL,
+    `followed_uid` INT NOT NULL
+) charset="utf8mb4";
+
 DROP TABLE IF EXISTS `video_info`;
 
 CREATE TABLE `video_info`
