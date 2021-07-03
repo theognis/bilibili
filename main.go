@@ -17,14 +17,8 @@ func main() {
 	router.Use(Cors())
 	routerRegister(router)
 
-	if cfg.AppHttps {
-		if err := router.RunTLS(cfg.AppHost+":"+cfg.AppPort, "config/ssl/anonym.ink_chain.crt", "config/ssl/anonym.ink_key.key"); err != nil {
-			log.Fatal(err)
-		}
-	} else {
-		if err := router.Run(cfg.AppHost + ":" + cfg.AppPort); err != nil {
-			log.Fatal(err)
-		}
+	if err := router.Run(cfg.AppHost + ":" + cfg.AppPort); err != nil {
+		log.Fatal(err)
 	}
 }
 
